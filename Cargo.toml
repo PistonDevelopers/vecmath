@@ -1,0 +1,13 @@
+[package]
+
+name = "vecmath"
+version = "0.0.0"
+readme = "README.md"
+authors = ["bvssvni <bvssvni@gmail.com>"]
+tags = ["vector", "math"]
+
+[[lib]]
+
+name = "vecmath"
+path = "src/lib.rs"
+
