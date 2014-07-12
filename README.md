@@ -9,7 +9,7 @@ It is hard to agree on the "the best" way of designing a linear algebra or game 
 Sometimes you only need a few functions, like dot or cross product and don't want to deal with traits.  
 This library is designed to be simple, generic and easy to build abstractions on top of.  
 
-# Goals
+### Goals
 
 * Global functions only to make it easier to build on top of it
 * Fixed arrays
@@ -17,7 +17,7 @@ This library is designed to be simple, generic and easy to build abstractions on
 * Base vector matrices with row major, to use with OpenGL and make matrix construction easier
 * Generics
 
-# Non-Goals
+### Non-Goals
 
 * A complete library for game or linear algebra
 * Traits or module system that people can disagree on
