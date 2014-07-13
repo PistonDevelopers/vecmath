@@ -1,4 +1,4 @@
-#![crate_id = "vecmath"]
+#![crate_name = "vecmath"]
 #![deny(missing_doc)]
 
 //! A simple and generic library for vector math.
