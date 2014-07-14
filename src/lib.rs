@@ -27,6 +27,218 @@ pub type Matrix4<T> = [[T, ..4], ..4];
 /// This format can also store vertices of a quad.
 pub type Base4x3<T> = [[T, ..3], ..4];
 
+/// Converts to a f32 vector.
+#[inline(always)]
+pub fn vec3_to_f32<T: ToPrimitive>(a: Vector3<T>) -> Option<Vector3<f32>> {
+    Some([
+        match a[0].to_f32() { None => return None, Some(x) => x },
+        match a[1].to_f32() { None => return None, Some(x) => x }, 
+        match a[2].to_f32() { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 vector.
+#[inline(always)]
+pub fn vec3_to_f64<T: ToPrimitive>(a: Vector3<T>) -> Option<Vector3<f64>> {
+    Some([
+        match a[0].to_f64() { None => return None, Some(x) => x },
+        match a[1].to_f64() { None => return None, Some(x) => x }, 
+        match a[2].to_f64() { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 vector.
+#[inline(always)]
+pub fn vec4_to_f32<T: ToPrimitive>(a: Vector4<T>) -> Option<Vector4<f32>> {
+    Some([
+        match a[0].to_f32() { None => return None, Some(x) => x },
+        match a[1].to_f32() { None => return None, Some(x) => x }, 
+        match a[2].to_f32() { None => return None, Some(x) => x },
+        match a[3].to_f32() { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 vector.
+#[inline(always)]
+pub fn vec4_to_f64<T: ToPrimitive>(a: Vector4<T>) -> Option<Vector4<f64>> {
+    Some([
+        match a[0].to_f64() { None => return None, Some(x) => x },
+        match a[1].to_f64() { None => return None, Some(x) => x }, 
+        match a[2].to_f64() { None => return None, Some(x) => x },
+        match a[3].to_f64() { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 matrix.
+#[inline(always)]
+pub fn mat3x4_to_f32<T: ToPrimitive + Copy>(m: Matrix3x4<T>) -> Option<Matrix3x4<f32>> {
+    Some([
+        match vec4_to_f32(m[0]) { None => return None, Some(x) => x },
+        match vec4_to_f32(m[1]) { None => return None, Some(x) => x },
+        match vec4_to_f32(m[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
+pub fn mat3x4_to_f64<T: ToPrimitive + Copy>(m: Matrix3x4<T>) -> Option<Matrix3x4<f64>> {
+    Some([
+        match vec4_to_f64(m[0]) { None => return None, Some(x) => x },
+        match vec4_to_f64(m[1]) { None => return None, Some(x) => x },
+        match vec4_to_f64(m[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 matrix.
+#[inline(always)]
+pub fn mat4_to_f32<T: ToPrimitive + Copy>(m: Matrix4<T>) -> Option<Matrix4<f32>> {
+    Some([
+        match vec4_to_f32(m[0]) { None => return None, Some(x) => x },
+        match vec4_to_f32(m[1]) { None => return None, Some(x) => x },
+        match vec4_to_f32(m[2]) { None => return None, Some(x) => x },
+        match vec4_to_f32(m[3]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
+pub fn mat4_to_f64<T: ToPrimitive + Copy>(m: Matrix4<T>) -> Option<Matrix4<f64>> {
+    Some([
+        match vec4_to_f64(m[0]) { None => return None, Some(x) => x },
+        match vec4_to_f64(m[1]) { None => return None, Some(x) => x },
+        match vec4_to_f64(m[2]) { None => return None, Some(x) => x },
+        match vec4_to_f64(m[3]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 base column matrix.
+#[inline(always)]
+pub fn base4x3_to_f32<T: ToPrimitive + Copy>(m: Base4x3<T>) -> Option<Base4x3<f32>> {
+    Some([
+        match vec3_to_f32(m[0]) { None => return None, Some(x) => x },
+        match vec3_to_f32(m[1]) { None => return None, Some(x) => x },
+        match vec3_to_f32(m[2]) { None => return None, Some(x) => x },
+        match vec3_to_f32(m[3]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
+pub fn base4x3_to_f64<T: ToPrimitive + Copy>(m: Base4x3<T>) -> Option<Base4x3<f64>> {
+    Some([
+        match vec3_to_f64(m[0]) { None => return None, Some(x) => x },
+        match vec3_to_f64(m[1]) { None => return None, Some(x) => x },
+        match vec3_to_f64(m[2]) { None => return None, Some(x) => x },
+        match vec3_to_f64(m[3]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts from a f32 vector.
+#[inline(always)]
+pub fn vec3_from_f32<T: FromPrimitive>(a: Vector3<f32>) -> Option<Vector3<T>> {
+    Some([
+        match FromPrimitive::from_f32(a[0]) { None => return None, Some(x) => x },
+        match FromPrimitive::from_f32(a[1]) { None => return None, Some(x) => x }, 
+        match FromPrimitive::from_f32(a[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 vector.
+#[inline(always)]
+pub fn vec3_from_f64<T: FromPrimitive>(a: Vector3<f64>) -> Option<Vector3<T>> {
+    Some([
+        match FromPrimitive::from_f64(a[0]) { None => return None, Some(x) => x },
+        match FromPrimitive::from_f64(a[1]) { None => return None, Some(x) => x }, 
+        match FromPrimitive::from_f64(a[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 vector.
+#[inline(always)]
+pub fn vec4_from_f32<T: FromPrimitive>(a: Vector4<f32>) -> Option<Vector4<T>> {
+    Some([
+        match FromPrimitive::from_f32(a[0]) { None => return None, Some(x) => x },
+        match FromPrimitive::from_f32(a[1]) { None => return None, Some(x) => x }, 
+        match FromPrimitive::from_f32(a[2]) { None => return None, Some(x) => x },
+        match FromPrimitive::from_f32(a[3]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 vector.
+#[inline(always)]
+pub fn vec4_from_f64<T: FromPrimitive>(a: Vector4<f64>) -> Option<Vector4<T>> {
+    Some([
+        match FromPrimitive::from_f64(a[0]) { None => return None, Some(x) => x },
+        match FromPrimitive::from_f64(a[1]) { None => return None, Some(x) => x }, 
+        match FromPrimitive::from_f64(a[2]) { None => return None, Some(x) => x },
+        match FromPrimitive::from_f64(a[3]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 matrix.
+#[inline(always)]
+pub fn mat3x4_from_f32<T: FromPrimitive + Copy>(m: Matrix3x4<f32>) -> Option<Matrix3x4<T>> {
+    Some([
+        match vec4_from_f32(m[0]) { None => return None, Some(x) => x },
+        match vec4_from_f32(m[1]) { None => return None, Some(x) => x },
+        match vec4_from_f32(m[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
+pub fn mat3x4_from_f64<T: FromPrimitive + Copy>(m: Matrix3x4<f64>) -> Option<Matrix3x4<T>> {
+    Some([
+        match vec4_from_f64(m[0]) { None => return None, Some(x) => x },
+        match vec4_from_f64(m[1]) { None => return None, Some(x) => x },
+        match vec4_from_f64(m[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 matrix.
+#[inline(always)]
+pub fn mat4_from_f32<T: FromPrimitive + Copy>(m: Matrix4<f32>) -> Option<Matrix4<T>> {
+    Some([
+        match vec4_from_f32(m[0]) { None => return None, Some(x) => x },
+        match vec4_from_f32(m[1]) { None => return None, Some(x) => x },
+        match vec4_from_f32(m[2]) { None => return None, Some(x) => x },
+        match vec4_from_f32(m[3]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
+pub fn mat4_from_f64<T: FromPrimitive + Copy>(m: Matrix4<f64>) -> Option<Matrix4<T>> {
+    Some([
+        match vec4_from_f64(m[0]) { None => return None, Some(x) => x },
+        match vec4_from_f64(m[1]) { None => return None, Some(x) => x },
+        match vec4_from_f64(m[2]) { None => return None, Some(x) => x },
+        match vec4_from_f64(m[3]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 base column matrix.
+#[inline(always)]
+pub fn base4x3_from_f32<T: FromPrimitive + Copy>(m: Base4x3<f32>) -> Option<Base4x3<T>> {
+    Some([
+        match vec3_from_f32(m[0]) { None => return None, Some(x) => x },
+        match vec3_from_f32(m[1]) { None => return None, Some(x) => x },
+        match vec3_from_f32(m[2]) { None => return None, Some(x) => x },
+        match vec3_from_f32(m[3]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
+pub fn base4x3_from_f64<T: FromPrimitive + Copy>(m: Base4x3<f64>) -> Option<Base4x3<T>> {
+    Some([
+        match vec3_from_f64(m[0]) { None => return None, Some(x) => x },
+        match vec3_from_f64(m[1]) { None => return None, Some(x) => x },
+        match vec3_from_f64(m[2]) { None => return None, Some(x) => x },
+        match vec3_from_f64(m[3]) { None => return None, Some(x) => x }
+    ])
+}
+
 /// Subtracts 'b' from 'a'.
 #[inline(always)]
 pub fn vec3_sub<T: Num>(a: Vector3<T>, b: Vector3<T>) -> Vector3<T> {
