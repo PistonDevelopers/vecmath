@@ -81,5 +81,7 @@ Examples:
 ## Generic conventions
 
 For simplicity, all methods should take a generic parameter `<T: Num>`.  
+In cases where extra methods are required, `Float` should be used instead of `Num`.  
+All methods take by value, so `Copy` can be added as requirement when needed.  
 
 This increases readability and is good enough for the usage of this library.
