@@ -49,7 +49,13 @@ pub fn vec3_add<T: Num>(a: Vector3<T>, b: Vector3<T>) -> Vector3<T> {
 
 /// Computes the dot product.
 #[inline(always)]
-pub fn vec3_dot<T: Num>(a: Vector3<T>) -> T {
+pub fn vec3_dot<T: Num>(a: Vector3<T>, b: Vector3<T>) -> T {
+    a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+}
+
+/// Computes the square length of a vector.
+#[inline(always)]
+pub fn vec3_square_len<T: Num>(a: Vector3<T>) -> T {
     a[0] * a[0] + a[1] * a[1] + a[2] * a[2]
 }
 
@@ -76,7 +82,7 @@ pub fn vec3_mul<T: Num>(a: Vector3<T>, b: T) -> Vector3<T> {
 /// Computes the length of vector.
 #[inline(always)]
 pub fn vec3_len<T: Float>(a: Vector3<T>) -> T {
-    vec3_dot(a).sqrt()
+    vec3_square_len(a).sqrt()
 }
 
 /// Computes the inverse length of a vector.
