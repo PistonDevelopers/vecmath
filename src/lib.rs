@@ -5,6 +5,9 @@
 
 use std::num::{One};
 
+/// A 2D vector.
+pub type Vector2<T> = [T, ..2];
+
 /// A 3D vector.
 pub type Vector3<T> = [T, ..3];
 
@@ -26,6 +29,24 @@ pub type Matrix4<T> = [[T, ..4], ..4];
 ///
 /// This format can also store vertices of a quad.
 pub type Base4x3<T> = [[T, ..3], ..4];
+
+/// Converts to a f32 vector.
+#[inline(always)]
+pub fn vec2_to_f32<T: ToPrimitive>(a: Vector2<T>) -> Option<Vector2<f32>> {
+    Some([
+        match a[0].to_f32() { None => return None, Some(x) => x },
+        match a[1].to_f32() { None => return None, Some(x) => x } 
+    ])
+}
+
+/// Converts to a f64 vector.
+#[inline(always)]
+pub fn vec2_to_f64<T: ToPrimitive>(a: Vector2<T>) -> Option<Vector2<f64>> {
+    Some([
+        match a[0].to_f64() { None => return None, Some(x) => x },
+        match a[1].to_f64() { None => return None, Some(x) => x } 
+    ])
+}
 
 /// Converts to a f32 vector.
 #[inline(always)]
@@ -135,6 +156,24 @@ pub fn base4x3_to_f64<T: ToPrimitive + Copy>(m: Base4x3<T>) -> Option<Base4x3<f6
 
 /// Converts from a f32 vector.
 #[inline(always)]
+pub fn vec2_from_f32<T: FromPrimitive>(a: Vector2<f32>) -> Option<Vector2<T>> {
+    Some([
+        match FromPrimitive::from_f32(a[0]) { None => return None, Some(x) => x },
+        match FromPrimitive::from_f32(a[1]) { None => return None, Some(x) => x } 
+    ])
+}
+
+/// Converts to a f64 vector.
+#[inline(always)]
+pub fn vec2_from_f64<T: FromPrimitive>(a: Vector2<f64>) -> Option<Vector2<T>> {
+    Some([
+        match FromPrimitive::from_f64(a[0]) { None => return None, Some(x) => x },
+        match FromPrimitive::from_f64(a[1]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts from a f32 vector.
+#[inline(always)]
 pub fn vec3_from_f32<T: FromPrimitive>(a: Vector3<f32>) -> Option<Vector3<T>> {
     Some([
         match FromPrimitive::from_f32(a[0]) { None => return None, Some(x) => x },
@@ -237,6 +276,81 @@ pub fn base4x3_from_f64<T: FromPrimitive + Copy>(m: Base4x3<f64>) -> Option<Base
         match vec3_from_f64(m[2]) { None => return None, Some(x) => x },
         match vec3_from_f64(m[3]) { None => return None, Some(x) => x }
     ])
+}
+
+/// Subtracts 'b' from 'a'.
+#[inline(always)]
+pub fn vec2_sub<T: Num>(a: Vector2<T>, b: Vector2<T>) -> Vector2<T> {
+    [
+        a[0] - b[0],
+        a[1] - b[1],
+    ]
+}
+
+/// Adds two vectors.
+#[inline(always)]
+pub fn vec2_add<T: Num>(a: Vector2<T>, b: Vector2<T>) -> Vector2<T> {
+    [
+        a[0] + b[0],
+        a[1] + b[1],
+    ]
+}
+
+/// Computes the dot product.
+#[inline(always)]
+pub fn vec2_dot<T: Num>(a: Vector2<T>, b: Vector2<T>) -> T {
+    a[0] * b[0] + a[1] * b[1]
+}
+
+/// Computes the square length of a vector.
+#[inline(always)]
+pub fn vec2_square_len<T: Num>(a: Vector2<T>) -> T {
+    a[0] * a[0] + a[1] * a[1]
+}
+
+/// Computes the cross product.
+#[inline(always)]
+pub fn vec2_cross<T: Num>(a: Vector2<T>, b: Vector2<T>) -> T {
+    a[1] * b[2] - a[2] * b[1]
+}
+
+/// Multiplies the vector with a scalar.
+#[inline(always)]
+pub fn vec2_mul<T: Num>(a: Vector2<T>, b: T) -> Vector2<T> {
+    [
+        a[0] * b,
+        a[1] * b
+    ]
+}
+
+/// Computes the length of vector.
+#[inline(always)]
+pub fn vec2_len<T: Float>(a: Vector2<T>) -> T {
+    vec2_square_len(a).sqrt()
+}
+
+/// Computes the inverse length of a vector.
+#[inline(always)]
+pub fn vec2_inv_len<T: Float>(a: Vector2<T>) -> T {
+    let one: T = One::one();
+    one / vec2_len(a)
+}
+
+/// Computes the normalized.
+#[inline(always)]
+pub fn vec2_normalized<T: Float>(a: Vector2<T>) -> Vector2<T> {
+    vec2_mul(a, vec2_inv_len(a))
+}
+
+/// Computes the normalized difference between two vectors.
+///
+/// This is often used to get direction from 'b' to 'a'.
+#[inline(always)]
+pub fn vec2_normalized_sub<T: Float>(
+    a: Vector2<T>, 
+    b: Vector2<T>
+) -> Vector2<T> {
+    vec2_normalized(vec2_sub(a, b))
 }
 
 /// Subtracts 'b' from 'a'.
