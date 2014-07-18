@@ -570,7 +570,7 @@ pub fn vec4_dot_pos<T: Num + Copy>(a: Vector4<T>, b: Vector3<T>) -> T {
 
 /// Returns a row vector from a column matrix.
 #[inline(always)]
-pub fn mat3x2_row<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
+pub fn mat3x2_col<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
     [a[0][i], a[1][i], a[2][i]]
 }
 
