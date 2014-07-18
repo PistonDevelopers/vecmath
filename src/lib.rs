@@ -5,12 +5,18 @@
 //!
 //! Notice that row major is mathematical standard,
 //! while OpenGL uses column major format.
-//! This library uses row major in the names, but supports both formats.
+//! This library supports both formats, prefixing functions with 'row_' or 'col_'.
 //!
 //! For row major affine transforms, use `Matrix2x3` (2D) and `Matrix3x4` (3D).
 //! For column major affine transforms, use `Matrix3x2` (2D) and `Matrix4x3` (3D).
 //!
-//! If you are using `Matrix4`, then you need to pick either row or column major.
+//! If you are using `Matrix3` or `Matrix4`, 
+//! then you need to pick either row or column major.
+//!
+//! Notice that there are two kinds of transforms: Positions and vectors.
+//! The vector transforms ignores the translate component.
+//! For example, `row_mat2x3_transform_pos2` transforms a position.
+//! `row_mat2x3_transform_vec2` transforms a vector.
 
 use std::num::{One};
 
@@ -25,58 +31,58 @@ pub type Vector4<T> = [T, ..4];
 
 /// A 2x3 matrix.
 ///
-/// To multiply two matrices use `mat2x3_mul_row`.
+/// To multiply two matrices use `row_mat2x3_mul`.
 pub type Matrix2x3<T> = [[T, ..3], ..2];
 
 /// A 3x2 matrix.
 ///
-/// To multiply two matrices use `mat3x2_mul_col`.
+/// To multiply two matrices use `col_mat3x2_mul`.
 pub type Matrix3x2<T> = [[T, ..2], ..3];
 
 /// A 3x3 matrix.
 ///
-/// To multiply two matrices use `mat3_mul_row` or `mat3_mul_col`.
+/// To multiply two matrices use `row_mat3_mul` or `col_mat3_mul`.
 pub type Matrix3<T> = [[T, ..3], ..3];
 
 /// A 3x4 matrix.
 ///
-/// To multiply two matrices use `mat3x4_mul_row`.
+/// To multiply two matrices use `row_mat3x4_mul`.
 pub type Matrix3x4<T> = [[T, ..4], ..3];
 
 /// A 4x3 matrix.
 ///
-/// To multiply two matrices use `mat4x3_mul_col`.
+/// To multiply two matrices use `col_mat4x3_mul`.
 ///
 /// This format can also store vertices of a quad.
 pub type Matrix4x3<T> = [[T, ..3], ..4];
 
 /// A 4x4 matrix.
 ///
-/// To multiply two matrices use `mat4_mul_row` or `mat4_mul_col`.
+/// To multiply two matrices use `row_mat4_mul` or `col_mat4_mul`.
 pub type Matrix4<T> = [[T, ..4], ..4];
 
 /// Computes row vector in matrix product by row.
 #[inline(always)]
-pub fn mat3x4_vec_mul_row<T: Num + Copy>(
+pub fn row_mat3x4_mul_row<T: Num + Copy>(
     a: Matrix3x4<T>, 
     b: Matrix3x4<T>,
     i: uint
 ) -> Vector4<T> {
     [
-        vec4_dot_vec3(a[i], mat3x4_col(b, 0)),
-        vec4_dot_vec3(a[i], mat3x4_col(b, 1)),
-        vec4_dot_vec3(a[i], mat3x4_col(b, 2)),
-        vec4_dot_pos3(a[i], mat3x4_col(b, 3))
+        vec4_dot_vec3(a[i], row_mat3x4_col(b, 0)),
+        vec4_dot_vec3(a[i], row_mat3x4_col(b, 1)),
+        vec4_dot_vec3(a[i], row_mat3x4_col(b, 2)),
+        vec4_dot_pos3(a[i], row_mat3x4_col(b, 3))
     ]
 }
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn mat3x4_mul_row<T: Num + Copy>(a: Matrix3x4<T>, b: Matrix3x4<T>) -> Matrix3x4<T> {
+pub fn row_mat3x4_mul<T: Num + Copy>(a: Matrix3x4<T>, b: Matrix3x4<T>) -> Matrix3x4<T> {
     [
-        mat3x4_vec_mul_row(a, b, 0),
-        mat3x4_vec_mul_row(a, b, 1),
-        mat3x4_vec_mul_row(a, b, 2)
+        row_mat3x4_mul_row(a, b, 0),
+        row_mat3x4_mul_row(a, b, 1),
+        row_mat3x4_mul_row(a, b, 2)
     ]
 }
 
@@ -777,49 +783,85 @@ pub fn vec4_dot_pos3<T: Num + Copy>(a: Vector4<T>, b: Vector3<T>) -> T {
     vec4_dot_vec3(a, b) + a[3]
 }
 
-/// Returns a column vector of a matrix.
+/// Returns a column vector of a row matrix.
 #[inline(always)]
-pub fn mat2x3_col<T: Copy>(mat: Matrix2x3<T>, i: uint) -> Vector2<T> {
+pub fn row_mat2x3_col<T: Copy>(mat: Matrix2x3<T>, i: uint) -> Vector2<T> {
     [mat[0][i], mat[1][i]]
 }
 
-/// Returns a column vector of a matrix.
+/// Returns a row vector of a column matrix.
 #[inline(always)]
-pub fn mat3x2_col<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
+pub fn col_mat2x3_row<T: Copy>(mat: Matrix2x3<T>, i: uint) -> Vector2<T> {
+    row_mat2x3_col(mat, i)
+}
+
+/// Returns a column vector of a row matrix.
+#[inline(always)]
+pub fn row_mat3x2_col<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
     [a[0][i], a[1][i], a[2][i]]
 }
 
-/// Returns a column vector of a matrix.
+/// Returns a row vector of a column matrix.
 #[inline(always)]
-pub fn mat3_col<T: Copy>(a: Matrix3<T>, i: uint) -> Vector3<T> {
+pub fn col_mat3x2_row<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
+    row_mat3x2_col(a, i)
+}
+
+/// Returns a column vector of a row matrix.
+#[inline(always)]
+pub fn row_mat3_col<T: Copy>(a: Matrix3<T>, i: uint) -> Vector3<T> {
     [a[0][i], a[1][i], a[2][i]]
 }
 
-/// Returns a column vector of a matrix.
+/// Returns a row vector of a column matrix.
 #[inline(always)]
-pub fn mat3x4_col<T: Copy>(mat: Matrix3x4<T>, i: uint) -> Vector3<T> {
+pub fn col_mat3_row<T: Copy>(a: Matrix3<T>, i: uint) -> Vector3<T> {
+    row_mat3_col(a, i)
+}
+
+/// Returns a column vector of a row matrix.
+#[inline(always)]
+pub fn row_mat3x4_col<T: Copy>(mat: Matrix3x4<T>, i: uint) -> Vector3<T> {
     [mat[0][i], mat[1][i], mat[2][i]]
 }
 
-/// Returns a column vector of a matrix.
+/// Returns a row vector of a column matrix.
 #[inline(always)]
-pub fn mat4x3_col<T: Copy>(a: Matrix4x3<T>, i: uint) -> Vector4<T> {
+pub fn col_mat3x4_row<T: Copy>(mat: Matrix3x4<T>, i: uint) -> Vector3<T> {
+    row_mat3x4_col(mat, i)
+}
+
+/// Returns a column vector of a row matrix.
+#[inline(always)]
+pub fn row_mat4x3_col<T: Copy>(a: Matrix4x3<T>, i: uint) -> Vector4<T> {
     [a[0][i], a[1][i], a[2][i], a[3][i]]
 }
 
-/// Returns a column vector of a matrix.
+/// Returns a column vector of a row matrix.
 #[inline(always)]
-pub fn mat4_col<T: Copy>(a: Matrix4<T>, i: uint) -> Vector4<T> {
+pub fn col_mat4x3_row<T: Copy>(a: Matrix4x3<T>, i: uint) -> Vector4<T> {
+    row_mat4x3_col(a, i)
+}
+
+/// Returns a column vector of a row matrix.
+#[inline(always)]
+pub fn row_mat4_col<T: Copy>(a: Matrix4<T>, i: uint) -> Vector4<T> {
     [a[0][i], a[1][i], a[2][i], a[3][i]]
+}
+
+/// Returns a row vector of a column matrix.
+#[inline(always)]
+pub fn col_mat4_row<T: Copy>(a: Matrix4<T>, i: uint) -> Vector4<T> {
+    row_mat4_col(a, i)
 }
 
 /// Constructs the transpose of a matrix.
 #[inline(always)]
 pub fn mat2x3_transposed<T: Copy>(a: Matrix2x3<T>) -> Matrix3x2<T> {
     [
-        mat2x3_col(a, 0),
-        mat2x3_col(a, 1),
-        mat2x3_col(a, 2)
+        row_mat2x3_col(a, 0),
+        row_mat2x3_col(a, 1),
+        row_mat2x3_col(a, 2)
     ]
 }
 
@@ -827,8 +869,8 @@ pub fn mat2x3_transposed<T: Copy>(a: Matrix2x3<T>) -> Matrix3x2<T> {
 #[inline(always)]
 pub fn mat3x2_transposed<T: Copy>(a: Matrix3x2<T>) -> Matrix2x3<T> {
     [
-        mat3x2_col(a, 0),
-        mat3x2_col(a, 1)
+        row_mat3x2_col(a, 0),
+        row_mat3x2_col(a, 1)
     ]
 }
 
@@ -836,9 +878,9 @@ pub fn mat3x2_transposed<T: Copy>(a: Matrix3x2<T>) -> Matrix2x3<T> {
 #[inline(always)]
 pub fn mat3_transposed<T: Copy>(a: Matrix3<T>) -> Matrix3<T> {
     [
-        mat3_col(a, 0),
-        mat3_col(a, 1),
-        mat3_col(a, 2)
+        row_mat3_col(a, 0),
+        row_mat3_col(a, 1),
+        row_mat3_col(a, 2)
     ]
 }
 
@@ -846,10 +888,10 @@ pub fn mat3_transposed<T: Copy>(a: Matrix3<T>) -> Matrix3<T> {
 #[inline(always)]
 pub fn mat3x4_transposed<T: Copy>(a: Matrix3x4<T>) -> Matrix4x3<T> {
     [
-        mat3x4_col(a, 0),
-        mat3x4_col(a, 1),
-        mat3x4_col(a, 2),
-        mat3x4_col(a, 3)
+        row_mat3x4_col(a, 0),
+        row_mat3x4_col(a, 1),
+        row_mat3x4_col(a, 2),
+        row_mat3x4_col(a, 3)
     ]
 }
 
@@ -857,9 +899,9 @@ pub fn mat3x4_transposed<T: Copy>(a: Matrix3x4<T>) -> Matrix4x3<T> {
 #[inline(always)]
 pub fn mat4x3_transposed<T: Copy>(a: Matrix4x3<T>) -> Matrix3x4<T> {
     [
-        mat4x3_col(a, 0),
-        mat4x3_col(a, 1),
-        mat4x3_col(a, 2)
+        row_mat4x3_col(a, 0),
+        row_mat4x3_col(a, 1),
+        row_mat4x3_col(a, 2)
     ]
 }
 
@@ -867,16 +909,16 @@ pub fn mat4x3_transposed<T: Copy>(a: Matrix4x3<T>) -> Matrix3x4<T> {
 #[inline(always)]
 pub fn mat4_transposed<T: Copy>(a: Matrix4<T>) -> Matrix4<T> {
     [
-        mat4_col(a, 0),
-        mat4_col(a, 1),
-        mat4_col(a, 2),
-        mat4_col(a, 3)
+        row_mat4_col(a, 0),
+        row_mat4_col(a, 1),
+        row_mat4_col(a, 2),
+        row_mat4_col(a, 3)
     ]
 }
 
 /// Transforms a 2D position through matrix.
 #[inline(always)]
-pub fn mat2x3_transform_pos2<T: Num + Copy>(
+pub fn row_mat2x3_transform_pos2<T: Num + Copy>(
     mat: Matrix2x3<T>, 
     a: Vector2<T>
 ) -> Vector2<T> {
@@ -888,19 +930,19 @@ pub fn mat2x3_transform_pos2<T: Num + Copy>(
 
 /// Transforms a 2D position through matrix.
 #[inline(always)]
-pub fn mat3x2_transform_pos2<T: Num + Copy>(
+pub fn col_mat3x2_transform_pos2<T: Num + Copy>(
     mat: Matrix3x2<T>,
     a: Vector2<T>
 ) -> Vector2<T> {
     [
-        vec3_dot_pos2(mat3x2_col(mat, 0), a),
-        vec3_dot_pos2(mat3x2_col(mat, 1), a)
+        vec3_dot_pos2(col_mat3x2_row(mat, 0), a),
+        vec3_dot_pos2(col_mat3x2_row(mat, 1), a)
     ]
 }
 
 /// Transforms a 2D position through row matrix.
 #[inline(always)]
-pub fn mat3_transform_pos2_row<T: Num + Copy>(
+pub fn row_mat3_transform_pos2<T: Num + Copy>(
     mat: Matrix3<T>,
     a: Vector2<T>
 ) -> Vector2<T> {
@@ -912,19 +954,19 @@ pub fn mat3_transform_pos2_row<T: Num + Copy>(
 
 /// Transforms a 2D position through column matrix.
 #[inline(always)]
-pub fn mat3_transform_pos2_col<T: Num + Copy>(
+pub fn col_mat3_transform_pos2<T: Num + Copy>(
     mat: Matrix3<T>,
     a: Vector2<T>
 ) -> Vector2<T> {
     [
-        vec3_dot_pos2(mat3_col(mat, 0), a),
-        vec3_dot_pos2(mat3_col(mat, 1), a)
+        vec3_dot_pos2(col_mat3_row(mat, 0), a),
+        vec3_dot_pos2(col_mat3_row(mat, 1), a)
     ]
 }
 
 /// Transforms a 3D position through matrix.
 #[inline(always)]
-pub fn mat3x4_transform_pos3<T: Num + Copy>(
+pub fn row_mat3x4_transform_pos3<T: Num + Copy>(
     mat: Matrix3x4<T>, 
     a: Vector3<T>
 ) -> Vector3<T> {
@@ -937,20 +979,20 @@ pub fn mat3x4_transform_pos3<T: Num + Copy>(
 
 /// Transforms a 3D position through matrix.
 #[inline(always)]
-pub fn mat4x3_transform_pos3<T: Num + Copy>(
+pub fn col_mat4x3_transform_pos3<T: Num + Copy>(
     mat: Matrix4x3<T>,
     a: Vector3<T>
 ) -> Vector3<T> {
     [
-        vec4_dot_pos3(mat4x3_col(mat, 0), a),
-        vec4_dot_pos3(mat4x3_col(mat, 1), a),
-        vec4_dot_pos3(mat4x3_col(mat, 2), a)
+        vec4_dot_pos3(col_mat4x3_row(mat, 0), a),
+        vec4_dot_pos3(col_mat4x3_row(mat, 1), a),
+        vec4_dot_pos3(col_mat4x3_row(mat, 2), a)
     ]
 }
 
 /// Transforms a 2D vector through matrix.
 #[inline(always)]
-pub fn mat2x3_transform_vec2<T: Num + Copy>(
+pub fn row_mat2x3_transform_vec2<T: Num + Copy>(
     mat: Matrix2x3<T>, 
     a: Vector2<T>
 ) -> Vector2<T> {
@@ -962,19 +1004,19 @@ pub fn mat2x3_transform_vec2<T: Num + Copy>(
 
 /// Transforms a 2D vector through matrix.
 #[inline(always)]
-pub fn mat3x2_transform_vec2<T: Num + Copy>(
+pub fn col_mat3x2_transform_vec2<T: Num + Copy>(
     mat: Matrix3x2<T>,
     a: Vector2<T>
 ) -> Vector2<T> {
     [
-        vec3_dot_vec2(mat3x2_col(mat, 0), a),
-        vec3_dot_vec2(mat3x2_col(mat, 1), a)
+        vec3_dot_vec2(col_mat3x2_row(mat, 0), a),
+        vec3_dot_vec2(col_mat3x2_row(mat, 1), a)
     ]
 }
 
 /// Transforms a 2D vector through row matrix.
 #[inline(always)]
-pub fn mat3_transform_vec2_row<T: Num + Copy>(
+pub fn row_mat3_transform_vec2<T: Num + Copy>(
     mat: Matrix3<T>,
     a: Vector2<T>
 ) -> Vector2<T> {
@@ -986,19 +1028,19 @@ pub fn mat3_transform_vec2_row<T: Num + Copy>(
 
 /// Transforms a 2D vector through column matrix.
 #[inline(always)]
-pub fn mat3_transform_vec2_col<T: Num + Copy>(
+pub fn col_mat3_transform_vec2<T: Num + Copy>(
     mat: Matrix3<T>,
     a: Vector2<T>
 ) -> Vector2<T> {
     [
-        vec3_dot_vec2(mat3_col(mat, 0), a),
-        vec3_dot_vec2(mat3_col(mat, 1), a)
+        vec3_dot_vec2(col_mat3_row(mat, 0), a),
+        vec3_dot_vec2(col_mat3_row(mat, 1), a)
     ]
 }
 
 /// Transforms a 3D vector through matrix.
 #[inline(always)]
-pub fn mat3x4_transform_vec3<T: Num + Copy>(
+pub fn row_mat3x4_transform_vec3<T: Num + Copy>(
     mat: Matrix3x4<T>, 
     a: Vector3<T>
 ) -> Vector3<T> {
@@ -1011,14 +1053,14 @@ pub fn mat3x4_transform_vec3<T: Num + Copy>(
 
 /// Transforms a 3D vector through matrix.
 #[inline(always)]
-pub fn mat4x3_transform_vec3<T: Num + Copy>(
+pub fn col_mat4x3_transform_vec3<T: Num + Copy>(
     mat: Matrix4x3<T>,
     a: Vector3<T>
 ) -> Vector3<T> {
     [
-        vec4_dot_vec3(mat4x3_col(mat, 0), a),
-        vec4_dot_vec3(mat4x3_col(mat, 1), a),
-        vec4_dot_vec3(mat4x3_col(mat, 2), a)
+        vec4_dot_vec3(col_mat4x3_row(mat, 0), a),
+        vec4_dot_vec3(col_mat4x3_row(mat, 1), a),
+        vec4_dot_vec3(col_mat4x3_row(mat, 2), a)
     ]
 }
 
