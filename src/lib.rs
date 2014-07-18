@@ -568,10 +568,22 @@ pub fn vec4_dot_pos<T: Num + Copy>(a: Vector4<T>, b: Vector3<T>) -> T {
     vec4_dot_vec(a, b) + a[3]
 }
 
+/// Gets a column of a 3x4 row matrix.
+#[inline(always)]
+pub fn mat2x3_col<T: Copy>(mat: Matrix2x3<T>, i: uint) -> Vector2<T> {
+    [mat[0][i], mat[1][i]]
+}
+
 /// Returns a row vector from a column matrix.
 #[inline(always)]
 pub fn mat3x2_col<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
     [a[0][i], a[1][i], a[2][i]]
+}
+
+/// Gets a column matrix from a row matrix.
+#[inline(always)]
+pub fn mat3x4_col<T: Copy>(mat: Matrix3x4<T>, i: uint) -> Vector3<T> {
+    [mat[0][i], mat[1][i], mat[2][i]]
 }
 
 /// Returns a row vector from a column matrix.
@@ -588,18 +600,6 @@ pub fn mat4x3_col_mat<T: Copy>(a: Matrix4x3<T>) -> Matrix3x4<T> {
         mat4x3_col(a, 1),
         mat4x3_col(a, 2)
     ]
-}
-
-/// Gets a column of a 3x4 row matrix.
-#[inline(always)]
-pub fn mat2x3_col<T: Copy>(mat: Matrix2x3<T>, i: uint) -> Vector2<T> {
-    [mat[0][i], mat[1][i]]
-}
-
-/// Gets a column matrix from a row matrix.
-#[inline(always)]
-pub fn mat3x4_col<T: Copy>(mat: Matrix3x4<T>, i: uint) -> Vector3<T> {
-    [mat[0][i], mat[1][i], mat[2][i]]
 }
 
 /// Transforms a 2D position through matrix.
