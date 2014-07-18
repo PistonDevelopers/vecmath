@@ -951,12 +951,26 @@ pub fn mat3x2_transform_vec2<T: Num + Copy>(
 /// Transforms a 3D vector through matrix.
 #[inline(always)]
 pub fn mat3x4_transform_vec3<T: Num + Copy>(
-    mat: Matrix3x4<T>, a: Vector3<T>
+    mat: Matrix3x4<T>, 
+    a: Vector3<T>
 ) -> Vector3<T> {
     [
         vec4_dot_vec3(mat[0], a),
         vec4_dot_vec3(mat[1], a),
         vec4_dot_vec3(mat[2], a)
+    ]
+}
+
+/// Transforms a 3D vector through matrix.
+#[inline(always)]
+pub fn mat4x3_transform_vec3<T: Num + Copy>(
+    mat: Matrix4x3<T>,
+    a: Vector3<T>
+) -> Vector3<T> {
+    [
+        vec4_dot_vec3(mat4x3_col(mat, 0), a),
+        vec4_dot_vec3(mat4x3_col(mat, 1), a),
+        vec4_dot_vec3(mat4x3_col(mat, 2), a)
     ]
 }
 
