@@ -898,6 +898,18 @@ pub fn mat3x2_transform_pos2<T: Num + Copy>(
     ]
 }
 
+/// Transforms a 2D position through row matrix.
+#[inline(always)]
+pub fn mat3_transform_pos2_row<T: Num + Copy>(
+    mat: Matrix3<T>,
+    a: Vector2<T>
+) -> Vector2<T> {
+    [
+        vec3_dot_pos2(mat[0], a),
+        vec3_dot_pos2(mat[1], a)
+    ]
+}
+
 /// Transforms a 3D position through matrix.
 #[inline(always)]
 pub fn mat3x4_transform_pos3<T: Num + Copy>(
