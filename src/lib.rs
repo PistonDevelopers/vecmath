@@ -55,6 +55,31 @@ pub type Matrix4x3<T> = [[T, ..3], ..4];
 /// To multiply two matrices use `mat4_mul_row` or `mat4_mul_col`.
 pub type Matrix4<T> = [[T, ..4], ..4];
 
+/// Computes row vector in matrix product by row.
+#[inline(always)]
+pub fn mat3x4_vec_mul_row<T: Num + Copy>(
+    a: Matrix3x4<T>, 
+    b: Matrix3x4<T>,
+    i: uint
+) -> Vector4<T> {
+    [
+        vec4_dot_vec3(a[i], mat3x4_col(b, 0)),
+        vec4_dot_vec3(a[i], mat3x4_col(b, 1)),
+        vec4_dot_vec3(a[i], mat3x4_col(b, 2)),
+        vec4_dot_vec3(a[i], mat3x4_col(b, 3)) + a[i][3]
+    ] 
+}
+
+/// Multiplies two matrices.
+#[inline(always)]
+pub fn mat3x4_mul_row<T: Num + Copy>(a: Matrix3x4<T>, b: Matrix3x4<T>) -> Matrix3x4<T> {
+    [
+        mat3x4_vec_mul_row(a, b, 0),
+        mat3x4_vec_mul_row(a, b, 1),
+        mat3x4_vec_mul_row(a, b, 2)
+    ]
+}
+
 /// Converts to a f32 vector.
 #[inline(always)]
 pub fn vec2_to_f32<T: ToPrimitive>(a: Vector2<T>) -> Option<Vector2<f32>> {
