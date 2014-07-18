@@ -873,6 +873,7 @@ pub fn mat4_transposed<T: Copy>(a: Matrix4<T>) -> Matrix4<T> {
         mat4_col(a, 3)
     ]
 }
+
 /// Transforms a 2D position through matrix.
 #[inline(always)]
 pub fn mat2x3_transform_pos2<T: Num + Copy>(
@@ -882,6 +883,18 @@ pub fn mat2x3_transform_pos2<T: Num + Copy>(
     [
         vec3_dot_pos2(mat[0], a),
         vec3_dot_pos2(mat[1], a)
+    ]
+}
+
+/// Transforms a 2D position through matrix.
+#[inline(always)]
+pub fn mat3x2_transform_pos2<T: Num + Copy>(
+    mat: Matrix3x2<T>,
+    a: Vector2<T>
+) -> Vector2<T> {
+    [
+        vec3_dot_pos2(mat3x2_col(mat, 0), a),
+        vec3_dot_pos2(mat3x2_col(mat, 1), a)
     ]
 }
 
