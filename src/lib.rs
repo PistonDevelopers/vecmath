@@ -643,7 +643,7 @@ pub fn vec3_cross<T: Num>(a: Vector3<T>, b: Vector3<T>) -> Vector3<T> {
 
 /// Multiplies the vector with a scalar.
 #[inline(always)]
-pub fn vec2_mul<T: Num>(a: Vector2<T>, b: T) -> Vector2<T> {
+pub fn vec2_scale<T: Num>(a: Vector2<T>, b: T) -> Vector2<T> {
     [
         a[0] * b,
         a[1] * b
@@ -652,7 +652,7 @@ pub fn vec2_mul<T: Num>(a: Vector2<T>, b: T) -> Vector2<T> {
 
 /// Multiplies the vector with a scalar.
 #[inline(always)]
-pub fn vec3_mul<T: Num>(a: Vector3<T>, b: T) -> Vector3<T> {
+pub fn vec3_scale<T: Num>(a: Vector3<T>, b: T) -> Vector3<T> {
     [
         a[0] * b,
         a[1] * b,
@@ -689,13 +689,13 @@ pub fn vec3_inv_len<T: Float>(a: Vector3<T>) -> T {
 /// Computes the normalized.
 #[inline(always)]
 pub fn vec2_normalized<T: Float>(a: Vector2<T>) -> Vector2<T> {
-    vec2_mul(a, vec2_inv_len(a))
+    vec2_scale(a, vec2_inv_len(a))
 }
 
 /// Computes the normalized.
 #[inline(always)]
 pub fn vec3_normalized<T: Float>(a: Vector3<T>) -> Vector3<T> {
-    vec3_mul(a, vec3_inv_len(a))
+    vec3_scale(a, vec3_inv_len(a))
 }
 
 /// Computes the normalized difference between two vectors.
