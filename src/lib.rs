@@ -66,8 +66,8 @@ pub fn mat3x4_vec_mul_row<T: Num + Copy>(
         vec4_dot_vec3(a[i], mat3x4_col(b, 0)),
         vec4_dot_vec3(a[i], mat3x4_col(b, 1)),
         vec4_dot_vec3(a[i], mat3x4_col(b, 2)),
-        vec4_dot_vec3(a[i], mat3x4_col(b, 3)) + a[i][3]
-    ] 
+        vec4_dot_pos3(a[i], mat3x4_col(b, 3))
+    ]
 }
 
 /// Multiplies two matrices.
@@ -908,6 +908,19 @@ pub fn mat3x4_transform_pos3<T: Num + Copy>(
         vec4_dot_pos3(mat[0], a),
         vec4_dot_pos3(mat[1], a),
         vec4_dot_pos3(mat[2], a),
+    ]
+}
+
+/// Transforms a 3D position through matrix.
+#[inline(always)]
+pub fn mat4x3_transform_pos3<T: Num + Copy>(
+    mat: Matrix4x3<T>,
+    a: Vector3<T>
+) -> Vector3<T> {
+    [
+        vec4_dot_pos3(mat4x3_col(mat, 0), a),
+        vec4_dot_pos3(mat4x3_col(mat, 1), a),
+        vec4_dot_pos3(mat4x3_col(mat, 2), a)
     ]
 }
 
