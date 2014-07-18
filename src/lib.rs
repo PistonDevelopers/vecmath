@@ -602,6 +602,15 @@ pub fn mat2x3_transposed<T: Copy>(a: Matrix2x3<T>) -> Matrix3x2<T> {
     ]
 }
 
+/// Constructs the transpose of a matrix.
+#[inline(always)]
+pub fn mat3x2_transposed<T: Copy>(a: Matrix3x2<T>) -> Matrix2x3<T> {
+    [
+        mat3x2_col(a, 0),
+        mat3x2_col(a, 1)
+    ]
+}
+
 /// Constructs a column matrix from a row matrix.
 #[inline(always)]
 pub fn mat3x4_transposed<T: Copy>(a: Matrix3x4<T>) -> Matrix4x3<T> {
