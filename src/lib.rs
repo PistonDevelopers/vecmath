@@ -14,11 +14,21 @@ pub type Vector3<T> = [T, ..3];
 /// A 4D vector.
 pub type Vector4<T> = [T, ..4];
 
-/// A matrix in row major format.
+/// A 2x3 matrix.
+///
+/// To multiply two matrices use `mat2x3_mul_row`.
 ///
 /// Notice that row major is mathematical standard,
 /// while OpenGL uses column major format.
 pub type Matrix2x3<T> = [[T, ..3], ..2];
+
+/// A 3x2 matrix.
+///
+/// To multiply two matrices use `mat3x2_mul_col`.
+///
+/// Notice that row major is mathematical standard,
+/// while OpenGL uses column major format.
+pub type Matrix3x2<T> = [[T, ..2], ..3];
 
 /// A 3x4 matrix.
 ///
@@ -77,10 +87,20 @@ pub fn vec4_to_f32<T: ToPrimitive>(a: Vector4<T>) -> Option<Vector4<f32>> {
 
 /// Converts to a f32 matrix.
 #[inline(always)]
-pub fn mat2x3_to_f32<T: ToPrimitive + Copy>(m: Matrix2x3<T>) -> Option<Matrix2x3<f32>> {
+pub fn mat2x3_to_f32<T: ToPrimitive + Copy>(mat: Matrix2x3<T>) -> Option<Matrix2x3<f32>> {
     Some([
-        match vec3_to_f32(m[0]) { None => return None, Some(x) => x },
-        match vec3_to_f32(m[1]) { None => return None, Some(x) => x }
+        match vec3_to_f32(mat[0]) { None => return None, Some(x) => x },
+        match vec3_to_f32(mat[1]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 matrix.
+#[inline(always)]
+pub fn mat3x2_to_f32<T: ToPrimitive + Copy>(mat: Matrix3x2<T>) -> Option<Matrix3x2<f32>> {
+    Some([
+        match vec2_to_f32(mat[0]) { None => return None, Some(x) => x },
+        match vec2_to_f32(mat[1]) { None => return None, Some(x) => x },
+        match vec2_to_f32(mat[2]) { None => return None, Some(x) => x }
     ])
 }
 
@@ -157,6 +177,16 @@ pub fn mat2x3_to_f64<T: ToPrimitive + Copy>(m: Matrix2x3<T>) -> Option<Matrix2x3
 
 /// Converts to a f64 matrix.
 #[inline(always)]
+pub fn mat3x2_to_f64<T: ToPrimitive + Copy>(m: Matrix3x2<T>) -> Option<Matrix3x2<f64>> {
+    Some([
+        match vec2_to_f64(m[0]) { None => return None, Some(x) => x },
+        match vec2_to_f64(m[1]) { None => return None, Some(x) => x },
+        match vec2_to_f64(m[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
 pub fn mat3x4_to_f64<T: ToPrimitive + Copy>(m: Matrix3x4<T>) -> Option<Matrix3x4<f64>> {
     Some([
         match vec4_to_f64(m[0]) { None => return None, Some(x) => x },
@@ -228,6 +258,16 @@ pub fn mat2x3_from_f32<T: FromPrimitive + Copy>(m: Matrix2x3<f32>) -> Option<Mat
 
 /// Converts to a f32 matrix.
 #[inline(always)]
+pub fn mat3x2_from_f32<T: FromPrimitive + Copy>(m: Matrix3x2<f32>) -> Option<Matrix3x2<T>> {
+    Some([
+        match vec2_from_f32(m[0]) { None => return None, Some(x) => x },
+        match vec2_from_f32(m[1]) { None => return None, Some(x) => x },
+        match vec2_from_f32(m[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 matrix.
+#[inline(always)]
 pub fn mat3x4_from_f32<T: FromPrimitive + Copy>(m: Matrix3x4<f32>) -> Option<Matrix3x4<T>> {
     Some([
         match vec4_from_f32(m[0]) { None => return None, Some(x) => x },
@@ -290,10 +330,20 @@ pub fn vec4_from_f64<T: FromPrimitive>(a: Vector4<f64>) -> Option<Vector4<T>> {
 
 /// Converts to a f64 matrix.
 #[inline(always)]
-pub fn mat2x3_from_f64<T: FromPrimitive + Copy>(m: Matrix2x3<f64>) -> Option<Matrix2x3<T>> {
+pub fn mat2x3_from_f64<T: FromPrimitive + Copy>(mat: Matrix2x3<f64>) -> Option<Matrix2x3<T>> {
     Some([
-        match vec3_from_f64(m[0]) { None => return None, Some(x) => x },
-        match vec3_from_f64(m[1]) { None => return None, Some(x) => x }
+        match vec3_from_f64(mat[0]) { None => return None, Some(x) => x },
+        match vec3_from_f64(mat[1]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
+pub fn mat3x2_from_f64<T: FromPrimitive + Copy>(mat: Matrix3x2<f64>) -> Option<Matrix3x2<T>> {
+    Some([
+        match vec2_from_f64(mat[0]) { None => return None, Some(x) => x },
+        match vec2_from_f64(mat[1]) { None => return None, Some(x) => x },
+        match vec2_from_f64(mat[2]) { None => return None, Some(x) => x }
     ])
 }
 
@@ -520,6 +570,12 @@ pub fn vec4_dot_pos<T: Num + Copy>(a: Vector4<T>, b: Vector3<T>) -> T {
 
 /// Returns a row vector from a column matrix.
 #[inline(always)]
+pub fn mat3x2_row<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
+    [a[0][i], a[1][i], a[2][i]]
+}
+
+/// Returns a row vector from a column matrix.
+#[inline(always)]
 pub fn mat4x3_row<T: Copy>(a: Matrix4x3<T>, i: uint) -> Vector4<T> {
     [a[0][i], a[1][i], a[2][i], a[3][i]]
 }
@@ -534,7 +590,7 @@ pub fn mat4x3_row_mat<T: Copy>(a: Matrix4x3<T>) -> Matrix3x4<T> {
     ]
 }
 
-/// Gets a column of a 3x4 matrix.
+/// Gets a column of a 3x4 row matrix.
 #[inline(always)]
 pub fn mat2x3_col<T: Copy>(mat: Matrix2x3<T>, i: uint) -> Vector2<T> {
     [mat[0][i], mat[1][i]]
