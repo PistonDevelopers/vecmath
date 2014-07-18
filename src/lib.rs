@@ -724,7 +724,7 @@ pub fn vec3_normalized_sub<T: Float>(
 ///
 /// This is used when transforming vectors through matrices.
 #[inline(always)]
-pub fn vec3_dot_vec<T: Num>(a: Vector3<T>, b: Vector2<T>) -> T {
+pub fn vec3_dot_vec2<T: Num>(a: Vector3<T>, b: Vector2<T>) -> T {
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 }
 
@@ -732,7 +732,7 @@ pub fn vec3_dot_vec<T: Num>(a: Vector3<T>, b: Vector2<T>) -> T {
 ///
 /// This is used when transforming vectors through matrices.
 #[inline(always)]
-pub fn vec4_dot_vec<T: Num>(a: Vector4<T>, b: Vector3<T>) -> T {
+pub fn vec4_dot_vec3<T: Num>(a: Vector4<T>, b: Vector3<T>) -> T {
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 }
 
@@ -740,16 +740,16 @@ pub fn vec4_dot_vec<T: Num>(a: Vector4<T>, b: Vector3<T>) -> T {
 ///
 /// This is used when transforming points through matrices.
 #[inline(always)]
-pub fn vec3_dot_pos<T: Num + Copy>(a: Vector3<T>, b: Vector2<T>) -> T {
-    vec3_dot_vec(a, b) + a[3]
+pub fn vec3_dot_pos2<T: Num + Copy>(a: Vector3<T>, b: Vector2<T>) -> T {
+    vec3_dot_vec2(a, b) + a[3]
 }
 
 /// Computes transformed position component.
 ///
 /// This is used when transforming points through matrices.
 #[inline(always)]
-pub fn vec4_dot_pos<T: Num + Copy>(a: Vector4<T>, b: Vector3<T>) -> T {
-    vec4_dot_vec(a, b) + a[3]
+pub fn vec4_dot_pos3<T: Num + Copy>(a: Vector4<T>, b: Vector3<T>) -> T {
+    vec4_dot_vec3(a, b) + a[3]
 }
 
 /// Returns a column vector of a matrix.
@@ -855,8 +855,8 @@ pub fn mat2x3_transform_pos<T: Num + Copy>(
     a: Vector2<T>
 ) -> Vector2<T> {
     [
-        vec3_dot_pos(mat[0], a),
-        vec3_dot_pos(mat[1], a)
+        vec3_dot_pos2(mat[0], a),
+        vec3_dot_pos2(mat[1], a)
     ]
 }
 
@@ -867,9 +867,9 @@ pub fn mat3x4_transform_pos<T: Num + Copy>(
     a: Vector3<T>
 ) -> Vector3<T> {
     [
-        vec4_dot_pos(mat[0], a),
-        vec4_dot_pos(mat[1], a),
-        vec4_dot_pos(mat[2], a),
+        vec4_dot_pos3(mat[0], a),
+        vec4_dot_pos3(mat[1], a),
+        vec4_dot_pos3(mat[2], a),
     ]
 }
 
@@ -879,8 +879,8 @@ pub fn mat2x3_transform_vec<T: Num + Copy>(
     mat: Matrix2x3<T>, a: Vector2<T>
 ) -> Vector2<T> {
     [
-        vec3_dot_vec(mat[0], a),
-        vec3_dot_vec(mat[1], a)
+        vec3_dot_vec2(mat[0], a),
+        vec3_dot_vec2(mat[1], a)
     ]
 }
 
@@ -890,9 +890,9 @@ pub fn mat3x4_transform_vec<T: Num + Copy>(
     mat: Matrix3x4<T>, a: Vector3<T>
 ) -> Vector3<T> {
     [
-        vec4_dot_vec(mat[0], a),
-        vec4_dot_vec(mat[1], a),
-        vec4_dot_vec(mat[2], a)
+        vec4_dot_vec3(mat[0], a),
+        vec4_dot_vec3(mat[1], a),
+        vec4_dot_vec3(mat[2], a)
     ]
 }
 
