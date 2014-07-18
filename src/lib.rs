@@ -412,6 +412,68 @@ pub fn vec3_add<T: Num>(a: Vector3<T>, b: Vector3<T>) -> Vector3<T> {
     ]
 }
 
+/// Adds two vectors.
+#[inline(always)]
+pub fn vec4_add<T: Num>(a: Vector4<T>, b: Vector4<T>) -> Vector4<T> {
+    [
+        a[0] + b[0],
+        a[1] + b[1],
+        a[2] + b[2],
+        a[3] + b[3]
+    ]
+}
+
+/// Adds two matrices.
+#[inline(always)]
+pub fn mat2x3_add<T: Num + Copy>(a: Matrix2x3<T>, b: Matrix2x3<T>) -> Matrix2x3<T> {
+    [
+        vec3_add(a[0], b[0]),
+        vec3_add(a[1], b[1])
+    ]
+}
+
+/// Adds two matrices.
+#[inline(always)]
+pub fn mat3x2_add<T: Num + Copy>(a: Matrix3x2<T>, b: Matrix3x2<T>) -> Matrix3x2<T> {
+    [
+        vec2_add(a[0], b[0]),
+        vec2_add(a[1], b[1]),
+        vec2_add(a[2], b[2])
+    ]
+}
+
+/// Adds two matrices.
+#[inline(always)]
+pub fn mat3x4_add<T: Num + Copy>(a: Matrix3x4<T>, b: Matrix3x4<T>) -> Matrix3x4<T> {
+    [
+        vec4_add(a[0], b[0]),
+        vec4_add(a[1], b[1]),
+        vec4_add(a[2], b[2])
+    ]
+}
+
+/// Adds two matrices.
+#[inline(always)]
+pub fn mat4x3_add<T: Num + Copy>(a: Matrix4x3<T>, b: Matrix4x3<T>) -> Matrix4x3<T> {
+    [
+        vec3_add(a[0], b[0]),
+        vec3_add(a[1], b[1]),
+        vec3_add(a[2], b[2]),
+        vec3_add(a[3], b[3])
+    ]
+}
+
+/// Adds two matrices.
+#[inline(always)]
+pub fn mat4_add<T: Num + Copy>(a: Matrix4<T>, b: Matrix4<T>) -> Matrix4<T> {
+    [
+        vec4_add(a[0], b[0]),
+        vec4_add(a[1], b[1]),
+        vec4_add(a[2], b[2]),
+        vec4_add(a[3], b[3])
+    ]
+}
+
 /// Computes the dot product.
 #[inline(always)]
 pub fn vec2_dot<T: Num>(a: Vector2<T>, b: Vector2<T>) -> T {
