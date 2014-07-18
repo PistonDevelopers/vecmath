@@ -972,6 +972,30 @@ pub fn mat3x2_transform_vec2<T: Num + Copy>(
     ]
 }
 
+/// Transforms a 2D vector through row matrix.
+#[inline(always)]
+pub fn mat3_transform_vec2_row<T: Num + Copy>(
+    mat: Matrix3<T>,
+    a: Vector2<T>
+) -> Vector2<T> {
+    [
+        vec3_dot_vec2(mat[0], a),
+        vec3_dot_vec2(mat[1], a)
+    ]
+}
+
+/// Transforms a 2D vector through column matrix.
+#[inline(always)]
+pub fn mat3_transform_vec2_col<T: Num + Copy>(
+    mat: Matrix3<T>,
+    a: Vector2<T>
+) -> Vector2<T> {
+    [
+        vec3_dot_vec2(mat3_col(mat, 0), a),
+        vec3_dot_vec2(mat3_col(mat, 1), a)
+    ]
+}
+
 /// Transforms a 3D vector through matrix.
 #[inline(always)]
 pub fn mat3x4_transform_vec3<T: Num + Copy>(
