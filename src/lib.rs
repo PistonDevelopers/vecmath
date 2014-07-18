@@ -576,7 +576,7 @@ pub fn mat3x2_col<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
 
 /// Returns a row vector from a column matrix.
 #[inline(always)]
-pub fn mat4x3_row<T: Copy>(a: Matrix4x3<T>, i: uint) -> Vector4<T> {
+pub fn mat4x3_col<T: Copy>(a: Matrix4x3<T>, i: uint) -> Vector4<T> {
     [a[0][i], a[1][i], a[2][i], a[3][i]]
 }
 
@@ -584,9 +584,9 @@ pub fn mat4x3_row<T: Copy>(a: Matrix4x3<T>, i: uint) -> Vector4<T> {
 #[inline(always)]
 pub fn mat4x3_row_mat<T: Copy>(a: Matrix4x3<T>) -> Matrix3x4<T> {
     [
-        mat4x3_row(a, 0),
-        mat4x3_row(a, 1),
-        mat4x3_row(a, 2)
+        mat4x3_col(a, 0),
+        mat4x3_col(a, 1),
+        mat4x3_col(a, 2)
     ]
 }
 
