@@ -393,6 +393,68 @@ pub fn vec3_sub<T: Num>(a: Vector3<T>, b: Vector3<T>) -> Vector3<T> {
     ]
 }
 
+/// Subtracts 'b' from 'a'.
+#[inline(always)]
+pub fn vec4_sub<T: Num>(a: Vector4<T>, b: Vector4<T>) -> Vector4<T> {
+    [
+        a[0] - b[0],
+        a[1] - b[1],
+        a[2] - b[2],
+        a[3] - b[3]
+    ]
+}
+
+/// Subtracts 'b' from 'a'.
+#[inline(always)]
+pub fn mat2x3_sub<T: Num + Copy>(a: Matrix2x3<T>, b: Matrix2x3<T>) -> Matrix2x3<T> {
+    [
+        vec3_sub(a[0], b[0]),
+        vec3_sub(a[1], b[1])
+    ]
+}
+
+/// Subtracts 'b' from 'a'.
+#[inline(always)]
+pub fn mat3x2_sub<T: Num + Copy>(a: Matrix3x2<T>, b: Matrix3x2<T>) -> Matrix3x2<T> {
+    [
+        vec2_sub(a[0], b[0]),
+        vec2_sub(a[1], b[1]),
+        vec2_sub(a[2], b[2])
+    ]
+}
+
+/// Subtracts 'b' from 'a'.
+#[inline(always)]
+pub fn mat3x4_sub<T: Num + Copy>(a: Matrix3x4<T>, b: Matrix3x4<T>) -> Matrix3x4<T> {
+    [
+        vec4_sub(a[0], b[0]),
+        vec4_sub(a[1], b[1]),
+        vec4_sub(a[2], b[2])
+    ]
+}
+
+/// Subtracts 'b' from 'a'.
+#[inline(always)]
+pub fn mat4x3_sub<T: Num + Copy>(a: Matrix4x3<T>, b: Matrix4x3<T>) -> Matrix4x3<T> {
+    [
+        vec3_sub(a[0], b[0]),
+        vec3_sub(a[1], b[1]),
+        vec3_sub(a[2], b[2]),
+        vec3_sub(a[3], b[3])
+    ]
+}
+
+/// Subtracts 'b' from 'a'.
+#[inline(always)]
+pub fn mat4_sub<T: Num + Copy>(a: Matrix4<T>, b: Matrix4<T>) -> Matrix4<T> {
+    [
+        vec4_sub(a[0], b[0]),
+        vec4_sub(a[1], b[1]),
+        vec4_sub(a[2], b[2]),
+        vec4_sub(a[3], b[3])
+    ]
+}
+
 /// Adds two vectors.
 #[inline(always)]
 pub fn vec2_add<T: Num>(a: Vector2<T>, b: Vector2<T>) -> Vector2<T> {
