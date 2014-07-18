@@ -850,7 +850,7 @@ pub fn mat4_transposed<T: Copy>(a: Matrix4<T>) -> Matrix4<T> {
 }
 /// Transforms a 2D position through matrix.
 #[inline(always)]
-pub fn mat2x3_transform_pos<T: Num + Copy>(
+pub fn mat2x3_transform_pos2<T: Num + Copy>(
     mat: Matrix2x3<T>, 
     a: Vector2<T>
 ) -> Vector2<T> {
@@ -862,7 +862,7 @@ pub fn mat2x3_transform_pos<T: Num + Copy>(
 
 /// Transforms a 3D position through matrix.
 #[inline(always)]
-pub fn mat3x4_transform_pos<T: Num + Copy>(
+pub fn mat3x4_transform_pos3<T: Num + Copy>(
     mat: Matrix3x4<T>, 
     a: Vector3<T>
 ) -> Vector3<T> {
@@ -875,7 +875,7 @@ pub fn mat3x4_transform_pos<T: Num + Copy>(
 
 /// Transforms a 2D vector through matrix.
 #[inline(always)]
-pub fn mat2x3_transform_vec<T: Num + Copy>(
+pub fn mat2x3_transform_vec2<T: Num + Copy>(
     mat: Matrix2x3<T>, a: Vector2<T>
 ) -> Vector2<T> {
     [
@@ -886,7 +886,7 @@ pub fn mat2x3_transform_vec<T: Num + Copy>(
 
 /// Transforms a 3D vector through matrix.
 #[inline(always)]
-pub fn mat3x4_transform_vec<T: Num + Copy>(
+pub fn mat3x4_transform_vec3<T: Num + Copy>(
     mat: Matrix3x4<T>, a: Vector3<T>
 ) -> Vector3<T> {
     [
