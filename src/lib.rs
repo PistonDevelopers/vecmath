@@ -33,6 +33,11 @@ pub type Matrix2x3<T> = [[T, ..3], ..2];
 /// To multiply two matrices use `mat3x2_mul_col`.
 pub type Matrix3x2<T> = [[T, ..2], ..3];
 
+/// A 3x3 matrix.
+///
+/// To multiply two matrices use `mat3_mul_row` or `mat3_mul_col`.
+pub type Matrix3<T> = [[T, ..3], ..3];
+
 /// A 3x4 matrix.
 ///
 /// To multiply two matrices use `mat3x4_mul_row`.
@@ -96,6 +101,16 @@ pub fn mat3x2_to_f32<T: ToPrimitive + Copy>(mat: Matrix3x2<T>) -> Option<Matrix3
         match vec2_to_f32(mat[0]) { None => return None, Some(x) => x },
         match vec2_to_f32(mat[1]) { None => return None, Some(x) => x },
         match vec2_to_f32(mat[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 matrix.
+#[inline(always)]
+pub fn mat3_to_f32<T: ToPrimitive + Copy>(mat: Matrix3<T>) -> Option<Matrix3<f32>> {
+    Some([
+        match vec3_to_f32(mat[0]) { None => return None, Some(x) => x },
+        match vec3_to_f32(mat[1]) { None => return None, Some(x) => x },
+        match vec3_to_f32(mat[2]) { None => return None, Some(x) => x }
     ])
 }
 
@@ -182,6 +197,16 @@ pub fn mat3x2_to_f64<T: ToPrimitive + Copy>(m: Matrix3x2<T>) -> Option<Matrix3x2
 
 /// Converts to a f64 matrix.
 #[inline(always)]
+pub fn mat3_to_f64<T: ToPrimitive + Copy>(m: Matrix3<T>) -> Option<Matrix3<f64>> {
+    Some([
+        match vec3_to_f64(m[0]) { None => return None, Some(x) => x },
+        match vec3_to_f64(m[1]) { None => return None, Some(x) => x },
+        match vec3_to_f64(m[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
 pub fn mat3x4_to_f64<T: ToPrimitive + Copy>(m: Matrix3x4<T>) -> Option<Matrix3x4<f64>> {
     Some([
         match vec4_to_f64(m[0]) { None => return None, Some(x) => x },
@@ -258,6 +283,16 @@ pub fn mat3x2_from_f32<T: FromPrimitive + Copy>(m: Matrix3x2<f32>) -> Option<Mat
         match vec2_from_f32(m[0]) { None => return None, Some(x) => x },
         match vec2_from_f32(m[1]) { None => return None, Some(x) => x },
         match vec2_from_f32(m[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f32 matrix.
+#[inline(always)]
+pub fn mat3_from_f32<T: FromPrimitive + Copy>(m: Matrix3<f32>) -> Option<Matrix3<T>> {
+    Some([
+        match vec3_from_f32(m[0]) { None => return None, Some(x) => x },
+        match vec3_from_f32(m[1]) { None => return None, Some(x) => x },
+        match vec3_from_f32(m[2]) { None => return None, Some(x) => x }
     ])
 }
 
@@ -344,6 +379,16 @@ pub fn mat3x2_from_f64<T: FromPrimitive + Copy>(mat: Matrix3x2<f64>) -> Option<M
 
 /// Converts to a f64 matrix.
 #[inline(always)]
+pub fn mat3_from_f64<T: FromPrimitive + Copy>(mat: Matrix3<f64>) -> Option<Matrix3<T>> {
+    Some([
+        match vec3_from_f64(mat[0]) { None => return None, Some(x) => x },
+        match vec3_from_f64(mat[1]) { None => return None, Some(x) => x },
+        match vec3_from_f64(mat[2]) { None => return None, Some(x) => x }
+    ])
+}
+
+/// Converts to a f64 matrix.
+#[inline(always)]
 pub fn mat3x4_from_f64<T: FromPrimitive + Copy>(m: Matrix3x4<f64>) -> Option<Matrix3x4<T>> {
     Some([
         match vec4_from_f64(m[0]) { None => return None, Some(x) => x },
@@ -425,6 +470,16 @@ pub fn mat3x2_sub<T: Num + Copy>(a: Matrix3x2<T>, b: Matrix3x2<T>) -> Matrix3x2<
 
 /// Subtracts 'b' from 'a'.
 #[inline(always)]
+pub fn mat3_sub<T: Num + Copy>(a: Matrix3<T>, b: Matrix3<T>) -> Matrix3<T> {
+    [
+        vec3_sub(a[0], b[0]),
+        vec3_sub(a[1], b[1]),
+        vec3_sub(a[2], b[2])
+    ]
+}
+
+/// Subtracts 'b' from 'a'.
+#[inline(always)]
 pub fn mat3x4_sub<T: Num + Copy>(a: Matrix3x4<T>, b: Matrix3x4<T>) -> Matrix3x4<T> {
     [
         vec4_sub(a[0], b[0]),
@@ -501,6 +556,16 @@ pub fn mat3x2_add<T: Num + Copy>(a: Matrix3x2<T>, b: Matrix3x2<T>) -> Matrix3x2<
         vec2_add(a[0], b[0]),
         vec2_add(a[1], b[1]),
         vec2_add(a[2], b[2])
+    ]
+}
+
+/// Adds two matrices.
+#[inline(always)]
+pub fn mat3_add<T: Num + Copy>(a: Matrix3<T>, b: Matrix3<T>) -> Matrix3<T> {
+    [
+        vec3_add(a[0], b[0]),
+        vec3_add(a[1], b[1]),
+        vec3_add(a[2], b[2])
     ]
 }
 
@@ -701,6 +766,12 @@ pub fn mat3x2_col<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
 
 /// Returns a column vector of a matrix.
 #[inline(always)]
+pub fn mat3_col<T: Copy>(a: Matrix3<T>, i: uint) -> Vector3<T> {
+    [a[0][i], a[1][i], a[2][i]]
+}
+
+/// Returns a column vector of a matrix.
+#[inline(always)]
 pub fn mat3x4_col<T: Copy>(mat: Matrix3x4<T>, i: uint) -> Vector3<T> {
     [mat[0][i], mat[1][i], mat[2][i]]
 }
@@ -733,6 +804,16 @@ pub fn mat3x2_transposed<T: Copy>(a: Matrix3x2<T>) -> Matrix2x3<T> {
     [
         mat3x2_col(a, 0),
         mat3x2_col(a, 1)
+    ]
+}
+
+/// Constructs the transpose of a matrix.
+#[inline(always)]
+pub fn mat3_transposed<T: Copy>(a: Matrix3<T>) -> Matrix3<T> {
+    [
+        mat3_col(a, 0),
+        mat3_col(a, 1),
+        mat3_col(a, 2)
     ]
 }
 
