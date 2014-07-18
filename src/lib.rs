@@ -627,6 +627,7 @@ pub fn mat3x4_transposed<T: Copy>(a: Matrix3x4<T>) -> Matrix4x3<T> {
         mat3x4_col(a, 3)
     ]
 }
+
 /// Constructs a row matrix from a column matrix.
 #[inline(always)]
 pub fn mat4x3_transposed<T: Copy>(a: Matrix4x3<T>) -> Matrix3x4<T> {
@@ -637,6 +638,16 @@ pub fn mat4x3_transposed<T: Copy>(a: Matrix4x3<T>) -> Matrix3x4<T> {
     ]
 }
 
+/// Constructs a column matrix from a row matrix.
+#[inline(always)]
+pub fn mat4_transposed<T: Copy>(a: Matrix4<T>) -> Matrix4<T> {
+    [
+        mat4_col(a, 0),
+        mat4_col(a, 1),
+        mat4_col(a, 2),
+        mat4_col(a, 3)
+    ]
+}
 /// Transforms a 2D position through matrix.
 #[inline(always)]
 pub fn mat2x3_transform_pos<T: Num + Copy>(
