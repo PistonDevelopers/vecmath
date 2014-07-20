@@ -58,7 +58,7 @@ Add the following to 'lib.rs':
 ```Rust
 #![feature(globs)]
 
-extern crate vecmath;
+extern crate vecmath_lib = "vecmath";
 
 mod vecmath; // Use 'pub mod' if you want it to be visible outside library.
 ```
@@ -69,10 +69,14 @@ Create a new file 'vecmath.rs' in your 'src/' directory.
 Open 'vecmath.rs' in a text editor and type:
 
 ```Rust
-pub use vecmath::*;
+pub type Matrix2d = vecmath_lib::Matrix2x3<f64>;
+
+pub use multiply = vecmath_lib::row_mat2x3_mul;
+
+// etc.
 ```
 
-You can add your own custom functions, but please follow the same naming conventions.
+You can add your own custom functions and rename the existing ones for your usage.
 
 ## Naming conventions
 
