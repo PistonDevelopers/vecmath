@@ -77,6 +77,21 @@ pub fn row_mat2x3_mul_row<T: Num + Copy>(
 
 /// Computes row vector in matrix product by row.
 #[inline(always)]
+pub fn row_mat3_mul_row<T: Num + Copy>(
+    a: Matrix3<T>, 
+    b: Matrix3<T>,
+    i: uint
+) -> Vector4<T> {
+    [
+        vec3_dot(a[i], row_mat3_col(b, 0)),
+        vec3_dot(a[i], row_mat3_col(b, 1)),
+        vec3_dot(a[i], row_mat3_col(b, 2)),
+        vec3_dot(a[i], row_mat3_col(b, 3))
+    ]
+}
+
+/// Computes row vector in matrix product by row.
+#[inline(always)]
 pub fn row_mat3x4_mul_row<T: Num + Copy>(
     a: Matrix3x4<T>, 
     b: Matrix3x4<T>,
@@ -102,13 +117,6 @@ pub fn row_mat2x3_mul<T: Num + Copy>(
     ]
 }
 
-#[test]
-fn test_row_mat2x3_mul() {
-    let a: Matrix2x3<f64> = mat2x3_id();
-    let b = a;
-    let _ = row_mat2x3_mul(a, b);
-}
-
 /// Multiplies two matrices.
 #[inline(always)]
 pub fn row_mat3x4_mul<T: Num + Copy>(
@@ -120,6 +128,20 @@ pub fn row_mat3x4_mul<T: Num + Copy>(
         row_mat3x4_mul_row(a, b, 1),
         row_mat3x4_mul_row(a, b, 2)
     ]
+}
+
+#[test]
+fn test_row_mat2x3_mul() {
+    let a: Matrix2x3<f64> = mat2x3_id();
+    let b = a;
+    let _ = row_mat2x3_mul(a, b);
+}
+
+#[test]
+fn test_row_mat3x4_mul() {
+    let a: Matrix3x4<f64> = mat3x4_id();
+    let b = a;
+    let _ = row_mat3x4_mul(a, b);
 }
 
 /// Constructs identity matrix.
