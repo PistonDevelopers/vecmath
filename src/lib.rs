@@ -18,7 +18,7 @@
 //! For example, `row_mat2x3_transform_pos2` transforms a position.
 //! `row_mat2x3_transform_vec2` transforms a vector.
 
-use std::num::{One};
+use std::num::{One, Zero};
 
 /// A 2D vector.
 pub type Vector2<T> = [T, ..2];
@@ -122,6 +122,17 @@ pub fn row_mat3x4_mul<T: Num + Copy>(
         row_mat3x4_mul_row(a, b, 0),
         row_mat3x4_mul_row(a, b, 1),
         row_mat3x4_mul_row(a, b, 2)
+    ]
+}
+
+/// Constructs identity matrix.
+#[inline(always)]
+pub fn mat2x3_id<T: One + Zero + Copy>() -> Matrix2x3<T> {
+    let one = One::one();
+    let zero = Zero::zero();
+    [
+        [one, zero, zero],
+        [zero, one, zero]
     ]
 }
 
