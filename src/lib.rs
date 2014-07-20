@@ -18,7 +18,7 @@
 //! For example, `row_mat2x3_transform_pos2` transforms a position.
 //! `row_mat2x3_transform_vec2` transforms a vector.
 
-use std::num::{One};
+use std::num::{One, Zero};
 
 /// A 2D vector.
 pub type Vector2<T> = [T, ..2];
@@ -71,7 +71,7 @@ pub fn row_mat2x3_mul_row<T: Num + Copy>(
     [
         vec3_dot_vec2(a[i], row_mat2x3_col(b, 0)),
         vec3_dot_vec2(a[i], row_mat2x3_col(b, 1)),
-        vec3_dot_pos2(a[i], row_mat2x3_col(b, 3))
+        vec3_dot_pos2(a[i], row_mat2x3_col(b, 2))
     ]
 }
 
@@ -102,6 +102,16 @@ pub fn row_mat2x3_mul<T: Num + Copy>(
     ]
 }
 
+#[test]
+fn test_row_mat2x3_mul() {
+    let a = [
+        [1.0f64, 0.0, 0.0],
+        [0.0, 1.0, 0.0]
+    ];
+    let b = a;
+    let _ = row_mat2x3_mul(a, b);
+}
+
 /// Multiplies two matrices.
 #[inline(always)]
 pub fn row_mat3x4_mul<T: Num + Copy>(
@@ -112,6 +122,17 @@ pub fn row_mat3x4_mul<T: Num + Copy>(
         row_mat3x4_mul_row(a, b, 0),
         row_mat3x4_mul_row(a, b, 1),
         row_mat3x4_mul_row(a, b, 2)
+    ]
+}
+
+/// Constructs identity matrix.
+#[inline(always)]
+pub fn mat2x3_id<T: One + Zero + Copy>() -> Matrix2x3<T> {
+    let one = One::one();
+    let zero = Zero::zero();
+    [
+        [one, zero, zero],
+        [zero, one, zero]
     ]
 }
 
@@ -838,7 +859,7 @@ pub fn vec4_normalized_sub<T: Float>(
 /// This is used when transforming vectors through matrices.
 #[inline(always)]
 pub fn vec3_dot_vec2<T: Num>(a: Vector3<T>, b: Vector2<T>) -> T {
-    a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+    a[0] * b[0] + a[1] * b[1]
 }
 
 /// Computes transformed vector component.
@@ -854,7 +875,7 @@ pub fn vec4_dot_vec3<T: Num>(a: Vector4<T>, b: Vector3<T>) -> T {
 /// This is used when transforming points through matrices.
 #[inline(always)]
 pub fn vec3_dot_pos2<T: Num + Copy>(a: Vector3<T>, b: Vector2<T>) -> T {
-    vec3_dot_vec2(a, b) + a[3]
+    vec3_dot_vec2(a, b) + a[2]
 }
 
 /// Computes transformed position component.
