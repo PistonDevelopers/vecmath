@@ -182,6 +182,19 @@ pub fn mat4x3_id<T: One + Zero + Copy>() -> Matrix4x3<T> {
     ]
 }
 
+/// Constructs identity matrix.
+#[inline(always)]
+pub fn mat4_id<T: One + Zero + Copy>() -> Matrix4<T> {
+    let one = One::one();
+    let zero = Zero::zero();
+    [
+        [one, zero, zero, zero],
+        [zero, one, zero, zero],
+        [zero, zero, one, zero],
+        [zero, zero, zero, zero]
+    ]
+}
+
 /// Converts to a f32 vector.
 #[inline(always)]
 pub fn vec2_to_f32<T: ToPrimitive>(a: Vector2<T>) -> Option<Vector2<f32>> {
