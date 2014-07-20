@@ -793,6 +793,17 @@ pub fn vec3_normalized_sub<T: Float>(
     vec3_normalized(vec3_sub(a, b))
 }
 
+/// Computes the normalized difference between two vectors.
+///
+/// This is often used to get direction from 'b' to 'a'.
+#[inline(always)]
+pub fn vec4_normalized_sub<T: Float>(
+    a: Vector4<T>, 
+    b: Vector4<T>
+) -> Vector4<T> {
+    vec4_normalized(vec4_sub(a, b))
+}
+
 /// Computes transformed vector component.
 ///
 /// This is used when transforming vectors through matrices.
