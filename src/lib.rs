@@ -1207,6 +1207,81 @@ pub fn mat2x3_inv<T: Num + Copy>(mat: Matrix2x3<T>) -> Matrix2x3<T> {
     ]
 }
 
+/// Computes the inverse of a 3x2 matrix.
+pub fn mat3x2_inv<T: Num + Copy>(mat: Matrix3x2<T>) -> Matrix3x2<T> {
+    let inv_det = mat3x2_inv_det(mat);
+
+    [
+        [
+            mat[1][1] * inv_det,
+          - mat[0][1] * inv_det
+        ],
+        [
+          - mat[1][0] * inv_det,
+            mat[0][0] * inv_det
+        ],
+        [
+            (
+                  mat[1][0] * mat[2][1]
+                - mat[1][1] * mat[2][0]
+            ) * inv_det,
+            (
+                  mat[0][1] * mat[2][0]
+                - mat[0][0] * mat[2][1]
+            ) * inv_det
+        ]
+    ]
+}
+
+/// Computes the inverse of a 3x3 matrix.
+pub fn mat3_inv<T: Num + Copy>(mat: Matrix3<T>) -> Matrix3<T> {
+    let inv_det = mat3_inv_det(mat);
+
+    [
+        [   (
+                  mat[1][1] * mat[2][2]
+                - mat[1][2] * mat[2][1]
+            ) * inv_det,
+            (
+                  mat[0][2] * mat[2][1]
+                - mat[0][1] * mat[2][2]
+            ) * inv_det,
+            (
+                  mat[0][1] * mat[1][2]
+                - mat[0][2] * mat[1][1]
+            ) * inv_det
+        ],
+        [
+            (
+                  mat[1][2] * mat[2][0]
+                - mat[1][0] * mat[2][2]
+            ) * inv_det,
+            (
+                  mat[0][0] * mat[2][2]
+                - mat[0][2] * mat[2][0]
+            ) * inv_det,
+            (
+                  mat[0][2] * mat[1][0]
+                - mat[0][0] * mat[1][2]
+            ) * inv_det
+        ],
+        [
+            (
+                  mat[1][0] * mat[2][1]
+                - mat[1][1] * mat[2][0]
+            ) * inv_det,
+            (
+                  mat[0][1] * mat[2][0]
+                - mat[0][0] * mat[2][1]
+            ) * inv_det,
+            (
+                  mat[0][0] * mat[1][1]
+                - mat[0][1] * mat[1][0]
+            ) * inv_det
+        ]
+    ]
+}
+
 /// Computes the inverse of a 3x4 matrix.
 pub fn mat3x4_inv<T: Num + Copy>(mat: Matrix3x4<T>) -> Matrix3x4<T> {
     let inv_det = mat3x4_inv_det(mat);
@@ -1275,55 +1350,6 @@ pub fn mat3x4_inv<T: Num + Copy>(mat: Matrix3x4<T>) -> Matrix3x4<T> {
             - mat[0][0] * mat[1][1] * mat[2][3]
             - mat[0][1] * mat[1][3] * mat[2][0]
             - mat[0][3] * mat[1][0] * mat[2][1]
-            ) * inv_det
-        ]
-    ]
-}
-
-/// Computes the inverse of a 3x3 matrix.
-pub fn mat3_inv<T: Num + Copy>(mat: Matrix3<T>) -> Matrix3<T> {
-    let inv_det = mat3_inv_det(mat);
-
-    [
-        [   (
-                  mat[1][1] * mat[2][2]
-                - mat[1][2] * mat[2][1]
-            ) * inv_det,
-            (
-                  mat[0][2] * mat[2][1]
-                - mat[0][1] * mat[2][2]
-            ) * inv_det,
-            (
-                  mat[0][1] * mat[1][2]
-                - mat[0][2] * mat[1][1]
-            ) * inv_det
-        ],
-        [
-            (
-                  mat[1][2] * mat[2][0]
-                - mat[1][0] * mat[2][2]
-            ) * inv_det,
-            (
-                  mat[0][0] * mat[2][2]
-                - mat[0][2] * mat[2][0]
-            ) * inv_det,
-            (
-                  mat[0][2] * mat[1][0]
-                - mat[0][0] * mat[1][2]
-            ) * inv_det
-        ],
-        [
-            (
-                  mat[1][0] * mat[2][1]
-                - mat[1][1] * mat[2][0]
-            ) * inv_det,
-            (
-                  mat[0][1] * mat[2][0]
-                - mat[0][0] * mat[2][1]
-            ) * inv_det,
-            (
-                  mat[0][0] * mat[1][1]
-                - mat[0][1] * mat[1][0]
             ) * inv_det
         ]
     ]
