@@ -63,6 +63,20 @@ pub type Matrix4<T> = [[T, ..4], ..4];
 
 /// Computes row vector in matrix product by row.
 #[inline(always)]
+pub fn row_mat2x3_mul_row<T: Num + Copy>(
+    a: Matrix2x3<T>, 
+    b: Matrix2x3<T>,
+    i: uint
+) -> Vector3<T> {
+    [
+        vec3_dot_vec2(a[i], row_mat2x3_col(b, 0)),
+        vec3_dot_vec2(a[i], row_mat2x3_col(b, 1)),
+        vec3_dot_pos2(a[i], row_mat2x3_col(b, 3))
+    ]
+}
+
+/// Computes row vector in matrix product by row.
+#[inline(always)]
 pub fn row_mat3x4_mul_row<T: Num + Copy>(
     a: Matrix3x4<T>, 
     b: Matrix3x4<T>,
