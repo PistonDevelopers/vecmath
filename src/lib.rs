@@ -662,6 +662,12 @@ pub fn vec3_square_len<T: Num>(a: Vector3<T>) -> T {
     a[0] * a[0] + a[1] * a[1] + a[2] * a[2]
 }
 
+/// Computes the square length of a vector.
+#[inline(always)]
+pub fn vec4_square_len<T: Num>(a: Vector4<T>) -> T {
+    a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3]
+}
+
 /// Computes the cross product.
 #[inline(always)]
 pub fn vec2_cross<T: Num>(a: Vector2<T>, b: Vector2<T>) -> T {
