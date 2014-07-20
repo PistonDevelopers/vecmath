@@ -69,9 +69,10 @@ Create a new file 'vecmath.rs' in your 'src/' directory.
 Open 'vecmath.rs' in a text editor and type:
 
 ```Rust
-pub type Matrix2d = vecmath_lib::Matrix2x3<f64>;
 
 pub use multiply = vecmath_lib::row_mat2x3_mul;
+
+pub type Matrix2d = vecmath_lib::Matrix2x3<f64>;
 
 // etc.
 ```
