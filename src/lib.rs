@@ -644,6 +644,12 @@ pub fn vec3_dot<T: Num>(a: Vector3<T>, b: Vector3<T>) -> T {
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 }
 
+/// Computes the dot product.
+#[inline(always)]
+pub fn vec4_dot<T: Num>(a: Vector4<T>, b: Vector4<T>) -> T {
+    a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3]
+}
+
 /// Computes the square length of a vector.
 #[inline(always)]
 pub fn vec2_square_len<T: Num>(a: Vector2<T>) -> T {
