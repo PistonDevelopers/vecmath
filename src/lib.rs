@@ -726,6 +726,12 @@ pub fn vec3_len<T: Float>(a: Vector3<T>) -> T {
     vec3_square_len(a).sqrt()
 }
 
+/// Computes the length of vector.
+#[inline(always)]
+pub fn vec4_len<T: Float>(a: Vector4<T>) -> T {
+    vec4_square_len(a).sqrt()
+}
+
 /// Computes the inverse length of a vector.
 #[inline(always)]
 pub fn vec2_inv_len<T: Float>(a: Vector2<T>) -> T {
@@ -738,6 +744,13 @@ pub fn vec2_inv_len<T: Float>(a: Vector2<T>) -> T {
 pub fn vec3_inv_len<T: Float>(a: Vector3<T>) -> T {
     let one: T = One::one();
     one / vec3_len(a)
+}
+
+/// Computes the inverse length of a vector.
+#[inline(always)]
+pub fn vec4_inv_len<T: Float>(a: Vector4<T>) -> T {
+    let one: T = One::one();
+    one / vec4_len(a)
 }
 
 /// Computes the normalized.
