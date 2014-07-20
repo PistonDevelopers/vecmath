@@ -92,7 +92,22 @@ pub fn row_mat3x4_mul_row<T: Num + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn row_mat3x4_mul<T: Num + Copy>(a: Matrix3x4<T>, b: Matrix3x4<T>) -> Matrix3x4<T> {
+pub fn row_mat2x3_mul<T: Num + Copy>(
+    a: Matrix2x3<T>, 
+    b: Matrix2x3<T>
+) -> Matrix2x3<T> {
+    [
+        row_mat2x3_mul_row(a, b, 0),
+        row_mat2x3_mul_row(a, b, 1),
+    ]
+}
+
+/// Multiplies two matrices.
+#[inline(always)]
+pub fn row_mat3x4_mul<T: Num + Copy>(
+    a: Matrix3x4<T>, 
+    b: Matrix3x4<T>
+) -> Matrix3x4<T> {
     [
         row_mat3x4_mul_row(a, b, 0),
         row_mat3x4_mul_row(a, b, 1),
