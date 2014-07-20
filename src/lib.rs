@@ -104,10 +104,7 @@ pub fn row_mat2x3_mul<T: Num + Copy>(
 
 #[test]
 fn test_row_mat2x3_mul() {
-    let a = [
-        [1.0f64, 0.0, 0.0],
-        [0.0, 1.0, 0.0]
-    ];
+    let a: Matrix2x3<f64> = mat2x3_id();
     let b = a;
     let _ = row_mat2x3_mul(a, b);
 }
