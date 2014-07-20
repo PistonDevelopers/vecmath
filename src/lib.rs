@@ -703,6 +703,17 @@ pub fn vec3_scale<T: Num>(a: Vector3<T>, b: T) -> Vector3<T> {
     ]
 }
 
+/// Multiplies the vector with a scalar.
+#[inline(always)]
+pub fn vec4_scale<T: Num>(a: Vector4<T>, b: T) -> Vector4<T> {
+    [
+        a[0] * b,
+        a[1] * b,
+        a[2] * b,
+        a[3] * b
+    ]
+}
+
 /// Computes the length of vector.
 #[inline(always)]
 pub fn vec2_len<T: Float>(a: Vector2<T>) -> T {
