@@ -145,6 +145,18 @@ pub fn mat3x2_id<T: One + Zero + Copy>() -> Matrix3x2<T> {
     ]
 }
 
+/// Constructs identity matrix.
+#[inline(always)]
+pub fn mat3_id<T: One + Zero + Copy>() -> Matrix3<T> {
+    let one = One::one();
+    let zero = Zero::zero();
+    [
+        [one, zero, zero],
+        [zero, one, zero],
+        [zero, zero, one]
+    ]
+}
+
 /// Converts to a f32 vector.
 #[inline(always)]
 pub fn vec2_to_f32<T: ToPrimitive>(a: Vector2<T>) -> Option<Vector2<f32>> {
