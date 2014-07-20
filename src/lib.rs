@@ -1155,6 +1155,13 @@ pub fn mat3x2_inv_det<T: Num>(mat: Matrix3x2<T>) -> T {
     one / mat3x2_det(mat)
 }
 
+/// Computes inverse determinant of a 3x3 matrix.
+#[inline(always)]
+pub fn mat3_inv_det<T: Num>(mat: Matrix3<T>) -> T {
+    let one: T = One::one();
+    one / mat3_det(mat)
+}
+
 /// Computes inverse determinant of a 3x4 matrix.
 #[inline(always)]
 pub fn mat3x4_inv_det<T: Num>(mat: Matrix3x4<T>) -> T {
