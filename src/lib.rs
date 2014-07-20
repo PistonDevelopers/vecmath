@@ -71,7 +71,7 @@ pub fn row_mat2x3_mul_row<T: Num + Copy>(
     [
         vec3_dot_vec2(a[i], row_mat2x3_col(b, 0)),
         vec3_dot_vec2(a[i], row_mat2x3_col(b, 1)),
-        vec3_dot_pos2(a[i], row_mat2x3_col(b, 3))
+        vec3_dot_pos2(a[i], row_mat2x3_col(b, 2))
     ]
 }
 
@@ -100,6 +100,16 @@ pub fn row_mat2x3_mul<T: Num + Copy>(
         row_mat2x3_mul_row(a, b, 0),
         row_mat2x3_mul_row(a, b, 1),
     ]
+}
+
+#[test]
+fn test_row_mat2x3_mul() {
+    let a = [
+        [1.0f64, 0.0, 0.0],
+        [0.0, 1.0, 0.0]
+    ];
+    let b = a;
+    let _ = row_mat2x3_mul(a, b);
 }
 
 /// Multiplies two matrices.
@@ -838,7 +848,7 @@ pub fn vec4_normalized_sub<T: Float>(
 /// This is used when transforming vectors through matrices.
 #[inline(always)]
 pub fn vec3_dot_vec2<T: Num>(a: Vector3<T>, b: Vector2<T>) -> T {
-    a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+    a[0] * b[0] + a[1] * b[1]
 }
 
 /// Computes transformed vector component.
@@ -854,7 +864,7 @@ pub fn vec4_dot_vec3<T: Num>(a: Vector4<T>, b: Vector3<T>) -> T {
 /// This is used when transforming points through matrices.
 #[inline(always)]
 pub fn vec3_dot_pos2<T: Num + Copy>(a: Vector3<T>, b: Vector2<T>) -> T {
-    vec3_dot_vec2(a, b) + a[3]
+    vec3_dot_vec2(a, b) + a[2]
 }
 
 /// Computes transformed position component.
