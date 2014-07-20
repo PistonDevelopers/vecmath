@@ -1279,6 +1279,83 @@ pub fn mat3x4_inv<T: Num + Copy>(mat: Matrix3x4<T>) -> Matrix3x4<T> {
         ]
     ]
 }
+
+/// Computes the inverse of a 4x3 matrix.
+pub fn mat4x3_inv<T: Num + Copy>(mat: Matrix4x3<T>) -> Matrix4x3<T> {
+    let inv_det = mat4x3_inv_det(mat);
+
+    [
+        [   (
+                  mat[1][1] * mat[2][2]
+                - mat[1][2] * mat[2][1]
+            ) * inv_det,
+            (
+                  mat[0][2] * mat[2][1]
+                - mat[0][1] * mat[2][2]
+            ) * inv_det,
+            (
+                  mat[0][1] * mat[1][2]
+                - mat[0][2] * mat[1][1]
+            ) * inv_det
+        ],
+        [
+            (
+                  mat[1][2] * mat[2][0]
+                - mat[1][0] * mat[2][2]
+            ) * inv_det,
+            (
+                  mat[0][0] * mat[2][2]
+                - mat[0][2] * mat[2][0]
+            ) * inv_det,
+            (
+                  mat[0][2] * mat[1][0]
+                - mat[0][0] * mat[1][2]
+            ) * inv_det
+        ],
+        [
+            (
+                  mat[1][0] * mat[2][1]
+                - mat[1][1] * mat[2][0]
+            ) * inv_det,
+            (
+                  mat[0][1] * mat[2][0]
+                - mat[0][0] * mat[2][1]
+            ) * inv_det,
+            (
+                  mat[0][0] * mat[1][1]
+                - mat[0][1] * mat[1][0]
+            ) * inv_det
+        ],
+        [
+            (
+                mat[1][0] * mat[2][2] * mat[3][1]
+                + mat[1][1] * mat[2][0] * mat[3][2]
+                + mat[1][2] * mat[2][1] * mat[3][0]
+                - mat[1][0] * mat[2][1] * mat[3][2]
+                - mat[1][1] * mat[2][2] * mat[3][0]
+                - mat[1][2] * mat[2][0] * mat[3][1]
+            ) * inv_det,
+            (
+                mat[0][0] * mat[2][1] * mat[3][2]
+                + mat[0][1] * mat[2][2] * mat[3][0]
+                + mat[0][2] * mat[2][0] * mat[3][1]
+                - mat[0][0] * mat[2][2] * mat[3][1]
+                - mat[0][1] * mat[2][0] * mat[3][2]
+                - mat[0][2] * mat[2][1] * mat[3][0]
+            ) * inv_det,
+            (
+                mat[0][0] * mat[1][2] * mat[3][1]
+                + mat[0][1] * mat[1][0] * mat[3][2]
+                + mat[0][2] * mat[1][1] * mat[3][0]
+                - mat[0][0] * mat[1][1] * mat[3][2]
+                - mat[0][1] * mat[1][2] * mat[3][0]
+                - mat[0][2] * mat[1][0] * mat[3][1]
+            ) * inv_det
+        ]
+    ]
+}
+
+
 /// Computes the inverse of a 4x4 matrix.
 pub fn mat4_inv<T: Num + Copy>(mat: Matrix4<T>) -> Matrix4<T> {
     let inv_det = mat4_inv_det(mat);
