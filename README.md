@@ -58,7 +58,7 @@ Add the following to 'lib.rs':
 ```Rust
 #![feature(globs)]
 
-exter crate vecmath;
+extern crate vecmath;
 
 mod vecmath; // Use 'pub mod' if you want it to be visible outside library.
 ```
