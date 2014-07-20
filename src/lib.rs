@@ -765,6 +765,12 @@ pub fn vec3_normalized<T: Float>(a: Vector3<T>) -> Vector3<T> {
     vec3_scale(a, vec3_inv_len(a))
 }
 
+/// Computes the normalized.
+#[inline(always)]
+pub fn vec4_normalized<T: Float>(a: Vector4<T>) -> Vector4<T> {
+    vec4_scale(a, vec4_inv_len(a))
+}
+
 /// Computes the normalized difference between two vectors.
 ///
 /// This is often used to get direction from 'b' to 'a'.
