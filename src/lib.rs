@@ -1077,6 +1077,16 @@ pub fn mat3x2_det<T: Num>(mat: Matrix3x2<T>) -> T {
 }
 
 /// Computes the determinant of a matrix.
+pub fn mat3_det<T: Num>(mat: Matrix3<T>) -> T {
+      mat[0][0] * mat[1][1] * mat[2][2]
+    + mat[0][1] * mat[1][2] * mat[2][0]
+    + mat[0][2] * mat[1][0] * mat[2][1]
+    - mat[0][0] * mat[1][2] * mat[2][1]
+    - mat[0][1] * mat[1][0] * mat[2][2]
+    - mat[0][2] * mat[1][1] * mat[2][0]
+}
+
+/// Computes the determinant of a matrix.
 pub fn mat3x4_det<T: Num>(mat: Matrix3x4<T>) -> T {
       mat[0][0] * mat[1][1] * mat[2][2]
     + mat[0][1] * mat[1][2] * mat[2][0]
