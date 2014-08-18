@@ -129,12 +129,11 @@ pub fn row_mat3_mul_row<T: Num + Copy>(
     a: Matrix3<T>, 
     b: Matrix3<T>,
     i: uint
-) -> Vector4<T> {
+) -> Vector3<T> {
     [
         vec3_dot(a[i], row_mat3_col(b, 0)),
         vec3_dot(a[i], row_mat3_col(b, 1)),
         vec3_dot(a[i], row_mat3_col(b, 2)),
-        vec3_dot(a[i], row_mat3_col(b, 3))
     ]
 }
 
@@ -204,6 +203,19 @@ pub fn row_mat2x3_mul<T: Num + Copy>(
     [
         row_mat2x3_mul_row(a, b, 0),
         row_mat2x3_mul_row(a, b, 1),
+    ]
+}
+
+/// Multiplies two matrices.
+#[inline(always)]
+pub fn row_mat3_mul<T: Num + Copy>(
+    a: Matrix3<T>,
+    b: Matrix3<T>
+) -> Matrix3<T> {
+    [
+        row_mat3_mul_row(a, b, 0),
+        row_mat3_mul_row(a, b, 1),
+        row_mat3_mul_row(a, b, 2)
     ]
 }
 
