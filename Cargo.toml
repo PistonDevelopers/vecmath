@@ -4,7 +4,7 @@ name = "vecmath"
 version = "0.0.0"
 authors = ["bvssvni <bvssvni@gmail.com>"]
 
-[[lib]]
+[lib]
 
 name = "vecmath"
 path = "src/lib.rs"
