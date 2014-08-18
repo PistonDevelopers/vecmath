@@ -80,6 +80,22 @@ pub fn col_mat3x2_mul_col<T: Num + Copy>(
 ///
 /// The semantics of the order is the same as for row matrices.
 #[inline(always)]
+pub fn col_mat3_mul_col<T: Num + Copy>(
+    a: Matrix3<T>,
+    b: Matrix3<T>,
+    i: uint
+) -> Vector3<T> {
+    [
+        vec3_dot(col_mat3_row(a, 0), b[i]),
+        vec3_dot(col_mat3_row(a, 1), b[i]),
+        vec3_dot(col_mat3_row(a, 2), b[i])
+    ]
+}
+
+/// Computes column vector in column matrix product.
+///
+/// The semantics of the order is the same as for row matrices.
+#[inline(always)]
 pub fn col_mat4x3_mul_col<T: Num + Copy>(
     a: Matrix4x3<T>,
     b: Matrix4x3<T>,
@@ -177,6 +193,19 @@ pub fn col_mat3x2_mul<T: Num + Copy>(
         col_mat3x2_mul_col(a, b, 0),
         col_mat3x2_mul_col(a, b, 1),
         col_mat3x2_mul_col(a, b, 2)
+    ]
+}
+
+/// Multiplies two matrices.
+#[inline(always)]
+pub fn col_mat3_mul<T: Num + Copy>(
+    a: Matrix3<T>,
+    b: Matrix3<T>
+) -> Matrix3<T> {
+    [
+        col_mat3_mul_col(a, b, 0),
+        col_mat3_mul_col(a, b, 1),
+        col_mat3_mul_col(a, b, 2)
     ]
 }
 
