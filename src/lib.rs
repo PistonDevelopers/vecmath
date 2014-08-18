@@ -261,6 +261,20 @@ pub fn row_mat3x4_mul<T: Num + Copy>(
     ]
 }
 
+/// Multiplies two matrices.
+#[inline(always)]
+pub fn row_mat4_mul<T: Num + Copy>(
+    a: Matrix4<T>,
+    b: Matrix4<T>
+) -> Matrix4<T> {
+    [
+        row_mat4_mul_row(a, b, 0),
+        row_mat4_mul_row(a, b, 1),
+        row_mat4_mul_row(a, b, 2),
+        row_mat4_mul_row(a, b, 3)
+    ]
+}
+
 #[test]
 fn test_row_mat2x3_mul() {
     let a: Matrix2x3<f64> = mat2x3_id();
