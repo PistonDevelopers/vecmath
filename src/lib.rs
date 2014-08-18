@@ -92,6 +92,23 @@ pub fn col_mat4x3_mul_col<T: Num + Copy>(
     ]
 }
 
+/// Computes column vector in column matrix product.
+///
+/// The semantics of the order is the same as for row matrices.
+#[inline(always)]
+pub fn col_mat4_mul_col<T: Num + Copy>(
+    a: Matrix4<T>, 
+    b: Matrix4<T>,
+    i: uint
+) -> Vector4<T> {
+    [
+        vec4_dot(col_mat4_row(a, 0), b[i]),
+        vec4_dot(col_mat4_row(a, 1), b[i]),
+        vec4_dot(col_mat4_row(a, 2), b[i]),
+        vec4_dot(col_mat4_row(a, 3), b[i])
+    ]
+}
+
 /// Computes row vector in row matrix product.
 #[inline(always)]
 pub fn row_mat2x3_mul_row<T: Num + Copy>(
