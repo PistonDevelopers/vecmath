@@ -61,7 +61,9 @@ pub type Matrix4x3<T> = [[T, ..3], ..4];
 /// To multiply two matrices use `row_mat4_mul` or `col_mat4_mul`.
 pub type Matrix4<T> = [[T, ..4], ..4];
 
-/// Computes column vector in matrix product by column.
+/// Computes column vector in column matrix product.
+///
+/// The semantics of the order is the same as for row matrices.
 #[inline(always)]
 pub fn col_mat3x2_mul_col<T: Num + Copy>(
     a: Matrix3x2<T>,
@@ -74,7 +76,7 @@ pub fn col_mat3x2_mul_col<T: Num + Copy>(
     ]
 }
 
-/// Computes row vector in matrix product by row.
+/// Computes row vector in row matrix product.
 #[inline(always)]
 pub fn row_mat2x3_mul_row<T: Num + Copy>(
     a: Matrix2x3<T>, 
@@ -88,7 +90,7 @@ pub fn row_mat2x3_mul_row<T: Num + Copy>(
     ]
 }
 
-/// Computes row vector in matrix product by row.
+/// Computes row vector in row matrix product.
 #[inline(always)]
 pub fn row_mat3_mul_row<T: Num + Copy>(
     a: Matrix3<T>, 
@@ -103,7 +105,7 @@ pub fn row_mat3_mul_row<T: Num + Copy>(
     ]
 }
 
-/// Computes row vector in matrix product by row.
+/// Computes row vector in row matrix product.
 #[inline(always)]
 pub fn row_mat3x4_mul_row<T: Num + Copy>(
     a: Matrix3x4<T>, 
