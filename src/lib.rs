@@ -372,7 +372,7 @@ pub fn mat4_id<T: One + Zero + Copy>() -> Matrix4<T> {
         [one, zero, zero, zero],
         [zero, one, zero, zero],
         [zero, zero, one, zero],
-        [zero, zero, zero, zero]
+        [zero, zero, zero, one]
     ]
 }
 
