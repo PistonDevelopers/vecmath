@@ -136,6 +136,21 @@ pub fn row_mat3x4_mul_row<T: Num + Copy>(
     ]
 }
 
+/// Computes row vector in row matrix product.
+#[inline(always)]
+pub fn row_mat4_mul_row<T: Num + Copy>(
+    a: Matrix4<T>, 
+    b: Matrix4<T>,
+    i: uint
+) -> Vector4<T> {
+    [
+        vec4_dot(a[i], row_mat4_col(b, 0)),
+        vec4_dot(a[i], row_mat4_col(b, 1)),
+        vec4_dot(a[i], row_mat4_col(b, 2)),
+        vec4_dot(a[i], row_mat4_col(b, 3))
+    ]
+}
+
 /// Multiplies two matrices.
 #[inline(always)]
 pub fn row_mat2x3_mul<T: Num + Copy>(
