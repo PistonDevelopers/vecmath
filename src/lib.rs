@@ -183,6 +183,20 @@ pub fn col_mat3x2_mul<T: Num + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
+pub fn col_mat4x3_mul<T: Num + Copy>(
+    a: Matrix4x3<T>,
+    b: Matrix4x3<T>
+) -> Matrix4x3<T> {
+    [
+        col_mat4x3_mul_col(a, b, 0),
+        col_mat4x3_mul_col(a, b, 1),
+        col_mat4x3_mul_col(a, b, 2),
+        col_mat4x3_mul_col(a, b, 3)
+    ]
+}
+
+/// Multiplies two matrices.
+#[inline(always)]
 pub fn row_mat2x3_mul<T: Num + Copy>(
     a: Matrix2x3<T>, 
     b: Matrix2x3<T>
