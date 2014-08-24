@@ -1333,6 +1333,20 @@ pub fn col_mat4x3_transform_pos3<T: Num + Copy>(
     ]
 }
 
+/// Transforms a 4D position through a matrix.
+#[inline(always)]
+pub fn col_mat4_transform<T: Num + Copy>(
+    mat: Matrix4<T>,
+    a: Vector4<T>
+) -> Vector4<T> {
+    [
+        vec4_dot(col_mat4_row(mat, 0), a),
+        vec4_dot(col_mat4_row(mat, 1), a),
+        vec4_dot(col_mat4_row(mat, 2), a),
+        vec4_dot(col_mat4_row(mat, 3), a)
+    ]
+}
+
 /// Transforms a 2D vector through matrix.
 #[inline(always)]
 pub fn row_mat2x3_transform_vec2<T: Num + Copy>(
