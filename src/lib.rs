@@ -1259,6 +1259,19 @@ pub fn mat4_transposed<T: Copy>(a: Matrix4<T>) -> Matrix4<T> {
     ]
 }
 
+/// Transforms a 3D vector through a matrix.
+#[inline(always)]
+pub fn col_mat3_transform<T: Num + Copy>(
+    mat: Matrix3<T>,
+    a: Vector3<T>
+) -> Vector3<T> {
+    [
+        vec3_dot(col_mat3_row(mat, 0), a),
+        vec3_dot(col_mat3_row(mat, 1), a),
+        vec3_dot(col_mat3_row(mat, 2), a)
+    ]
+}
+
 /// Transforms a 4D vector through a matrix.
 #[inline(always)]
 pub fn col_mat4_transform<T: Num + Copy>(
