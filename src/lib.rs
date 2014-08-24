@@ -1259,6 +1259,34 @@ pub fn mat4_transposed<T: Copy>(a: Matrix4<T>) -> Matrix4<T> {
     ]
 }
 
+/// Transforms a 4D vector through a matrix.
+#[inline(always)]
+pub fn col_mat4_transform<T: Num + Copy>(
+    mat: Matrix4<T>,
+    a: Vector4<T>
+) -> Vector4<T> {
+    [
+        vec4_dot(col_mat4_row(mat, 0), a),
+        vec4_dot(col_mat4_row(mat, 1), a),
+        vec4_dot(col_mat4_row(mat, 2), a),
+        vec4_dot(col_mat4_row(mat, 3), a)
+    ]
+}
+
+/// Transforms a 4D vector through a matrix.
+#[inline(always)]
+pub fn row_mat4_transform<T: Num + Copy>(
+    mat: Matrix4<T>,
+    a: Vector4<T>
+) -> Vector4<T> {
+    [
+        vec4_dot(mat[0], a),
+        vec4_dot(mat[1], a),
+        vec4_dot(mat[2], a),
+        vec4_dot(mat[3], a)
+    ]
+}
+
 /// Transforms a 2D position through matrix.
 #[inline(always)]
 pub fn row_mat2x3_transform_pos2<T: Num + Copy>(
@@ -1330,20 +1358,6 @@ pub fn col_mat4x3_transform_pos3<T: Num + Copy>(
         vec4_dot_pos3(col_mat4x3_row(mat, 0), a),
         vec4_dot_pos3(col_mat4x3_row(mat, 1), a),
         vec4_dot_pos3(col_mat4x3_row(mat, 2), a)
-    ]
-}
-
-/// Transforms a 4D position through a matrix.
-#[inline(always)]
-pub fn col_mat4_transform<T: Num + Copy>(
-    mat: Matrix4<T>,
-    a: Vector4<T>
-) -> Vector4<T> {
-    [
-        vec4_dot(col_mat4_row(mat, 0), a),
-        vec4_dot(col_mat4_row(mat, 1), a),
-        vec4_dot(col_mat4_row(mat, 2), a),
-        vec4_dot(col_mat4_row(mat, 3), a)
     ]
 }
 
