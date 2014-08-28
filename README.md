@@ -1,4 +1,4 @@
-# vecmath [![Build Status](https://travis-ci.org/PistonDevelopers/vecmath.svg)](https://travis-ci.org/PistonDevelopers/vecmath)
+# vecmath [![Build Status](https://travis-ci.org/PistonDevelopers/vecmath.svg?branch=master)](https://travis-ci.org/PistonDevelopers/vecmath)
 
 A simple and type agnostic Rust library for vector math designed for reexporting
 
