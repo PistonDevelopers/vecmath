@@ -376,6 +376,17 @@ pub fn mat4_id<T: One + Zero + Copy>() -> Matrix4<T> {
     ]
 }
 
+/// Converts to another vector type.
+#[inline(always)]
+pub fn vec2_cast<T: ToPrimitive + Copy, U: NumCast>(
+    a: Vector2<T>
+) -> Option<Vector2<U>> {
+    Some([
+        match NumCast::from(a[0]) { None => return None, Some(x) => x },
+        match NumCast::from(a[1]) { None => return None, Some(x) => x } 
+    ])
+}
+
 /// Converts to a f32 vector.
 #[inline(always)]
 pub fn vec2_to_f32<T: ToPrimitive>(a: Vector2<T>) -> Option<Vector2<f32>> {
