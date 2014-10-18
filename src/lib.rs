@@ -380,109 +380,109 @@ pub fn mat4_id<T: One + Zero + Copy>() -> Matrix4<T> {
 #[inline(always)]
 pub fn vec2_cast<T: ToPrimitive + Copy, U: NumCast>(
     a: Vector2<T>
-) -> Option<Vector2<U>> {
-    Some([
-        match NumCast::from(a[0]) { None => return None, Some(x) => x },
-        match NumCast::from(a[1]) { None => return None, Some(x) => x } 
-    ])
+) -> Vector2<U> {
+    [
+        NumCast::from(a[0]).unwrap(),
+        NumCast::from(a[1]).unwrap() 
+    ]
 }
 
 /// Converts to another vector type.
 #[inline(always)]
 pub fn vec3_cast<T: ToPrimitive + Copy, U: NumCast>(
     a: Vector3<T>
-) -> Option<Vector3<U>> {
-    Some([
-        match NumCast::from(a[0]) { None => return None, Some(x) => x },
-        match NumCast::from(a[1]) { None => return None, Some(x) => x }, 
-        match NumCast::from(a[2]) { None => return None, Some(x) => x }
-    ])
+) -> Vector3<U> {
+    [
+        NumCast::from(a[0]).unwrap(),
+        NumCast::from(a[1]).unwrap(), 
+        NumCast::from(a[2]).unwrap()
+    ]
 }
 
 /// Converts to another vector type.
 #[inline(always)]
 pub fn vec4_cast<T: ToPrimitive + Copy, U: NumCast>(
     a: Vector4<T>
-) -> Option<Vector4<U>> {
-    Some([
-        match NumCast::from(a[0]) { None => return None, Some(x) => x },
-        match NumCast::from(a[1]) { None => return None, Some(x) => x }, 
-        match NumCast::from(a[2]) { None => return None, Some(x) => x },
-        match NumCast::from(a[3]) { None => return None, Some(x) => x }
-    ])
+) -> Vector4<U> {
+    [
+        NumCast::from(a[0]).unwrap(),
+        NumCast::from(a[1]).unwrap(), 
+        NumCast::from(a[2]).unwrap(),
+        NumCast::from(a[3]).unwrap()
+    ]
 }
 
 /// Converts to another matrix type.
 #[inline(always)]
 pub fn mat2x3_cast<T: ToPrimitive + Copy, U: NumCast>(
     mat: Matrix2x3<T>
-) -> Option<Matrix2x3<U>> {
-    Some([
-        match vec3_cast(mat[0]) { None => return None, Some(x) => x },
-        match vec3_cast(mat[1]) { None => return None, Some(x) => x }
-    ])
+) -> Matrix2x3<U> {
+    [
+        vec3_cast(mat[0]),
+        vec3_cast(mat[1])
+    ]
 }
 
 /// Converts to another matrix type.
 #[inline(always)]
 pub fn mat3x2_cast<T: ToPrimitive + Copy, U: NumCast>(
     mat: Matrix3x2<T>
-) -> Option<Matrix3x2<U>> {
-    Some([
-        match vec2_cast(mat[0]) { None => return None, Some(x) => x },
-        match vec2_cast(mat[1]) { None => return None, Some(x) => x },
-        match vec2_cast(mat[2]) { None => return None, Some(x) => x }
-    ])
+) -> Matrix3x2<U> {
+    [
+        vec2_cast(mat[0]),
+        vec2_cast(mat[1]),
+        vec2_cast(mat[2])
+    ]
 }
 
 /// Converts to another matrix type.
 #[inline(always)]
 pub fn mat3_cast<T: ToPrimitive + Copy, U: NumCast>(
     mat: Matrix3<T>
-) -> Option<Matrix3<U>> {
-    Some([
-        match vec3_cast(mat[0]) { None => return None, Some(x) => x },
-        match vec3_cast(mat[1]) { None => return None, Some(x) => x },
-        match vec3_cast(mat[2]) { None => return None, Some(x) => x }
-    ])
+) -> Matrix3<U> {
+    [
+        vec3_cast(mat[0]),
+        vec3_cast(mat[1]),
+        vec3_cast(mat[2])
+    ]
 }
 
 /// Converts to another matrix type.
 #[inline(always)]
 pub fn mat3x4_cast<T: ToPrimitive + Copy, U: NumCast>(
     m: Matrix3x4<T>
-) -> Option<Matrix3x4<U>> {
-    Some([
-        match vec4_cast(m[0]) { None => return None, Some(x) => x },
-        match vec4_cast(m[1]) { None => return None, Some(x) => x },
-        match vec4_cast(m[2]) { None => return None, Some(x) => x }
-    ])
+) -> Matrix3x4<U> {
+    [
+        vec4_cast(m[0]),
+        vec4_cast(m[1]),
+        vec4_cast(m[2])
+    ]
 }
 
 /// Converts to another matrix type.
 #[inline(always)]
 pub fn mat4x3_cast<T: ToPrimitive + Copy, U: NumCast>(
     m: Matrix4x3<T>
-) -> Option<Matrix4x3<U>> {
-    Some([
-        match vec3_cast(m[0]) { None => return None, Some(x) => x },
-        match vec3_cast(m[1]) { None => return None, Some(x) => x },
-        match vec3_cast(m[2]) { None => return None, Some(x) => x },
-        match vec3_cast(m[3]) { None => return None, Some(x) => x }
-    ])
+) -> Matrix4x3<U> {
+    [
+        vec3_cast(m[0]),
+        vec3_cast(m[1]),
+        vec3_cast(m[2]),
+        vec3_cast(m[3])
+    ]
 }
 
 /// Converts to another matrix type.
 #[inline(always)]
 pub fn mat4_cast<T: ToPrimitive + Copy, U: NumCast>(
     m: Matrix4<T>
-) -> Option<Matrix4<U>> {
-    Some([
-        match vec4_cast(m[0]) { None => return None, Some(x) => x },
-        match vec4_cast(m[1]) { None => return None, Some(x) => x },
-        match vec4_cast(m[2]) { None => return None, Some(x) => x },
-        match vec4_cast(m[3]) { None => return None, Some(x) => x }
-    ])
+) -> Matrix4<U> {
+    [
+        vec4_cast(m[0]),
+        vec4_cast(m[1]),
+        vec4_cast(m[2]),
+        vec4_cast(m[3])
+    ]
 }
 
 /// Converts to a f32 vector.
