@@ -399,6 +399,19 @@ pub fn vec3_cast<T: ToPrimitive + Copy, U: NumCast>(
     ])
 }
 
+/// Converts to another vector type.
+#[inline(always)]
+pub fn vec4_cast<T: ToPrimitive + Copy, U: NumCast>(
+    a: Vector4<T>
+) -> Option<Vector4<U>> {
+    Some([
+        match NumCast::from(a[0]) { None => return None, Some(x) => x },
+        match NumCast::from(a[1]) { None => return None, Some(x) => x }, 
+        match NumCast::from(a[2]) { None => return None, Some(x) => x },
+        match NumCast::from(a[3]) { None => return None, Some(x) => x }
+    ])
+}
+
 /// Converts to a f32 vector.
 #[inline(always)]
 pub fn vec2_to_f32<T: ToPrimitive>(a: Vector2<T>) -> Option<Vector2<f32>> {
