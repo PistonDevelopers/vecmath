@@ -1106,7 +1106,7 @@ pub fn vec4_square_len<T: Num>(a: Vector4<T>) -> T {
 /// Computes the cross product.
 #[inline(always)]
 pub fn vec2_cross<T: Num>(a: Vector2<T>, b: Vector2<T>) -> T {
-    a[1] * b[2] - a[2] * b[1]
+    a[0] * b[1] - a[1] * b[0]
 }
 
 /// Computes the cross product.
