@@ -1037,6 +1037,12 @@ pub fn vec2_mul<T: Num>(a: Vector2<T>, b: Vector2<T>) -> Vector2<T> {
     [a[0] * b[0], a[1] * b[1]]
 }
 
+/// Multiplies two vectors component wise.
+#[inline(always)]
+pub fn vec3_mul<T: Num>(a: Vector3<T>, b: Vector3<T>) -> Vector3<T> {
+    [a[0] * b[0], a[1] * b[1], a[2] * b[2]]
+}
+
 /// Computes the dot product.
 #[inline(always)]
 pub fn vec2_dot<T: Num>(a: Vector2<T>, b: Vector2<T>) -> T {
