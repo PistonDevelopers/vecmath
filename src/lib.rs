@@ -1031,6 +1031,12 @@ pub fn mat4_add<T: Num + Copy>(a: Matrix4<T>, b: Matrix4<T>) -> Matrix4<T> {
     ]
 }
 
+/// Multiplies two vectors component wise.
+#[inline(always)]
+pub fn vec2_mul<T: Num>(a: Vector2<T>, b: Vector2<T>) -> Vector2<T> {
+    [a[0] * b[0], a[1] * b[1]]
+}
+
 /// Computes the dot product.
 #[inline(always)]
 pub fn vec2_dot<T: Num>(a: Vector2<T>, b: Vector2<T>) -> T {
