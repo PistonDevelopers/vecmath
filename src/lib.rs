@@ -435,6 +435,18 @@ pub fn mat3x2_cast<T: ToPrimitive + Copy, U: NumCast>(
     ])
 }
 
+/// Converts to a another matrix type.
+#[inline(always)]
+pub fn mat3_cast<T: ToPrimitive + Copy, U: NumCast>(
+    mat: Matrix3<T>
+) -> Option<Matrix3<U>> {
+    Some([
+        match vec3_cast(mat[0]) { None => return None, Some(x) => x },
+        match vec3_cast(mat[1]) { None => return None, Some(x) => x },
+        match vec3_cast(mat[2]) { None => return None, Some(x) => x }
+    ])
+}
+
 /// Converts to a f32 vector.
 #[inline(always)]
 pub fn vec2_to_f32<T: ToPrimitive>(a: Vector2<T>) -> Option<Vector2<f32>> {
