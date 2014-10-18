@@ -1043,6 +1043,12 @@ pub fn vec3_mul_scalar<T: Num>(a: Vector3<T>, b: T) -> Vector3<T> {
     [a[0] * b, a[1] * b, a[2] * b]
 }
 
+/// Multiplies vector with scalar.
+#[inline(always)]
+pub fn vec4_mul_scalar<T: Num>(a: Vector4<T>, b: T) -> Vector4<T> {
+    [a[0] * b, a[1] * b, a[2] * b, a[3] * b]
+}
+
 /// Multiplies two vectors component wise.
 #[inline(always)]
 pub fn vec2_mul<T: Num>(a: Vector2<T>, b: Vector2<T>) -> Vector2<T> {
