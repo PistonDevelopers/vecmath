@@ -1,5 +1,5 @@
 #![crate_name = "vecmath"]
-#![deny(missing_doc)]
+#![deny(missing_docs)]
 
 //! A simple and generic library for vector math.
 //!
