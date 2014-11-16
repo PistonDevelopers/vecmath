@@ -2,6 +2,8 @@
 
 A simple and type agnostic Rust library for vector math designed for reexporting
 
+[How to contribute](https://github.com/PistonDevelopers/piston/blob/master/CONTRIBUTING.md)
+
 ## Motivation
 
 It is hard to agree on the "the best" way of designing a linear algebra or game math library.  
