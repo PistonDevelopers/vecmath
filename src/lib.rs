@@ -20,6 +20,8 @@
 
 use std::num::{Float, NumCast};
 
+pub mod consts;
+
 /// A 2D vector.
 pub type Vector2<T> = [T, ..2];
 
