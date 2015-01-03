@@ -18,50 +18,50 @@
 //! For example, `row_mat2x3_transform_pos2` transforms a position.
 //! `row_mat2x3_transform_vec2` transforms a vector.
 
-use std::num::{Float, NumCast};
+use std::num::{Float, NumCast, ToPrimitive};
 
 pub mod consts;
 
 /// A 2D vector.
-pub type Vector2<T> = [T, ..2];
+pub type Vector2<T> = [T; 2];
 
 /// A 3D vector.
-pub type Vector3<T> = [T, ..3];
+pub type Vector3<T> = [T; 3];
 
 /// A 4D vector.
-pub type Vector4<T> = [T, ..4];
+pub type Vector4<T> = [T; 4];
 
 /// A 2x3 matrix.
 ///
 /// To multiply two matrices use `row_mat2x3_mul`.
-pub type Matrix2x3<T> = [[T, ..3], ..2];
+pub type Matrix2x3<T> = [[T; 3]; 2];
 
 /// A 3x2 matrix.
 ///
 /// To multiply two matrices use `col_mat3x2_mul`.
-pub type Matrix3x2<T> = [[T, ..2], ..3];
+pub type Matrix3x2<T> = [[T; 2]; 3];
 
 /// A 3x3 matrix.
 ///
 /// To multiply two matrices use `row_mat3_mul` or `col_mat3_mul`.
-pub type Matrix3<T> = [[T, ..3], ..3];
+pub type Matrix3<T> = [[T; 3]; 3];
 
 /// A 3x4 matrix.
 ///
 /// To multiply two matrices use `row_mat3x4_mul`.
-pub type Matrix3x4<T> = [[T, ..4], ..3];
+pub type Matrix3x4<T> = [[T; 4]; 3];
 
 /// A 4x3 matrix.
 ///
 /// To multiply two matrices use `col_mat4x3_mul`.
 ///
 /// This format can also store vertices of a quad.
-pub type Matrix4x3<T> = [[T, ..3], ..4];
+pub type Matrix4x3<T> = [[T; 3]; 4];
 
 /// A 4x4 matrix.
 ///
 /// To multiply two matrices use `row_mat4_mul` or `col_mat4_mul`.
-pub type Matrix4<T> = [[T, ..4], ..4];
+pub type Matrix4<T> = [[T; 4]; 4];
 
 /// Computes column vector in column matrix product.
 ///
