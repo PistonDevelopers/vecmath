@@ -1,5 +1,6 @@
 #![crate_name = "vecmath"]
 #![deny(missing_docs)]
+#![allow(unstable)]
 
 //! A simple and generic library for vector math.
 //!
@@ -70,7 +71,7 @@ pub type Matrix4<T> = [[T; 4]; 4];
 pub fn col_mat3x2_mul_col<T: Float + Copy>(
     a: Matrix3x2<T>,
     b: Matrix3x2<T>,
-    i: uint
+    i: usize
 ) -> Vector2<T> {
     [
         vec3_dot_vec2(col_mat3x2_row(a, 0), b[i]),
@@ -85,7 +86,7 @@ pub fn col_mat3x2_mul_col<T: Float + Copy>(
 pub fn col_mat3_mul_col<T: Float + Copy>(
     a: Matrix3<T>,
     b: Matrix3<T>,
-    i: uint
+    i: usize
 ) -> Vector3<T> {
     [
         vec3_dot(col_mat3_row(a, 0), b[i]),
@@ -101,7 +102,7 @@ pub fn col_mat3_mul_col<T: Float + Copy>(
 pub fn col_mat4x3_mul_col<T: Float + Copy>(
     a: Matrix4x3<T>,
     b: Matrix4x3<T>,
-    i: uint
+    i: usize
 ) -> Vector3<T> {
     [
         vec4_dot_vec3(col_mat4x3_row(a, 0), b[i]),
@@ -117,7 +118,7 @@ pub fn col_mat4x3_mul_col<T: Float + Copy>(
 pub fn col_mat4_mul_col<T: Float + Copy>(
     a: Matrix4<T>, 
     b: Matrix4<T>,
-    i: uint
+    i: usize
 ) -> Vector4<T> {
     [
         vec4_dot(col_mat4_row(a, 0), b[i]),
@@ -132,7 +133,7 @@ pub fn col_mat4_mul_col<T: Float + Copy>(
 pub fn row_mat2x3_mul_row<T: Float + Copy>(
     a: Matrix2x3<T>, 
     b: Matrix2x3<T>,
-    i: uint
+    i: usize
 ) -> Vector3<T> {
     [
         vec3_dot_vec2(a[i], row_mat2x3_col(b, 0)),
@@ -146,7 +147,7 @@ pub fn row_mat2x3_mul_row<T: Float + Copy>(
 pub fn row_mat3_mul_row<T: Float + Copy>(
     a: Matrix3<T>, 
     b: Matrix3<T>,
-    i: uint
+    i: usize
 ) -> Vector3<T> {
     [
         vec3_dot(a[i], row_mat3_col(b, 0)),
@@ -160,7 +161,7 @@ pub fn row_mat3_mul_row<T: Float + Copy>(
 pub fn row_mat3x4_mul_row<T: Float + Copy>(
     a: Matrix3x4<T>, 
     b: Matrix3x4<T>,
-    i: uint
+    i: usize
 ) -> Vector4<T> {
     [
         vec4_dot_vec3(a[i], row_mat3x4_col(b, 0)),
@@ -175,7 +176,7 @@ pub fn row_mat3x4_mul_row<T: Float + Copy>(
 pub fn row_mat4_mul_row<T: Float + Copy>(
     a: Matrix4<T>, 
     b: Matrix4<T>,
-    i: uint
+    i: usize
 ) -> Vector4<T> {
     [
         vec4_dot(a[i], row_mat4_col(b, 0)),
@@ -893,73 +894,73 @@ pub fn vec4_dot_pos3<T: Float + Copy>(a: Vector4<T>, b: Vector3<T>) -> T {
 
 /// Returns a column vector of a row matrix.
 #[inline(always)]
-pub fn row_mat2x3_col<T: Copy>(mat: Matrix2x3<T>, i: uint) -> Vector2<T> {
+pub fn row_mat2x3_col<T: Copy>(mat: Matrix2x3<T>, i: usize) -> Vector2<T> {
     [mat[0][i], mat[1][i]]
 }
 
 /// Returns a row vector of a column matrix.
 #[inline(always)]
-pub fn col_mat2x3_row<T: Copy>(mat: Matrix2x3<T>, i: uint) -> Vector2<T> {
+pub fn col_mat2x3_row<T: Copy>(mat: Matrix2x3<T>, i: usize) -> Vector2<T> {
     row_mat2x3_col(mat, i)
 }
 
 /// Returns a column vector of a row matrix.
 #[inline(always)]
-pub fn row_mat3x2_col<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
+pub fn row_mat3x2_col<T: Copy>(a: Matrix3x2<T>, i: usize) -> Vector3<T> {
     [a[0][i], a[1][i], a[2][i]]
 }
 
 /// Returns a row vector of a column matrix.
 #[inline(always)]
-pub fn col_mat3x2_row<T: Copy>(a: Matrix3x2<T>, i: uint) -> Vector3<T> {
+pub fn col_mat3x2_row<T: Copy>(a: Matrix3x2<T>, i: usize) -> Vector3<T> {
     row_mat3x2_col(a, i)
 }
 
 /// Returns a column vector of a row matrix.
 #[inline(always)]
-pub fn row_mat3_col<T: Copy>(a: Matrix3<T>, i: uint) -> Vector3<T> {
+pub fn row_mat3_col<T: Copy>(a: Matrix3<T>, i: usize) -> Vector3<T> {
     [a[0][i], a[1][i], a[2][i]]
 }
 
 /// Returns a row vector of a column matrix.
 #[inline(always)]
-pub fn col_mat3_row<T: Copy>(a: Matrix3<T>, i: uint) -> Vector3<T> {
+pub fn col_mat3_row<T: Copy>(a: Matrix3<T>, i: usize) -> Vector3<T> {
     row_mat3_col(a, i)
 }
 
 /// Returns a column vector of a row matrix.
 #[inline(always)]
-pub fn row_mat3x4_col<T: Copy>(mat: Matrix3x4<T>, i: uint) -> Vector3<T> {
+pub fn row_mat3x4_col<T: Copy>(mat: Matrix3x4<T>, i: usize) -> Vector3<T> {
     [mat[0][i], mat[1][i], mat[2][i]]
 }
 
 /// Returns a row vector of a column matrix.
 #[inline(always)]
-pub fn col_mat3x4_row<T: Copy>(mat: Matrix3x4<T>, i: uint) -> Vector3<T> {
+pub fn col_mat3x4_row<T: Copy>(mat: Matrix3x4<T>, i: usize) -> Vector3<T> {
     row_mat3x4_col(mat, i)
 }
 
 /// Returns a column vector of a row matrix.
 #[inline(always)]
-pub fn row_mat4x3_col<T: Copy>(a: Matrix4x3<T>, i: uint) -> Vector4<T> {
+pub fn row_mat4x3_col<T: Copy>(a: Matrix4x3<T>, i: usize) -> Vector4<T> {
     [a[0][i], a[1][i], a[2][i], a[3][i]]
 }
 
 /// Returns a column vector of a row matrix.
 #[inline(always)]
-pub fn col_mat4x3_row<T: Copy>(a: Matrix4x3<T>, i: uint) -> Vector4<T> {
+pub fn col_mat4x3_row<T: Copy>(a: Matrix4x3<T>, i: usize) -> Vector4<T> {
     row_mat4x3_col(a, i)
 }
 
 /// Returns a column vector of a row matrix.
 #[inline(always)]
-pub fn row_mat4_col<T: Copy>(a: Matrix4<T>, i: uint) -> Vector4<T> {
+pub fn row_mat4_col<T: Copy>(a: Matrix4<T>, i: usize) -> Vector4<T> {
     [a[0][i], a[1][i], a[2][i], a[3][i]]
 }
 
 /// Returns a row vector of a column matrix.
 #[inline(always)]
-pub fn col_mat4_row<T: Copy>(a: Matrix4<T>, i: uint) -> Vector4<T> {
+pub fn col_mat4_row<T: Copy>(a: Matrix4<T>, i: usize) -> Vector4<T> {
     row_mat4_col(a, i)
 }
 
