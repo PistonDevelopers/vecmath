@@ -3,7 +3,7 @@
 use std::num::FromPrimitive;
 
 /// Useful constants for radians.
-pub trait Radians : FromPrimitive {
+pub trait Radians: FromPrimitive {
     /// Returns radians corresponding to 90 degrees.
     fn _90() -> Self;
 
@@ -14,10 +14,7 @@ pub trait Radians : FromPrimitive {
     fn _360() -> Self;
 
     /// Convert a value to radians, assuming the initial units
-    /// are in degrees. Equivelent to:
-    /// ```ignore
-    ///     value * (π / 180)
-    /// ```
+    /// are in degrees. Equivelent to ```value * (π / 180)```.
     fn to_rad(&self) -> Self;
 }
 
