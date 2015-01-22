@@ -70,14 +70,14 @@ mod test {
     #[test]
     fn test_f32_deg_to_rad() {
         let degrees = 23.0f32;
-        let radians = degrees.to_rad();
+        let radians = degrees.deg_to_rad();
         assert!(Float::abs_sub(radians, 0.401425) > ::std::f32::EPSILON);
     }
 
     #[test]
     fn test_f64_deg_to_rad() {
         let degrees = 60.0f64;
-        let radians = degrees.to_rad();
+        let radians = degrees.deg_to_rad();
         assert!(Float::abs_sub(radians, 1.047197)  > ::std::f64::EPSILON);
     }
 }
