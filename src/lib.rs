@@ -770,6 +770,24 @@ pub fn vec4_scale<T: Float>(a: Vector4<T>, b: T) -> Vector4<T> {
     ]
 }
 
+/// Negates the vector.
+#[inline(always)]
+pub fn vec2_neg<T: Float>(a: Vector2<T>) -> Vector2<T> {
+    [-a[0], -a[1]]
+}
+
+/// Negates the vector.
+#[inline(always)]
+pub fn vec3_neg<T: Float>(a: Vector3<T>) -> Vector3<T> {
+    [-a[0], -a[1], -a[2]]
+}
+
+/// Negates the vector.
+#[inline(always)]
+pub fn vec4_neg<T: Float>(a: Vector4<T>) -> Vector4<T> {
+    [-a[0], -a[1], -a[2], -a[3]]
+}
+
 /// Computes the length of vector.
 #[inline(always)]
 pub fn vec2_len<T: Float>(a: Vector2<T>) -> T {
