@@ -1,6 +1,6 @@
 #![crate_name = "vecmath"]
 #![deny(missing_docs)]
-#![allow(unstable)]
+#![feature(core, std_misc)]
 
 //! A simple and generic library for vector math.
 //!
