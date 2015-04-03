@@ -1,6 +1,6 @@
 //! Various useful constants
 
-use std::num::FromPrimitive;
+use num::FromPrimitive;
 
 /// Useful constants for radians.
 pub trait Radians: FromPrimitive {
@@ -65,7 +65,7 @@ impl Radians for f64 {
 #[cfg(test)]
 mod test {
     use super::{Radians};
-    use std::num::Float;
+    use num::Float;
 
     #[test]
     fn test_f32_deg_to_rad() {
