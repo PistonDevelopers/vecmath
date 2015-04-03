@@ -1,6 +1,6 @@
 #![crate_name = "vecmath"]
 #![deny(missing_docs)]
-#![feature(core, std_misc)]
+#![feature(core)]
 
 //! A simple and generic library for vector math.
 //!
@@ -19,7 +19,9 @@
 //! For example, `row_mat2x3_transform_pos2` transforms a position.
 //! `row_mat2x3_transform_vec2` transforms a vector.
 
-use std::num::{Float, NumCast, ToPrimitive};
+extern crate num;
+
+use num::{Float, NumCast, ToPrimitive};
 
 pub mod consts;
 
@@ -309,8 +311,8 @@ fn test_row_mat3x4_mul() {
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat2x3_id<T: Float + Copy>() -> Matrix2x3<T> {
-    let one = Float::one();
-    let zero = Float::zero();
+    let one = T::one();
+    let zero = T::zero();
     [
         [one, zero, zero],
         [zero, one, zero]
@@ -320,8 +322,8 @@ pub fn mat2x3_id<T: Float + Copy>() -> Matrix2x3<T> {
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat3x2_id<T: Float + Copy>() -> Matrix3x2<T> {
-    let one = Float::one();
-    let zero = Float::zero();
+    let one = T::one();
+    let zero = T::zero();
     [
         [one, zero],
         [zero, one],
@@ -332,8 +334,8 @@ pub fn mat3x2_id<T: Float + Copy>() -> Matrix3x2<T> {
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat3_id<T: Float + Copy>() -> Matrix3<T> {
-    let one = Float::one();
-    let zero = Float::zero();
+    let one = T::one();
+    let zero = T::zero();
     [
         [one, zero, zero],
         [zero, one, zero],
@@ -344,8 +346,8 @@ pub fn mat3_id<T: Float + Copy>() -> Matrix3<T> {
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat3x4_id<T: Float + Copy>() -> Matrix3x4<T> {
-    let one = Float::one();
-    let zero = Float::zero();
+    let one = T::one();
+    let zero = T::zero();
     [
         [one, zero, zero, zero],
         [zero, one, zero, zero],
@@ -356,8 +358,8 @@ pub fn mat3x4_id<T: Float + Copy>() -> Matrix3x4<T> {
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat4x3_id<T: Float + Copy>() -> Matrix4x3<T> {
-    let one = Float::one();
-    let zero = Float::zero();
+    let one = T::one();
+    let zero = T::zero();
     [
         [one, zero, zero],
         [zero, one, zero],
@@ -369,8 +371,8 @@ pub fn mat4x3_id<T: Float + Copy>() -> Matrix4x3<T> {
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat4_id<T: Float + Copy>() -> Matrix4<T> {
-    let one = Float::one();
-    let zero = Float::zero();
+    let one = T::one();
+    let zero = T::zero();
     [
         [one, zero, zero, zero],
         [zero, one, zero, zero],
@@ -809,21 +811,21 @@ pub fn vec4_len<T: Float>(a: Vector4<T>) -> T {
 /// Computes the inverse length of a vector.
 #[inline(always)]
 pub fn vec2_inv_len<T: Float>(a: Vector2<T>) -> T {
-    let one: T = Float::one();
+    let one = T::one();
     one / vec2_len(a)
 }
 
 /// Computes the inverse length of a vector.
 #[inline(always)]
 pub fn vec3_inv_len<T: Float>(a: Vector3<T>) -> T {
-    let one: T = Float::one();
+    let one = T::one();
     one / vec3_len(a)
 }
 
 /// Computes the inverse length of a vector.
 #[inline(always)]
 pub fn vec4_inv_len<T: Float>(a: Vector4<T>) -> T {
-    let one: T = Float::one();
+    let one = T::one();
     one / vec4_len(a)
 }
 
@@ -1325,42 +1327,42 @@ pub fn mat4_det<T: Float>(mat: Matrix4<T>) -> T {
 /// Computes inverse determinant of a 2x3 matrix.
 #[inline(always)]
 pub fn mat2x3_inv_det<T: Float>(mat: Matrix2x3<T>) -> T {
-    let one: T = Float::one();
+    let one = T::one();
     one / mat2x3_det(mat)
 }
 
 /// Computes inverse determinant of a 3x2 matrix.
 #[inline(always)]
 pub fn mat3x2_inv_det<T: Float>(mat: Matrix3x2<T>) -> T {
-    let one: T = Float::one();
+    let one = T::one();
     one / mat3x2_det(mat)
 }
 
 /// Computes inverse determinant of a 3x3 matrix.
 #[inline(always)]
 pub fn mat3_inv_det<T: Float>(mat: Matrix3<T>) -> T {
-    let one: T = Float::one();
+    let one = T::one();
     one / mat3_det(mat)
 }
 
 /// Computes inverse determinant of a 3x4 matrix.
 #[inline(always)]
 pub fn mat3x4_inv_det<T: Float>(mat: Matrix3x4<T>) -> T {
-    let one: T = Float::one();
+    let one = T::one();
     one / mat3x4_det(mat)
 }
 
 /// Computes inverse determinant of a 4x3 matrix.
 #[inline(always)]
 pub fn mat4x3_inv_det<T: Float>(mat: Matrix4x3<T>) -> T {
-    let one: T = Float::one();
+    let one = T::one();
     one / mat4x3_det(mat)
 }
 
 /// Computes the inverse determinant of a 4x4 matrix.
 #[inline(always)]
 pub fn mat4_inv_det<T: Float>(mat: Matrix4<T>) -> T {
-    let one: T = Float::one();
+    let one = T::one();
     one / mat4_det(mat)
 }
 
