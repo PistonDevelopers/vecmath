@@ -31,7 +31,7 @@ impl Radians for f32 {
 
     #[inline(always)]
     fn _360() -> f32 {
-        ::std::f32::consts::PI_2
+        <Self as Radians>::_180() * 2.0
     }
 
     #[inline(always)]
@@ -53,7 +53,7 @@ impl Radians for f64 {
 
     #[inline(always)]
     fn _360() -> f64 {
-        ::std::f64::consts::PI_2
+        <Self as Radians>::_180() * 2.0
     }
 
     #[inline(always)]
