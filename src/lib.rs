@@ -21,6 +21,7 @@
 extern crate num;
 
 use num::{Float, NumCast, ToPrimitive};
+use std::ops::{ Add, Mul };
 
 pub mod consts;
 
@@ -691,19 +692,25 @@ pub fn vec4_mul<T: Float>(a: Vector4<T>, b: Vector4<T>) -> Vector4<T> {
 
 /// Computes the dot product.
 #[inline(always)]
-pub fn vec2_dot<T: Float>(a: Vector2<T>, b: Vector2<T>) -> T {
+pub fn vec2_dot<T>(a: Vector2<T>, b: Vector2<T>) -> T
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     a[0] * b[0] + a[1] * b[1]
 }
 
 /// Computes the dot product.
 #[inline(always)]
-pub fn vec3_dot<T: Float>(a: Vector3<T>, b: Vector3<T>) -> T {
+pub fn vec3_dot<T>(a: Vector3<T>, b: Vector3<T>) -> T
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 }
 
 /// Computes the dot product.
 #[inline(always)]
-pub fn vec4_dot<T: Float>(a: Vector4<T>, b: Vector4<T>) -> T {
+pub fn vec4_dot<T>(a: Vector4<T>, b: Vector4<T>) -> T
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3]
 }
 
