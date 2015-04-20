@@ -18,9 +18,6 @@
 //! For example, `row_mat2x3_transform_pos2` transforms a position.
 //! `row_mat2x3_transform_vec2` transforms a vector.
 
-extern crate num;
-
-use num::{NumCast, ToPrimitive};
 use std::ops::{ Add, Mul, Neg, Sub, Div };
 
 pub mod traits;
@@ -413,45 +410,45 @@ pub fn mat4_id<T>() -> Matrix4<T>
 
 /// Converts to another vector type.
 #[inline(always)]
-pub fn vec2_cast<T: ToPrimitive + Copy, U: NumCast>(
-    a: Vector2<T>
-) -> Vector2<U> {
+pub fn vec2_cast<T, U>(a: Vector2<T>) -> Vector2<U>
+    where T: Copy + traits::Cast<U>
+{
     [
-        NumCast::from(a[0]).unwrap(),
-        NumCast::from(a[1]).unwrap()
+        a[0].cast(),
+        a[1].cast()
     ]
 }
 
 /// Converts to another vector type.
 #[inline(always)]
-pub fn vec3_cast<T: ToPrimitive + Copy, U: NumCast>(
-    a: Vector3<T>
-) -> Vector3<U> {
+pub fn vec3_cast<T, U>(a: Vector3<T>) -> Vector3<U>
+    where T: Copy + traits::Cast<U>
+{
     [
-        NumCast::from(a[0]).unwrap(),
-        NumCast::from(a[1]).unwrap(),
-        NumCast::from(a[2]).unwrap()
+        a[0].cast(),
+        a[1].cast(),
+        a[2].cast()
     ]
 }
 
 /// Converts to another vector type.
 #[inline(always)]
-pub fn vec4_cast<T: ToPrimitive + Copy, U: NumCast>(
-    a: Vector4<T>
-) -> Vector4<U> {
+pub fn vec4_cast<T, U>(a: Vector4<T>) -> Vector4<U>
+    where T: Copy + traits::Cast<U>
+{
     [
-        NumCast::from(a[0]).unwrap(),
-        NumCast::from(a[1]).unwrap(),
-        NumCast::from(a[2]).unwrap(),
-        NumCast::from(a[3]).unwrap()
+        a[0].cast(),
+        a[1].cast(),
+        a[2].cast(),
+        a[3].cast()
     ]
 }
 
 /// Converts to another matrix type.
 #[inline(always)]
-pub fn mat2x3_cast<T: ToPrimitive + Copy, U: NumCast>(
-    mat: Matrix2x3<T>
-) -> Matrix2x3<U> {
+pub fn mat2x3_cast<T, U>(mat: Matrix2x3<T>) -> Matrix2x3<U>
+    where T: Copy + traits::Cast<U>
+{
     [
         vec3_cast(mat[0]),
         vec3_cast(mat[1])
@@ -460,9 +457,9 @@ pub fn mat2x3_cast<T: ToPrimitive + Copy, U: NumCast>(
 
 /// Converts to another matrix type.
 #[inline(always)]
-pub fn mat3x2_cast<T: ToPrimitive + Copy, U: NumCast>(
-    mat: Matrix3x2<T>
-) -> Matrix3x2<U> {
+pub fn mat3x2_cast<T, U>(mat: Matrix3x2<T>) -> Matrix3x2<U>
+    where T: Copy + traits::Cast<U>
+{
     [
         vec2_cast(mat[0]),
         vec2_cast(mat[1]),
@@ -472,9 +469,9 @@ pub fn mat3x2_cast<T: ToPrimitive + Copy, U: NumCast>(
 
 /// Converts to another matrix type.
 #[inline(always)]
-pub fn mat3_cast<T: ToPrimitive + Copy, U: NumCast>(
-    mat: Matrix3<T>
-) -> Matrix3<U> {
+pub fn mat3_cast<T, U>(mat: Matrix3<T>) -> Matrix3<U>
+    where T: Copy + traits::Cast<U>
+{
     [
         vec3_cast(mat[0]),
         vec3_cast(mat[1]),
@@ -484,9 +481,9 @@ pub fn mat3_cast<T: ToPrimitive + Copy, U: NumCast>(
 
 /// Converts to another matrix type.
 #[inline(always)]
-pub fn mat3x4_cast<T: ToPrimitive + Copy, U: NumCast>(
-    m: Matrix3x4<T>
-) -> Matrix3x4<U> {
+pub fn mat3x4_cast<T, U>(m: Matrix3x4<T>) -> Matrix3x4<U>
+    where T: Copy + traits::Cast<U>
+{
     [
         vec4_cast(m[0]),
         vec4_cast(m[1]),
@@ -496,9 +493,9 @@ pub fn mat3x4_cast<T: ToPrimitive + Copy, U: NumCast>(
 
 /// Converts to another matrix type.
 #[inline(always)]
-pub fn mat4x3_cast<T: ToPrimitive + Copy, U: NumCast>(
-    m: Matrix4x3<T>
-) -> Matrix4x3<U> {
+pub fn mat4x3_cast<T, U>(m: Matrix4x3<T>) -> Matrix4x3<U>
+    where T: Copy + traits::Cast<U>
+{
     [
         vec3_cast(m[0]),
         vec3_cast(m[1]),
@@ -509,9 +506,9 @@ pub fn mat4x3_cast<T: ToPrimitive + Copy, U: NumCast>(
 
 /// Converts to another matrix type.
 #[inline(always)]
-pub fn mat4_cast<T: ToPrimitive + Copy, U: NumCast>(
-    m: Matrix4<T>
-) -> Matrix4<U> {
+pub fn mat4_cast<T, U>(m: Matrix4<T>) -> Matrix4<U>
+    where T: Copy + traits::Cast<U>
+{
     [
         vec4_cast(m[0]),
         vec4_cast(m[1]),
