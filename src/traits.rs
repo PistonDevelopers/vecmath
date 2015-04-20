@@ -5,6 +5,10 @@ use std::ops::*;
 /// Convenience trait for floats.
 pub trait Float:
     Copy + Radians + One + Zero + Sqrt
+    + FromPrimitive
+    + FloatExt
+    + Trig
+    + PartialEq
     + Add<Self, Output = Self>
     + Mul<Self, Output = Self>
     + Sub<Self, Output = Self>
@@ -15,6 +19,10 @@ pub trait Float:
 
 impl<T> Float for T where
     T: Copy + Radians + One + Zero + Sqrt
+    + FromPrimitive
+    + FloatExt
+    + Trig
+    + PartialEq
     + Add<T, Output = T>
     + Mul<T, Output = T>
     + Sub<T, Output = T>
@@ -22,6 +30,29 @@ impl<T> Float for T where
     + Rem<T, Output = T>
     + Neg<Output = T>
     + Trig {}
+
+/// Miscellaneous numeric methods
+/// May need to add more as necessary
+pub trait FloatExt {
+    /// Returns minimum of self and other
+    fn min(self, other: Self) -> Self;
+    /// Returns maximum of self and other
+    fn max(self, other: Self) -> Self;
+    /// Returns number representing the sign of self
+    fn signum(self) -> Self;
+}
+
+impl FloatExt for f32 {
+    fn min(self, other: Self) -> Self { self.min(other) }
+    fn max(self, other: Self) -> Self { self.max(other) }
+    fn signum(self) -> Self { self.signum() }
+}
+
+impl FloatExt for f64 {
+    fn min(self, other: Self) -> Self { self.min(other) }
+    fn max(self, other: Self) -> Self { self.max(other) }
+    fn signum(self) -> Self { self.signum() }
+}
 
 /// Useful constants for radians.
 pub trait Radians {
@@ -201,6 +232,29 @@ impl Cast<f32> for f32 {
 impl Cast<f64> for f64 {
     #[inline(always)]
     fn cast(self) -> f64 { self }
+}
+
+/// Trait for converting from different numeric types
+pub trait FromPrimitive {
+    /// from a f64
+    fn from_f64(t: f64) -> Self;
+    /// from a f32
+    fn from_f32(t: f32) -> Self;
+    /// from a isze
+    fn from_isize(t: isize) -> Self;
+    // Add more as needed..
+}
+
+impl FromPrimitive for f64 {
+    fn from_f64(t: f64) -> Self { t }
+    fn from_f32(t: f32) -> Self { t as f64 }
+    fn from_isize(t: isize) -> Self { t as f64 }
+}
+
+impl FromPrimitive for f32 {
+    fn from_f64(t: f64) -> Self { t as f32 }
+    fn from_f32(t: f32) -> Self { t }
+    fn from_isize(t: isize) -> Self { t as f32 }
 }
 
 #[cfg(test)]
