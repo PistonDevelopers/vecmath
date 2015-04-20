@@ -122,6 +122,20 @@ impl Sqrt for f64 {
     fn sqrt(self) -> f64 { self.sqrt() }
 }
 
+/// Casts into another type.
+pub trait Cast<T> {
+    /// Casts into other type.
+    fn cast(self) -> T;
+}
+
+impl Cast<f32> for f64 {
+    fn cast(self) -> f32 { self as f32 }
+}
+
+impl Cast<f64> for f32 {
+    fn cast(self) -> f64 { self as f64 }
+}
+
 #[cfg(test)]
 mod test {
     use num::Float;
