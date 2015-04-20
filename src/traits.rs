@@ -94,10 +94,40 @@ impl Zero for f32 {
     fn zero() -> f32 { 0.0 }
 }
 
+/// Square root.
+pub trait Sqrt {
+    /// Returns square root.
+    fn sqrt(self) -> Self;
+}
+
+impl Sqrt for f32 {
+    #[inline(always)]
+    fn sqrt(self) -> f32 { self.sqrt() }
+}
+
+impl Sqrt for f64 {
+    #[inline(always)]
+    fn sqrt(self) -> f64 { self.sqrt() }
+}
+
 #[cfg(test)]
 mod test {
-    use super::{Radians};
     use num::Float;
+    use super::*;
+
+    #[test]
+    fn test_f32_sqrt() {
+        let a = 4.0f32;
+        let b = <f32 as Sqrt>::sqrt(a);
+        assert_eq!(b, 2.0f32);
+    }
+
+    #[test]
+    fn test_f64_sqrt() {
+        let a = 4.0f64;
+        let b = <f64 as Sqrt>::sqrt(a);
+        assert_eq!(b, 2.0f64);
+    }
 
     #[test]
     fn test_f32_deg_to_rad() {

@@ -20,7 +20,7 @@
 
 extern crate num;
 
-use num::{Float, NumCast, ToPrimitive};
+use num::{NumCast, ToPrimitive};
 use std::ops::{ Add, Mul, Neg, Sub, Div };
 
 pub mod traits;
@@ -892,58 +892,82 @@ pub fn vec4_neg<T>(a: Vector4<T>) -> Vector4<T>
 
 /// Computes the length of vector.
 #[inline(always)]
-pub fn vec2_len<T: Float>(a: Vector2<T>) -> T {
+pub fn vec2_len<T>(a: Vector2<T>) -> T
+    where T: Copy + traits::Sqrt + Add<T, Output = T> + Mul<T, Output = T>
+{
     vec2_square_len(a).sqrt()
 }
 
 /// Computes the length of vector.
 #[inline(always)]
-pub fn vec3_len<T: Float>(a: Vector3<T>) -> T {
+pub fn vec3_len<T>(a: Vector3<T>) -> T
+    where T: Copy + traits::Sqrt + Add<T, Output = T> + Mul<T, Output = T>
+{
     vec3_square_len(a).sqrt()
 }
 
 /// Computes the length of vector.
 #[inline(always)]
-pub fn vec4_len<T: Float>(a: Vector4<T>) -> T {
+pub fn vec4_len<T>(a: Vector4<T>) -> T
+    where T: Copy + traits::Sqrt + Add<T, Output = T> + Mul<T, Output = T>
+{
     vec4_square_len(a).sqrt()
 }
 
 /// Computes the inverse length of a vector.
 #[inline(always)]
-pub fn vec2_inv_len<T: Float>(a: Vector2<T>) -> T {
+pub fn vec2_inv_len<T>(a: Vector2<T>) -> T
+    where T: Copy + traits::One + traits::Sqrt + Add<T, Output = T>
+        + Mul<T, Output = T> + Div<T, Output = T>
+{
     let one = T::one();
     one / vec2_len(a)
 }
 
 /// Computes the inverse length of a vector.
 #[inline(always)]
-pub fn vec3_inv_len<T: Float>(a: Vector3<T>) -> T {
+pub fn vec3_inv_len<T>(a: Vector3<T>) -> T
+    where T: Copy + traits::One + traits::Sqrt + Add<T, Output = T>
+        + Mul<T, Output = T> + Div<T, Output = T>
+{
     let one = T::one();
     one / vec3_len(a)
 }
 
 /// Computes the inverse length of a vector.
 #[inline(always)]
-pub fn vec4_inv_len<T: Float>(a: Vector4<T>) -> T {
+pub fn vec4_inv_len<T>(a: Vector4<T>) -> T
+    where T: Copy + traits::One + traits::Sqrt + Add<T, Output = T>
+        + Mul<T, Output = T> + Div<T, Output = T>
+{
     let one = T::one();
     one / vec4_len(a)
 }
 
 /// Computes the normalized.
 #[inline(always)]
-pub fn vec2_normalized<T: Float>(a: Vector2<T>) -> Vector2<T> {
+pub fn vec2_normalized<T>(a: Vector2<T>) -> Vector2<T>
+    where T: Copy + traits::One + traits::Sqrt + Add<T, Output = T>
+        + Mul<T, Output = T> + Div<T, Output = T>
+{
     vec2_scale(a, vec2_inv_len(a))
 }
 
 /// Computes the normalized.
 #[inline(always)]
-pub fn vec3_normalized<T: Float>(a: Vector3<T>) -> Vector3<T> {
+pub fn vec3_normalized<T>(a: Vector3<T>) -> Vector3<T>
+    where T: Copy + traits::One + traits::Sqrt + Add<T, Output = T>
+        + Mul<T, Output = T> + Div<T, Output = T>
+{
     vec3_scale(a, vec3_inv_len(a))
 }
 
 /// Computes the normalized.
 #[inline(always)]
-pub fn vec4_normalized<T: Float>(a: Vector4<T>) -> Vector4<T> {
+pub fn vec4_normalized<T>(a: Vector4<T>) -> Vector4<T>
+    where T: Copy + traits::One + traits::Sqrt + Add<T, Output = T>
+        + Mul<T, Output = T> + Div<T, Output = T>
+{
     vec4_scale(a, vec4_inv_len(a))
 }
 
@@ -951,10 +975,13 @@ pub fn vec4_normalized<T: Float>(a: Vector4<T>) -> Vector4<T> {
 ///
 /// This is often used to get direction from 'b' to 'a'.
 #[inline(always)]
-pub fn vec2_normalized_sub<T: Float>(
+pub fn vec2_normalized_sub<T>(
     a: Vector2<T>,
     b: Vector2<T>
-) -> Vector2<T> {
+) -> Vector2<T>
+    where T: Copy + traits::One + traits::Sqrt + Add<T, Output = T>
+        + Mul<T, Output = T> + Div<T, Output = T> + Sub<T, Output = T>
+{
     vec2_normalized(vec2_sub(a, b))
 }
 
@@ -962,10 +989,13 @@ pub fn vec2_normalized_sub<T: Float>(
 ///
 /// This is often used to get direction from 'b' to 'a'.
 #[inline(always)]
-pub fn vec3_normalized_sub<T: Float>(
+pub fn vec3_normalized_sub<T>(
     a: Vector3<T>,
     b: Vector3<T>
-) -> Vector3<T> {
+) -> Vector3<T>
+    where T: Copy + traits::One + traits::Sqrt + Add<T, Output = T>
+        + Mul<T, Output = T> + Sub<T, Output = T> + Div<T, Output = T>
+{
     vec3_normalized(vec3_sub(a, b))
 }
 
@@ -973,10 +1003,13 @@ pub fn vec3_normalized_sub<T: Float>(
 ///
 /// This is often used to get direction from 'b' to 'a'.
 #[inline(always)]
-pub fn vec4_normalized_sub<T: Float>(
+pub fn vec4_normalized_sub<T>(
     a: Vector4<T>,
     b: Vector4<T>
-) -> Vector4<T> {
+) -> Vector4<T>
+    where T: Copy + traits::One + traits::Sqrt + Add<T, Output = T>
+        + Mul<T, Output = T> + Sub<T, Output = T> + Div<T, Output = T>
+{
     vec4_normalized(vec4_sub(a, b))
 }
 
