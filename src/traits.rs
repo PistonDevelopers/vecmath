@@ -4,7 +4,7 @@ use std::ops::*;
 
 /// Convenience trait for floats.
 pub trait Float:
-    Radians + One + Zero
+    Copy + Radians + One + Zero
     + Add<Self, Output = Self>
     + Mul<Self, Output = Self>
     + Sub<Self, Output = Self>
@@ -14,7 +14,7 @@ pub trait Float:
     + Trig {}
 
 impl<T> Float for T where
-    T: Radians + One + Zero
+    T: Copy + Radians + One + Zero
     + Add<T, Output = T>
     + Mul<T, Output = T>
     + Sub<T, Output = T>
