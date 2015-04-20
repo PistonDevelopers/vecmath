@@ -15,7 +15,7 @@ pub trait Radians: FromPrimitive {
 
     /// Convert a value to radians from degrees.
     /// Equivalent to ```value * (π / 180)```.
-    fn deg_to_rad(&self) -> Self;
+    fn deg_to_rad(self) -> Self;
 }
 
 impl Radians for f32 {
@@ -35,8 +35,8 @@ impl Radians for f32 {
     }
 
     #[inline(always)]
-    fn deg_to_rad(&self) -> Self {
-        *self * (::std::f32::consts::PI / 180.0f32)
+    fn deg_to_rad(self) -> Self {
+        self * (::std::f32::consts::PI / 180.0f32)
     }
 }
 
@@ -57,8 +57,8 @@ impl Radians for f64 {
     }
 
     #[inline(always)]
-    fn deg_to_rad(&self) -> Self {
-        *self * (::std::f64::consts::PI / 180.0f64)
+    fn deg_to_rad(self) -> Self {
+        self * (::std::f64::consts::PI / 180.0f64)
     }
 }
 
