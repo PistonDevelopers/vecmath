@@ -326,20 +326,6 @@ pub fn row_mat4_mul<T>(
     ]
 }
 
-#[test]
-fn test_row_mat2x3_mul() {
-    let a: Matrix2x3<f64> = mat2x3_id();
-    let b = a;
-    let _ = row_mat2x3_mul(a, b);
-}
-
-#[test]
-fn test_row_mat3x4_mul() {
-    let a: Matrix3x4<f64> = mat3x4_id();
-    let b = a;
-    let _ = row_mat3x4_mul(a, b);
-}
-
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat2x3_id<T>() -> Matrix2x3<T>
@@ -1808,4 +1794,24 @@ pub fn mat4_inv<T: Float + Copy>(mat: Matrix4<T>) -> Matrix4<T> {
             ) * inv_det
         ]
     ]
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_row_mat2x3_mul() {
+        let a: Matrix2x3<f64> = mat2x3_id();
+        let b = a;
+        let _ = row_mat2x3_mul(a, b);
+    }
+
+    #[test]
+    fn test_row_mat3x4_mul() {
+        let a: Matrix3x4<f64> = mat3x4_id();
+        let b = a;
+        let _ = row_mat3x4_mul(a, b);
+    }
 }
