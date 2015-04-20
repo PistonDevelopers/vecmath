@@ -1,5 +1,26 @@
 //! Various useful traits
 
+use std::ops::*;
+
+/// Convenience trait for floats.
+pub trait Float:
+    Radians + One + Zero
+    + Add<Self, Output = Self>
+    + Mul<Self, Output = Self>
+    + Sub<Self, Output = Self>
+    + Div<Self, Output = Self>
+    + Rem<Self, Output = Self>
+    + Neg<Output = Self> {}
+
+impl<T> Float for T where
+    T: Radians + One + Zero
+    + Add<T, Output = T>
+    + Mul<T, Output = T>
+    + Sub<T, Output = T>
+    + Div<T, Output = T>
+    + Rem<T, Output = T>
+    + Neg<Output = T> {}
+
 /// Useful constants for radians.
 pub trait Radians {
     /// Returns radians corresponding to 90 degrees.
