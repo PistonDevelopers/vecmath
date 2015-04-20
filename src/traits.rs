@@ -1,9 +1,7 @@
 //! Various useful traits
 
-use num::FromPrimitive;
-
 /// Useful constants for radians.
-pub trait Radians: FromPrimitive {
+pub trait Radians {
     /// Returns radians corresponding to 90 degrees.
     fn _90() -> Self;
 
@@ -16,6 +14,10 @@ pub trait Radians: FromPrimitive {
     /// Convert a value to radians from degrees.
     /// Equivalent to ```value * (π / 180)```.
     fn deg_to_rad(self) -> Self;
+
+    /// Convert a value to degrees from radians.
+    /// Equivalent to ```value * (180 / π)```.
+    fn rad_to_deg(self) -> Self;
 }
 
 impl Radians for f32 {
@@ -38,6 +40,11 @@ impl Radians for f32 {
     fn deg_to_rad(self) -> Self {
         self * (::std::f32::consts::PI / 180.0f32)
     }
+
+    #[inline(always)]
+    fn rad_to_deg(self) -> Self {
+        self * (180.0f32 / ::std::f32::consts::PI)
+    }
 }
 
 impl Radians for f64 {
@@ -59,6 +66,11 @@ impl Radians for f64 {
     #[inline(always)]
     fn deg_to_rad(self) -> Self {
         self * (::std::f64::consts::PI / 180.0f64)
+    }
+
+    #[inline(always)]
+    fn rad_to_deg(self) -> Self {
+        self * (180.0f64 / ::std::f64::consts::PI)
     }
 }
 
