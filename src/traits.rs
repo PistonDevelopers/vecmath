@@ -1,4 +1,4 @@
-//! Various useful constants
+//! Various useful traits
 
 use num::FromPrimitive;
 
