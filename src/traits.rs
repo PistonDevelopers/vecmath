@@ -11,7 +11,9 @@ pub trait Float:
     + Div<Self, Output = Self>
     + Rem<Self, Output = Self>
     + Neg<Output = Self>
-    + Trig {}
+    + Trig
+    where f64: Cast<Self>
+{}
 
 impl<T> Float for T where
     T: Copy + Radians + One + Zero + Sqrt
@@ -21,7 +23,9 @@ impl<T> Float for T where
     + Div<T, Output = T>
     + Rem<T, Output = T>
     + Neg<Output = T>
-    + Trig {}
+    + Trig,
+    f64: Cast<T>
+{}
 
 /// Useful constants for radians.
 pub trait Radians {
