@@ -62,6 +62,38 @@ impl Radians for f64 {
     }
 }
 
+/// Number 1.
+pub trait One {
+    /// Returns 1.
+    fn one() -> Self;
+}
+
+/// Number 0.
+pub trait Zero {
+    /// Returns 0.
+    fn zero() -> Self;
+}
+
+impl One for f64 {
+    #[inline(always)]
+    fn one() -> f64 { 1.0 }
+}
+
+impl One for f32 {
+    #[inline(always)]
+    fn one() -> f32 { 1.0 }
+}
+
+impl Zero for f64 {
+    #[inline(always)]
+    fn zero() -> f64 { 0.0 }
+}
+
+impl Zero for f32 {
+    #[inline(always)]
+    fn zero() -> f32 { 0.0 }
+}
+
 #[cfg(test)]
 mod test {
     use super::{Radians};
@@ -81,4 +113,3 @@ mod test {
         assert!(Float::abs_sub(radians, 1.047197)  > ::std::f64::EPSILON);
     }
 }
-
