@@ -10,7 +10,7 @@
 //! For row major affine transforms, use `Matrix2x3` (2D) and `Matrix3x4` (3D).
 //! For column major affine transforms, use `Matrix3x2` (2D) and `Matrix4x3` (3D).
 //!
-//! If you are using `Matrix3` or `Matrix4`, 
+//! If you are using `Matrix3` or `Matrix4`,
 //! then you need to pick either row or column major.
 //!
 //! Notice that there are two kinds of transforms: Positions and vectors.
@@ -70,11 +70,13 @@ pub type Matrix4<T> = [[T; 4]; 4];
 ///
 /// The semantics of the order is the same as for row matrices.
 #[inline(always)]
-pub fn col_mat3x2_mul_col<T: Float + Copy>(
+pub fn col_mat3x2_mul_col<T>(
     a: Matrix3x2<T>,
     b: Matrix3x2<T>,
     i: usize
-) -> Vector2<T> {
+) -> Vector2<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         vec3_dot_vec2(col_mat3x2_row(a, 0), b[i]),
         vec3_dot_vec2(col_mat3x2_row(a, 1), b[i])
@@ -85,11 +87,13 @@ pub fn col_mat3x2_mul_col<T: Float + Copy>(
 ///
 /// The semantics of the order is the same as for row matrices.
 #[inline(always)]
-pub fn col_mat3_mul_col<T: Float + Copy>(
+pub fn col_mat3_mul_col<T>(
     a: Matrix3<T>,
     b: Matrix3<T>,
     i: usize
-) -> Vector3<T> {
+) -> Vector3<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         vec3_dot(col_mat3_row(a, 0), b[i]),
         vec3_dot(col_mat3_row(a, 1), b[i]),
@@ -101,11 +105,13 @@ pub fn col_mat3_mul_col<T: Float + Copy>(
 ///
 /// The semantics of the order is the same as for row matrices.
 #[inline(always)]
-pub fn col_mat4x3_mul_col<T: Float + Copy>(
+pub fn col_mat4x3_mul_col<T>(
     a: Matrix4x3<T>,
     b: Matrix4x3<T>,
     i: usize
-) -> Vector3<T> {
+) -> Vector3<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         vec4_dot_vec3(col_mat4x3_row(a, 0), b[i]),
         vec4_dot_vec3(col_mat4x3_row(a, 1), b[i]),
@@ -117,11 +123,13 @@ pub fn col_mat4x3_mul_col<T: Float + Copy>(
 ///
 /// The semantics of the order is the same as for row matrices.
 #[inline(always)]
-pub fn col_mat4_mul_col<T: Float + Copy>(
-    a: Matrix4<T>, 
+pub fn col_mat4_mul_col<T>(
+    a: Matrix4<T>,
     b: Matrix4<T>,
     i: usize
-) -> Vector4<T> {
+) -> Vector4<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         vec4_dot(col_mat4_row(a, 0), b[i]),
         vec4_dot(col_mat4_row(a, 1), b[i]),
@@ -132,11 +140,13 @@ pub fn col_mat4_mul_col<T: Float + Copy>(
 
 /// Computes row vector in row matrix product.
 #[inline(always)]
-pub fn row_mat2x3_mul_row<T: Float + Copy>(
-    a: Matrix2x3<T>, 
+pub fn row_mat2x3_mul_row<T>(
+    a: Matrix2x3<T>,
     b: Matrix2x3<T>,
     i: usize
-) -> Vector3<T> {
+) -> Vector3<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         vec3_dot_vec2(a[i], row_mat2x3_col(b, 0)),
         vec3_dot_vec2(a[i], row_mat2x3_col(b, 1)),
@@ -146,11 +156,13 @@ pub fn row_mat2x3_mul_row<T: Float + Copy>(
 
 /// Computes row vector in row matrix product.
 #[inline(always)]
-pub fn row_mat3_mul_row<T: Float + Copy>(
-    a: Matrix3<T>, 
+pub fn row_mat3_mul_row<T>(
+    a: Matrix3<T>,
     b: Matrix3<T>,
     i: usize
-) -> Vector3<T> {
+) -> Vector3<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         vec3_dot(a[i], row_mat3_col(b, 0)),
         vec3_dot(a[i], row_mat3_col(b, 1)),
@@ -160,11 +172,13 @@ pub fn row_mat3_mul_row<T: Float + Copy>(
 
 /// Computes row vector in row matrix product.
 #[inline(always)]
-pub fn row_mat3x4_mul_row<T: Float + Copy>(
-    a: Matrix3x4<T>, 
+pub fn row_mat3x4_mul_row<T>(
+    a: Matrix3x4<T>,
     b: Matrix3x4<T>,
     i: usize
-) -> Vector4<T> {
+) -> Vector4<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         vec4_dot_vec3(a[i], row_mat3x4_col(b, 0)),
         vec4_dot_vec3(a[i], row_mat3x4_col(b, 1)),
@@ -175,11 +189,13 @@ pub fn row_mat3x4_mul_row<T: Float + Copy>(
 
 /// Computes row vector in row matrix product.
 #[inline(always)]
-pub fn row_mat4_mul_row<T: Float + Copy>(
-    a: Matrix4<T>, 
+pub fn row_mat4_mul_row<T>(
+    a: Matrix4<T>,
     b: Matrix4<T>,
     i: usize
-) -> Vector4<T> {
+) -> Vector4<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         vec4_dot(a[i], row_mat4_col(b, 0)),
         vec4_dot(a[i], row_mat4_col(b, 1)),
@@ -190,10 +206,12 @@ pub fn row_mat4_mul_row<T: Float + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn col_mat3x2_mul<T: Float + Copy>(
+pub fn col_mat3x2_mul<T>(
     a: Matrix3x2<T>,
     b: Matrix3x2<T>
-) -> Matrix3x2<T> {
+) -> Matrix3x2<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         col_mat3x2_mul_col(a, b, 0),
         col_mat3x2_mul_col(a, b, 1),
@@ -203,10 +221,12 @@ pub fn col_mat3x2_mul<T: Float + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn col_mat3_mul<T: Float + Copy>(
+pub fn col_mat3_mul<T>(
     a: Matrix3<T>,
     b: Matrix3<T>
-) -> Matrix3<T> {
+) -> Matrix3<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         col_mat3_mul_col(a, b, 0),
         col_mat3_mul_col(a, b, 1),
@@ -216,10 +236,12 @@ pub fn col_mat3_mul<T: Float + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn col_mat4x3_mul<T: Float + Copy>(
+pub fn col_mat4x3_mul<T>(
     a: Matrix4x3<T>,
     b: Matrix4x3<T>
-) -> Matrix4x3<T> {
+) -> Matrix4x3<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         col_mat4x3_mul_col(a, b, 0),
         col_mat4x3_mul_col(a, b, 1),
@@ -230,10 +252,12 @@ pub fn col_mat4x3_mul<T: Float + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn col_mat4_mul<T: Float + Copy>(
+pub fn col_mat4_mul<T>(
     a: Matrix4<T>,
     b: Matrix4<T>
-) -> Matrix4<T> {
+) -> Matrix4<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         col_mat4_mul_col(a, b, 0),
         col_mat4_mul_col(a, b, 1),
@@ -244,10 +268,12 @@ pub fn col_mat4_mul<T: Float + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn row_mat2x3_mul<T: Float + Copy>(
-    a: Matrix2x3<T>, 
+pub fn row_mat2x3_mul<T>(
+    a: Matrix2x3<T>,
     b: Matrix2x3<T>
-) -> Matrix2x3<T> {
+) -> Matrix2x3<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         row_mat2x3_mul_row(a, b, 0),
         row_mat2x3_mul_row(a, b, 1),
@@ -256,10 +282,12 @@ pub fn row_mat2x3_mul<T: Float + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn row_mat3_mul<T: Float + Copy>(
+pub fn row_mat3_mul<T>(
     a: Matrix3<T>,
     b: Matrix3<T>
-) -> Matrix3<T> {
+) -> Matrix3<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         row_mat3_mul_row(a, b, 0),
         row_mat3_mul_row(a, b, 1),
@@ -269,10 +297,12 @@ pub fn row_mat3_mul<T: Float + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn row_mat3x4_mul<T: Float + Copy>(
-    a: Matrix3x4<T>, 
+pub fn row_mat3x4_mul<T>(
+    a: Matrix3x4<T>,
     b: Matrix3x4<T>
-) -> Matrix3x4<T> {
+) -> Matrix3x4<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         row_mat3x4_mul_row(a, b, 0),
         row_mat3x4_mul_row(a, b, 1),
@@ -282,10 +312,12 @@ pub fn row_mat3x4_mul<T: Float + Copy>(
 
 /// Multiplies two matrices.
 #[inline(always)]
-pub fn row_mat4_mul<T: Float + Copy>(
+pub fn row_mat4_mul<T>(
     a: Matrix4<T>,
     b: Matrix4<T>
-) -> Matrix4<T> {
+) -> Matrix4<T>
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     [
         row_mat4_mul_row(a, b, 0),
         row_mat4_mul_row(a, b, 1),
@@ -310,7 +342,9 @@ fn test_row_mat3x4_mul() {
 
 /// Constructs identity matrix.
 #[inline(always)]
-pub fn mat2x3_id<T: Float + Copy>() -> Matrix2x3<T> {
+pub fn mat2x3_id<T>() -> Matrix2x3<T>
+    where T: Float
+{
     let one = T::one();
     let zero = T::zero();
     [
@@ -321,7 +355,9 @@ pub fn mat2x3_id<T: Float + Copy>() -> Matrix2x3<T> {
 
 /// Constructs identity matrix.
 #[inline(always)]
-pub fn mat3x2_id<T: Float + Copy>() -> Matrix3x2<T> {
+pub fn mat3x2_id<T>() -> Matrix3x2<T>
+    where T: Float
+{
     let one = T::one();
     let zero = T::zero();
     [
@@ -333,7 +369,9 @@ pub fn mat3x2_id<T: Float + Copy>() -> Matrix3x2<T> {
 
 /// Constructs identity matrix.
 #[inline(always)]
-pub fn mat3_id<T: Float + Copy>() -> Matrix3<T> {
+pub fn mat3_id<T>() -> Matrix3<T>
+    where T: Float
+{
     let one = T::one();
     let zero = T::zero();
     [
@@ -345,7 +383,9 @@ pub fn mat3_id<T: Float + Copy>() -> Matrix3<T> {
 
 /// Constructs identity matrix.
 #[inline(always)]
-pub fn mat3x4_id<T: Float + Copy>() -> Matrix3x4<T> {
+pub fn mat3x4_id<T>() -> Matrix3x4<T>
+    where T: Float
+{
     let one = T::one();
     let zero = T::zero();
     [
@@ -388,7 +428,7 @@ pub fn vec2_cast<T: ToPrimitive + Copy, U: NumCast>(
 ) -> Vector2<U> {
     [
         NumCast::from(a[0]).unwrap(),
-        NumCast::from(a[1]).unwrap() 
+        NumCast::from(a[1]).unwrap()
     ]
 }
 
@@ -399,7 +439,7 @@ pub fn vec3_cast<T: ToPrimitive + Copy, U: NumCast>(
 ) -> Vector3<U> {
     [
         NumCast::from(a[0]).unwrap(),
-        NumCast::from(a[1]).unwrap(), 
+        NumCast::from(a[1]).unwrap(),
         NumCast::from(a[2]).unwrap()
     ]
 }
@@ -411,7 +451,7 @@ pub fn vec4_cast<T: ToPrimitive + Copy, U: NumCast>(
 ) -> Vector4<U> {
     [
         NumCast::from(a[0]).unwrap(),
-        NumCast::from(a[1]).unwrap(), 
+        NumCast::from(a[1]).unwrap(),
         NumCast::from(a[2]).unwrap(),
         NumCast::from(a[3]).unwrap()
     ]
@@ -858,7 +898,7 @@ pub fn vec4_normalized<T: Float>(a: Vector4<T>) -> Vector4<T> {
 /// This is often used to get direction from 'b' to 'a'.
 #[inline(always)]
 pub fn vec2_normalized_sub<T: Float>(
-    a: Vector2<T>, 
+    a: Vector2<T>,
     b: Vector2<T>
 ) -> Vector2<T> {
     vec2_normalized(vec2_sub(a, b))
@@ -869,7 +909,7 @@ pub fn vec2_normalized_sub<T: Float>(
 /// This is often used to get direction from 'b' to 'a'.
 #[inline(always)]
 pub fn vec3_normalized_sub<T: Float>(
-    a: Vector3<T>, 
+    a: Vector3<T>,
     b: Vector3<T>
 ) -> Vector3<T> {
     vec3_normalized(vec3_sub(a, b))
@@ -880,7 +920,7 @@ pub fn vec3_normalized_sub<T: Float>(
 /// This is often used to get direction from 'b' to 'a'.
 #[inline(always)]
 pub fn vec4_normalized_sub<T: Float>(
-    a: Vector4<T>, 
+    a: Vector4<T>,
     b: Vector4<T>
 ) -> Vector4<T> {
     vec4_normalized(vec4_sub(a, b))
@@ -890,7 +930,9 @@ pub fn vec4_normalized_sub<T: Float>(
 ///
 /// This is used when transforming vectors through matrices.
 #[inline(always)]
-pub fn vec3_dot_vec2<T: Float>(a: Vector3<T>, b: Vector2<T>) -> T {
+pub fn vec3_dot_vec2<T>(a: Vector3<T>, b: Vector2<T>) -> T
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     a[0] * b[0] + a[1] * b[1]
 }
 
@@ -898,7 +940,9 @@ pub fn vec3_dot_vec2<T: Float>(a: Vector3<T>, b: Vector2<T>) -> T {
 ///
 /// This is used when transforming vectors through matrices.
 #[inline(always)]
-pub fn vec4_dot_vec3<T: Float>(a: Vector4<T>, b: Vector3<T>) -> T {
+pub fn vec4_dot_vec3<T>(a: Vector4<T>, b: Vector3<T>) -> T
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 }
 
@@ -906,7 +950,9 @@ pub fn vec4_dot_vec3<T: Float>(a: Vector4<T>, b: Vector3<T>) -> T {
 ///
 /// This is used when transforming points through matrices.
 #[inline(always)]
-pub fn vec3_dot_pos2<T: Float + Copy>(a: Vector3<T>, b: Vector2<T>) -> T {
+pub fn vec3_dot_pos2<T>(a: Vector3<T>, b: Vector2<T>) -> T
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     vec3_dot_vec2(a, b) + a[2]
 }
 
@@ -914,7 +960,9 @@ pub fn vec3_dot_pos2<T: Float + Copy>(a: Vector3<T>, b: Vector2<T>) -> T {
 ///
 /// This is used when transforming points through matrices.
 #[inline(always)]
-pub fn vec4_dot_pos3<T: Float + Copy>(a: Vector4<T>, b: Vector3<T>) -> T {
+pub fn vec4_dot_pos3<T>(a: Vector4<T>, b: Vector3<T>) -> T
+    where T: Copy + Add<T, Output = T> + Mul<T, Output = T>
+{
     vec4_dot_vec3(a, b) + a[3]
 }
 
@@ -1108,7 +1156,7 @@ pub fn row_mat4_transform<T: Float + Copy>(
 /// Transforms a 2D position through matrix.
 #[inline(always)]
 pub fn row_mat2x3_transform_pos2<T: Float + Copy>(
-    mat: Matrix2x3<T>, 
+    mat: Matrix2x3<T>,
     a: Vector2<T>
 ) -> Vector2<T> {
     [
@@ -1156,7 +1204,7 @@ pub fn col_mat3_transform_pos2<T: Float + Copy>(
 /// Transforms a 3D position through matrix.
 #[inline(always)]
 pub fn row_mat3x4_transform_pos3<T: Float + Copy>(
-    mat: Matrix3x4<T>, 
+    mat: Matrix3x4<T>,
     a: Vector3<T>
 ) -> Vector3<T> {
     [
@@ -1182,7 +1230,7 @@ pub fn col_mat4x3_transform_pos3<T: Float + Copy>(
 /// Transforms a 2D vector through matrix.
 #[inline(always)]
 pub fn row_mat2x3_transform_vec2<T: Float + Copy>(
-    mat: Matrix2x3<T>, 
+    mat: Matrix2x3<T>,
     a: Vector2<T>
 ) -> Vector2<T> {
     [
@@ -1230,7 +1278,7 @@ pub fn col_mat3_transform_vec2<T: Float + Copy>(
 /// Transforms a 3D vector through matrix.
 #[inline(always)]
 pub fn row_mat3x4_transform_vec3<T: Float + Copy>(
-    mat: Matrix3x4<T>, 
+    mat: Matrix3x4<T>,
     a: Vector3<T>
 ) -> Vector3<T> {
     [
@@ -1297,7 +1345,7 @@ pub fn mat4x3_det<T: Float>(mat: Matrix4x3<T>) -> T {
 
 /// Computes the determinant of a 4x4 matrix.
 pub fn mat4_det<T: Float>(mat: Matrix4<T>) -> T {
-      mat[0][0] * mat[1][1] * mat[2][2] * mat[3][3] 
+      mat[0][0] * mat[1][1] * mat[2][2] * mat[3][3]
     + mat[0][0] * mat[1][2] * mat[2][3] * mat[3][1]
     + mat[0][0] * mat[1][3] * mat[2][1] * mat[3][2]
 
@@ -1761,4 +1809,3 @@ pub fn mat4_inv<T: Float + Copy>(mat: Matrix4<T>) -> Matrix4<T> {
         ]
     ]
 }
-
