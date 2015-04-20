@@ -143,6 +143,38 @@ impl Sqrt for f64 {
     fn sqrt(self) -> f64 { self.sqrt() }
 }
 
+/// Basic trigonometry functions
+pub trait Trig {
+    /// Returns sine of self
+    fn sin(self) -> Self;
+    /// Returns cosine of self
+    fn cos(self) -> Self;
+    /// Returns tangent of self
+    fn tan(self) -> Self;
+}
+
+impl Trig for f32 {
+    #[inline(always)]
+    fn sin(self) -> f32 { self.sin() }
+
+    #[inline(always)]
+    fn cos(self) -> f32 { self.cos() }
+
+    #[inline(always)]
+    fn tan(self) -> f32 { self.tan() }
+}
+
+impl Trig for f64 {
+    #[inline(always)]
+    fn sin(self) -> f64 { self.sin() }
+
+    #[inline(always)]
+    fn cos(self) -> f64 { self.cos() }
+
+    #[inline(always)]
+    fn tan(self) -> f64 { self.tan() }
+}
+
 /// Casts into another type.
 pub trait Cast<T> {
     /// Casts into other type.
