@@ -23,7 +23,7 @@ extern crate num;
 use num::{Float, NumCast, ToPrimitive};
 use std::ops::{ Add, Mul, Neg, Sub, Div };
 
-pub mod consts;
+pub mod traits;
 
 /// A 2D vector.
 pub type Vector2<T> = [T; 2];
@@ -329,7 +329,7 @@ pub fn row_mat4_mul<T>(
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat2x3_id<T>() -> Matrix2x3<T>
-    where T: Copy + consts::One + consts::Zero
+    where T: Copy + traits::One + traits::Zero
 {
     let one = T::one();
     let zero = T::zero();
@@ -342,7 +342,7 @@ pub fn mat2x3_id<T>() -> Matrix2x3<T>
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat3x2_id<T>() -> Matrix3x2<T>
-    where T: Copy + consts::One + consts::Zero
+    where T: Copy + traits::One + traits::Zero
 {
     let one = T::one();
     let zero = T::zero();
@@ -356,7 +356,7 @@ pub fn mat3x2_id<T>() -> Matrix3x2<T>
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat3_id<T>() -> Matrix3<T>
-    where T: Copy + consts::One + consts::Zero
+    where T: Copy + traits::One + traits::Zero
 {
     let one = T::one();
     let zero = T::zero();
@@ -370,7 +370,7 @@ pub fn mat3_id<T>() -> Matrix3<T>
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat3x4_id<T>() -> Matrix3x4<T>
-    where T: Copy + consts::One + consts::Zero
+    where T: Copy + traits::One + traits::Zero
 {
     let one = T::one();
     let zero = T::zero();
@@ -384,7 +384,7 @@ pub fn mat3x4_id<T>() -> Matrix3x4<T>
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat4x3_id<T>() -> Matrix4x3<T>
-    where T: Copy + consts::One + consts::Zero
+    where T: Copy + traits::One + traits::Zero
 {
     let one = T::one();
     let zero = T::zero();
@@ -399,7 +399,7 @@ pub fn mat4x3_id<T>() -> Matrix4x3<T>
 /// Constructs identity matrix.
 #[inline(always)]
 pub fn mat4_id<T>() -> Matrix4<T>
-    where T: Copy + consts::One + consts::Zero
+    where T: Copy + traits::One + traits::Zero
 {
     let one = T::one();
     let zero = T::zero();
@@ -1479,7 +1479,7 @@ pub fn mat4_det<T>(mat: Matrix4<T>) -> T
 /// Computes inverse determinant of a 2x3 matrix.
 #[inline(always)]
 pub fn mat2x3_inv_det<T>(mat: Matrix2x3<T>) -> T
-    where T: Copy + consts::One + Add<T, Output = T> + Mul<T, Output = T>
+    where T: Copy + traits::One + Add<T, Output = T> + Mul<T, Output = T>
         + Sub<T, Output = T> + Div<T, Output = T>
 {
     let one = T::one();
@@ -1489,7 +1489,7 @@ pub fn mat2x3_inv_det<T>(mat: Matrix2x3<T>) -> T
 /// Computes inverse determinant of a 3x2 matrix.
 #[inline(always)]
 pub fn mat3x2_inv_det<T>(mat: Matrix3x2<T>) -> T
-    where T: Copy + consts::One + Mul<T, Output = T> + Sub<T, Output = T>
+    where T: Copy + traits::One + Mul<T, Output = T> + Sub<T, Output = T>
         + Div<T, Output = T>
 {
     let one = T::one();
@@ -1499,7 +1499,7 @@ pub fn mat3x2_inv_det<T>(mat: Matrix3x2<T>) -> T
 /// Computes inverse determinant of a 3x3 matrix.
 #[inline(always)]
 pub fn mat3_inv_det<T>(mat: Matrix3<T>) -> T
-    where T: Copy + consts::One + Mul<T, Output = T> + Sub<T, Output = T>
+    where T: Copy + traits::One + Mul<T, Output = T> + Sub<T, Output = T>
         + Div<T, Output = T> + Add<T, Output = T>
 {
     let one = T::one();
@@ -1509,7 +1509,7 @@ pub fn mat3_inv_det<T>(mat: Matrix3<T>) -> T
 /// Computes inverse determinant of a 3x4 matrix.
 #[inline(always)]
 pub fn mat3x4_inv_det<T>(mat: Matrix3x4<T>) -> T
-    where T: Copy + consts::One + Add<T, Output = T> + Mul<T, Output = T>
+    where T: Copy + traits::One + Add<T, Output = T> + Mul<T, Output = T>
         + Sub<T, Output = T> + Div<T, Output = T>
 {
     let one = T::one();
@@ -1519,7 +1519,7 @@ pub fn mat3x4_inv_det<T>(mat: Matrix3x4<T>) -> T
 /// Computes inverse determinant of a 4x3 matrix.
 #[inline(always)]
 pub fn mat4x3_inv_det<T>(mat: Matrix4x3<T>) -> T
-    where T: Copy + consts::One + Add<T, Output = T> + Mul<T, Output = T>
+    where T: Copy + traits::One + Add<T, Output = T> + Mul<T, Output = T>
         + Sub<T, Output = T> + Div<T, Output = T>
 {
     let one = T::one();
@@ -1529,7 +1529,7 @@ pub fn mat4x3_inv_det<T>(mat: Matrix4x3<T>) -> T
 /// Computes the inverse determinant of a 4x4 matrix.
 #[inline(always)]
 pub fn mat4_inv_det<T>(mat: Matrix4<T>) -> T
-    where T: Copy + consts::One + Add<T, Output = T> + Mul<T, Output = T>
+    where T: Copy + traits::One + Add<T, Output = T> + Mul<T, Output = T>
         + Sub<T, Output = T> + Div<T, Output = T>
 {
     let one = T::one();
@@ -1538,7 +1538,7 @@ pub fn mat4_inv_det<T>(mat: Matrix4<T>) -> T
 
 /// Computes the inverse of a 2x3 matrix.
 pub fn mat2x3_inv<T>(mat: Matrix2x3<T>) -> Matrix2x3<T>
-    where T: Copy + consts::One + Add<T, Output = T> + Mul<T, Output = T>
+    where T: Copy + traits::One + Add<T, Output = T> + Mul<T, Output = T>
         + Sub<T, Output = T> + Div<T, Output = T> + Neg<Output = T>
 {
     let inv_det = mat2x3_inv_det(mat);
@@ -1565,7 +1565,7 @@ pub fn mat2x3_inv<T>(mat: Matrix2x3<T>) -> Matrix2x3<T>
 
 /// Computes the inverse of a 3x2 matrix.
 pub fn mat3x2_inv<T>(mat: Matrix3x2<T>) -> Matrix3x2<T>
-    where T: Copy + consts::One + Mul<T, Output = T> + Sub<T, Output = T>
+    where T: Copy + traits::One + Mul<T, Output = T> + Sub<T, Output = T>
         + Div<T, Output = T> + Neg<Output = T>
 {
     let inv_det = mat3x2_inv_det(mat);
@@ -1594,7 +1594,7 @@ pub fn mat3x2_inv<T>(mat: Matrix3x2<T>) -> Matrix3x2<T>
 
 /// Computes the inverse of a 3x3 matrix.
 pub fn mat3_inv<T>(mat: Matrix3<T>) -> Matrix3<T>
-    where T: Copy + consts::One + Mul<T, Output = T> + Sub<T, Output = T>
+    where T: Copy + traits::One + Mul<T, Output = T> + Sub<T, Output = T>
         + Div<T, Output = T> + Add<T, Output = T>
 {
     let inv_det = mat3_inv_det(mat);
@@ -1646,7 +1646,7 @@ pub fn mat3_inv<T>(mat: Matrix3<T>) -> Matrix3<T>
 
 /// Computes the inverse of a 3x4 matrix.
 pub fn mat3x4_inv<T>(mat: Matrix3x4<T>) -> Matrix3x4<T>
-    where T: Copy + consts::One + Add<T, Output = T> + Mul<T, Output = T>
+    where T: Copy + traits::One + Add<T, Output = T> + Mul<T, Output = T>
         + Sub<T, Output = T> + Div<T, Output = T>
 {
     let inv_det = mat3x4_inv_det(mat);
@@ -1722,7 +1722,7 @@ pub fn mat3x4_inv<T>(mat: Matrix3x4<T>) -> Matrix3x4<T>
 
 /// Computes the inverse of a 4x3 matrix.
 pub fn mat4x3_inv<T>(mat: Matrix4x3<T>) -> Matrix4x3<T>
-    where T: Copy + consts::One + Add<T, Output = T> + Mul<T, Output = T>
+    where T: Copy + traits::One + Add<T, Output = T> + Mul<T, Output = T>
         + Sub<T, Output = T> + Div<T, Output = T>
 {
     let inv_det = mat4x3_inv_det(mat);
@@ -1800,7 +1800,7 @@ pub fn mat4x3_inv<T>(mat: Matrix4x3<T>) -> Matrix4x3<T>
 
 /// Computes the inverse of a 4x4 matrix.
 pub fn mat4_inv<T>(mat: Matrix4<T>) -> Matrix4<T>
-    where T: Copy + consts::One + Add<T, Output = T> + Mul<T, Output = T>
+    where T: Copy + traits::One + Add<T, Output = T> + Mul<T, Output = T>
         + Sub<T, Output = T> + Div<T, Output = T>
 {
     let inv_det = mat4_inv_det(mat);
