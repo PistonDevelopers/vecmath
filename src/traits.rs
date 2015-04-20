@@ -6,7 +6,7 @@ use std::ops::*;
 pub trait Float:
     Copy + Radians + One + Zero + Sqrt
     + FromPrimitive
-    + FloatExt
+    + Min + Max + Signum
     + Trig
     + PartialEq
     + Add<Self, Output = Self>
@@ -20,7 +20,7 @@ pub trait Float:
 impl<T> Float for T where
     T: Copy + Radians + One + Zero + Sqrt
     + FromPrimitive
-    + FloatExt
+    + Min + Max + Signum
     + Trig
     + PartialEq
     + Add<T, Output = T>
@@ -31,26 +31,51 @@ impl<T> Float for T where
     + Neg<Output = T>
     + Trig {}
 
-/// Miscellaneous numeric methods
-/// May need to add more as necessary
-pub trait FloatExt {
-    /// Returns minimum of self and other
+/// Minimum value.
+pub trait Min {
+    /// Returns the minimum value of self or other.
     fn min(self, other: Self) -> Self;
-    /// Returns maximum of self and other
+}
+
+impl Min for f32 {
+    #[inline(always)]
+    fn min(self, other: Self) -> Self { self.min(other) }
+}
+
+impl Min for f64 {
+    #[inline(always)]
+    fn min(self, other: Self) -> Self { self.min(other) }
+}
+
+/// Maximum value.
+pub trait Max {
+    /// Returns the maximum value of self or other.
     fn max(self, other: Self) -> Self;
+}
+
+impl Max for f32 {
+    #[inline(always)]
+    fn max(self, other: Self) -> Self { self.max(other) }
+}
+
+impl Max for f64 {
+    #[inline(always)]
+    fn max(self, other: Self) -> Self { self.max(other) }
+}
+
+/// The sign of the number.
+pub trait Signum {
     /// Returns number representing the sign of self
     fn signum(self) -> Self;
 }
 
-impl FloatExt for f32 {
-    fn min(self, other: Self) -> Self { self.min(other) }
-    fn max(self, other: Self) -> Self { self.max(other) }
+impl Signum for f32 {
+    #[inline(always)]
     fn signum(self) -> Self { self.signum() }
 }
 
-impl FloatExt for f64 {
-    fn min(self, other: Self) -> Self { self.min(other) }
-    fn max(self, other: Self) -> Self { self.max(other) }
+impl Signum for f64 {
+    #[inline(always)]
     fn signum(self) -> Self { self.signum() }
 }
 
@@ -140,24 +165,24 @@ pub trait Zero {
     fn zero() -> Self;
 }
 
-impl One for f64 {
-    #[inline(always)]
-    fn one() -> f64 { 1.0 }
-}
-
 impl One for f32 {
     #[inline(always)]
     fn one() -> f32 { 1.0 }
 }
 
-impl Zero for f64 {
+impl One for f64 {
     #[inline(always)]
-    fn zero() -> f64 { 0.0 }
+    fn one() -> f64 { 1.0 }
 }
 
 impl Zero for f32 {
     #[inline(always)]
     fn zero() -> f32 { 0.0 }
+}
+
+impl Zero for f64 {
+    #[inline(always)]
+    fn zero() -> f64 { 0.0 }
 }
 
 /// Square root.
