@@ -184,11 +184,23 @@ pub trait Cast<T> {
 }
 
 impl Cast<f32> for f64 {
+    #[inline(always)]
     fn cast(self) -> f32 { self as f32 }
 }
 
 impl Cast<f64> for f32 {
+    #[inline(always)]
     fn cast(self) -> f64 { self as f64 }
+}
+
+impl Cast<f32> for f32 {
+    #[inline(always)]
+    fn cast(self) -> f32 { self }
+}
+
+impl Cast<f64> for f64 {
+    #[inline(always)]
+    fn cast(self) -> f64 { self }
 }
 
 #[cfg(test)]
