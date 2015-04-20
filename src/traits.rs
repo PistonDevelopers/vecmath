@@ -10,7 +10,8 @@ pub trait Float:
     + Sub<Self, Output = Self>
     + Div<Self, Output = Self>
     + Rem<Self, Output = Self>
-    + Neg<Output = Self> {}
+    + Neg<Output = Self>
+    + Trig {}
 
 impl<T> Float for T where
     T: Radians + One + Zero
@@ -19,7 +20,8 @@ impl<T> Float for T where
     + Sub<T, Output = T>
     + Div<T, Output = T>
     + Rem<T, Output = T>
-    + Neg<Output = T> {}
+    + Neg<Output = T>
+    + Trig {}
 
 /// Useful constants for radians.
 pub trait Radians {
