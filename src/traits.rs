@@ -9,6 +9,7 @@ pub trait Float:
     + Min + Max + Signum
     + Trig
     + PartialEq
+    + PartialOrd
     + Add<Self, Output = Self>
     + Mul<Self, Output = Self>
     + Sub<Self, Output = Self>
@@ -23,6 +24,7 @@ impl<T> Float for T where
     + Min + Max + Signum
     + Trig
     + PartialEq
+    + PartialOrd
     + Add<T, Output = T>
     + Mul<T, Output = T>
     + Sub<T, Output = T>
@@ -209,6 +211,12 @@ pub trait Trig {
     fn cos(self) -> Self;
     /// Returns tangent of self
     fn tan(self) -> Self;
+    /// Returns inverse sine of self
+    fn asin(self) -> Self;
+    /// Returns inverse cosine of self
+    fn acos(self) -> Self;
+    /// Returns inverse tangent of self
+    fn atan(self) -> Self;
 }
 
 impl Trig for f32 {
@@ -220,6 +228,15 @@ impl Trig for f32 {
 
     #[inline(always)]
     fn tan(self) -> f32 { self.tan() }
+
+    #[inline(always)]
+    fn asin(self) -> f32 { self.asin() }
+
+    #[inline(always)]
+    fn acos(self) -> f32 { self.acos() }
+
+    #[inline(always)]
+    fn atan(self) -> f32 { self.atan() }
 }
 
 impl Trig for f64 {
@@ -231,6 +248,15 @@ impl Trig for f64 {
 
     #[inline(always)]
     fn tan(self) -> f64 { self.tan() }
+
+    #[inline(always)]
+    fn asin(self) -> f64 { self.asin() }
+
+    #[inline(always)]
+    fn acos(self) -> f64 { self.acos() }
+
+    #[inline(always)]
+    fn atan(self) -> f64 { self.atan() }
 }
 
 /// Casts into another type.
