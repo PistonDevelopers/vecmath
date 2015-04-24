@@ -18,6 +18,8 @@
 //! For example, `row_mat2x3_transform_pos2` transforms a position.
 //! `row_mat2x3_transform_vec2` transforms a vector.
 
+extern crate float;
+
 use std::ops::{ Add, Mul, Neg, Sub, Div };
 
 pub mod traits;
