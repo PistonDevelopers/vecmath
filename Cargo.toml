@@ -17,5 +17,5 @@ path = "src/lib.rs"
 
 [dependencies.piston-float]
 git = "https://github.com/pistondevelopers/float"
-#version = "0.0.0"
+#version = "0.0.1"
 
