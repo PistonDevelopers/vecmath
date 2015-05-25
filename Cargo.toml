@@ -1,7 +1,7 @@
 [package]
 
 name = "vecmath"
-version = "0.0.22"
+version = "0.0.23"
 authors = ["bvssvni <bvssvni@gmail.com>"]
 keywords = ["vecmath", "math", "vector", "matrix"]
 description = "A simple and type agnostic library for vector math designed for reexporting"
@@ -15,7 +15,6 @@ homepage = "https://github.com/pistondevelopers/vecmath"
 name = "vecmath"
 path = "src/lib.rs"
 
-[dependencies.piston-float]
-git = "https://github.com/pistondevelopers/float"
-#version = "0.0.1"
+[dependencies]
+piston-float = "0.0.2"
 
