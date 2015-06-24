@@ -1,9 +1,9 @@
 [package]
 
 name = "vecmath"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["bvssvni <bvssvni@gmail.com>"]
-keywords = ["vecmath", "math", "vector", "matrix"]
+keywords = ["vecmath", "math", "vector", "matrix", "piston"]
 description = "A simple and type agnostic library for vector math designed for reexporting"
 license = "MIT"
 readme = "README.md"
