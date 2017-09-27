@@ -1334,6 +1334,8 @@ pub fn col_mat4x3_transform_pos3<T>(
 }
 
 /// Transforms a 2D vector through matrix.
+///
+/// To include the translate component, use the `transform_pos` variant.
 #[inline(always)]
 pub fn row_mat2x3_transform_vec2<T>(
     mat: Matrix2x3<T>,
@@ -1348,6 +1350,8 @@ pub fn row_mat2x3_transform_vec2<T>(
 }
 
 /// Transforms a 2D vector through matrix.
+///
+/// To include the translate component, use the `transform_pos` variant.
 #[inline(always)]
 pub fn col_mat3x2_transform_vec2<T>(
     mat: Matrix3x2<T>,
@@ -1362,6 +1366,8 @@ pub fn col_mat3x2_transform_vec2<T>(
 }
 
 /// Transforms a 2D vector through row matrix.
+///
+/// To include the translate component, use the `transform_pos` variant.
 #[inline(always)]
 pub fn row_mat3_transform_vec2<T>(
     mat: Matrix3<T>,
@@ -1376,6 +1382,8 @@ pub fn row_mat3_transform_vec2<T>(
 }
 
 /// Transforms a 2D vector through column matrix.
+///
+/// To include the translate component, use the `transform_pos` variant.
 #[inline(always)]
 pub fn col_mat3_transform_vec2<T>(
     mat: Matrix3<T>,
@@ -1390,6 +1398,8 @@ pub fn col_mat3_transform_vec2<T>(
 }
 
 /// Transforms a 3D vector through matrix.
+///
+/// To include the translate component, use the `transform_pos` variant.
 #[inline(always)]
 pub fn row_mat3x4_transform_vec3<T>(
     mat: Matrix3x4<T>,
@@ -1405,6 +1415,8 @@ pub fn row_mat3x4_transform_vec3<T>(
 }
 
 /// Transforms a 3D vector through matrix.
+///
+/// To include the translate component, use the `transform_pos` variant.
 #[inline(always)]
 pub fn col_mat4x3_transform_vec3<T>(
     mat: Matrix4x3<T>,
