@@ -42,14 +42,11 @@ even if those never will be added to the original vector math library.
 
 ### Edit your 'Cargo.toml' file
 
-If you do not have one, you can use [Rust-Empty](https://github.com/bvssvni/rust-empty) and generate one with `make cargo-lib` for libraries or `make cargo-exe` for executables.
-
 Open up 'Cargo.toml' in a text editor and add the following:
 
 ```
 [dependencies.vecmath]
-
-git = "https://github.com/PistonDevelopers/vecmath"
+version = "1.0.0"
 ```
 
 ### Step 1
@@ -57,23 +54,21 @@ git = "https://github.com/PistonDevelopers/vecmath"
 Add the following to 'lib.rs':
 
 ```Rust
-#![feature(globs)]
+extern crate vecmath;
 
-extern crate vecmath_lib = "vecmath";
-
-mod vecmath; // Use 'pub mod' if you want it to be visible outside library.
+mod math; // Use 'pub mod' if you want it to be visible outside library.
 ```
 
 ### Step 2
 
-Create a new file 'vecmath.rs' in your 'src/' directory.
-Open 'vecmath.rs' in a text editor and type:
+Create a new file 'math.rs' in your 'src/' directory.
+Open 'math.rs' in a text editor and type:
 
 ```Rust
 
-pub use multiply = vecmath_lib::row_mat2x3_mul;
+pub use multiply = vecmath::row_mat2x3_mul;
 
-pub type Matrix2d = vecmath_lib::Matrix2x3<f64>;
+pub type Matrix2d = vecmath::Matrix2x3<f64>;
 
 // etc.
 ```
@@ -96,8 +91,8 @@ Examples:
 
 ## Generic conventions
 
-For simplicity, all methods should take a generic parameter `<T: Num>`.  
-In cases where extra methods are required, `Float` should be used instead of `Num`.  
+For simplicity, all methods should take a generic parameter with specific operations, e.g. `<T: Add<T, Output = T>>` for addition.  
+In cases where extra methods are required, `traits::Float` should be used instead.  
 All arguments are passed by value, so `Copy` can be added as requirement when needed.  
 Inlining will remove the overhead.  
 
