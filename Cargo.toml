@@ -16,5 +16,4 @@ name = "vecmath"
 path = "src/lib.rs"
 
 [dependencies]
-piston-float = "0.3.0"
-
+piston-float = "1.0.0"
